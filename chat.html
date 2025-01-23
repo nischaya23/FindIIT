@@ -3,6 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat List - Find IIT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        html {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #000;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(45deg, #000, #333);
+            padding: 10px 20px;
+            height: 70px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            color: #fff;
+        }
+        header nav {
+            display: flex;
+            gap: 20px;
+        }
+        header nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .search-container {
+            padding: 10px 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .chat-list {
+            flex: 1;
+            overflow-y: auto;
+            background-color: #fff;
+        }
+
+        .chat-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .chat-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .chat-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .chat-item .chat-info {
+            flex: 1;
+        }
+
+        .chat-item .chat-info h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .chat-item .chat-info p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .chat-item .chat-time {
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Find IIT</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">My Items</a>
+            <a href="#">Map</a>
+            <a href="#">Profile</a>
+        </nav>
+    </header>
+    <header>
+        <h1>Chats</h1>
+    </header>
+
+    <div class="search-container">
+        <input type="text" placeholder="Search for a chat or contact..." id="search-input">
+    </div>
+
+    <div class="chat-list">
+        <div class="chat-item" onclick="openChat('John Doe')">
+            <img src="data:image/png;base64,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" alt="John Doe">
+            <div class="chat-info">
+                <h3>John Doe</h3>
+                <p>Hey, how are you?</p>
+            </div>
+            <div class="chat-time">10:30 AM</div>
+        </div>
+
+        <div class="chat-item" onclick="openChat('Jane Smith')">
+            <img src="data:image/png;base64,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" alt="Jane Smith">
+            <div class="chat-info">
+                <h3>Jane Smith</h3>
+                <p>Let’s catch up later!</p>
+            </div>
+            <div class="chat-time">9:15 AM</div>
+        </div>
+
+        <div class="chat-item" onclick="openChat('Robert Brown')">
+            <img src="data:image/png;base64,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" alt="Robert Brown">
+            <div class="chat-info">
+                <h3>Robert Brown</h3>
+                <p>Can you share the report?</p>
+            </div>
+            <div class="chat-time">Yesterday</div>
+        </div>
+    </div>
+
+    <script>
+        function openChat(name) {
+            alert('Opening chat with ' + name);
+            // Redirect to the chat page with the selected user
+        }
+    </script>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat - Find IIT</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -176,3 +352,4 @@
     </script>
 </body>
 </html>
+ -->
