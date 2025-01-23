@@ -199,6 +199,40 @@
         .comment-actions button:focus {
             outline: none;
         }
+        .comment-thread {
+            border: 1px solid #000000;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+        }
+        .comment-thread .author {
+            font-weight: bold;
+            color: #000000;
+        }
+        .comment-thread .text {
+            margin: 10px 0;
+        }
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .actions span {
+            color: #585858;
+            cursor: pointer;
+        }
+        .actions span:hover {
+            text-decoration: underline;
+        }
+        .reply-thread {
+            margin-left: 20px;
+            border-left: 2px solid #444;
+            padding-left: 15px;
+        }
+        .nested-comment {
+            margin-left: 40px;
+        }
 
     </style>
 </head>
@@ -245,51 +279,52 @@
         
         <!-- Comment Thread -->
         <div class="comment-thread">
-            <div class="comment">
-                <div class="comment-header">
-                    <span class="comment-author">John Doe</span>
-                    <span class="comment-time">2 hours ago</span>
-                </div>
-                <p class="comment-text">I found this wallet near the library. It seems to have some important items inside. Would be great if the owner could contact me!</p>
-
-                <div class="comment-actions">
-                    <button class="upvote">Upvote</button>
-                    <button class="reply">Reply</button>
-                    <button class="report">Report</button>
-                    <button class="share">Share</button>
+            <div class="author">User1</div>
+            <div class="text">Comment1</div>
+            <div class="actions">
+                <span>Reply</span>
+            </div>
+            <div class="reply-thread">
+                <div class="comment-thread nested-comment">
+                    <div class="author">User2</div>
+                    <div class="text">Comment2</div>
+                    <div class="actions">
+                        <span>Reply</span>
+                    </div>
+                    <div class="reply-thread">
+                        <div class="comment-thread nested-comment">
+                            <div class="author">User3</div>
+                            <div class="text">Comment3</div>
+                            <div class="actions">
+                                <span>Reply</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!-- Nested Reply (indented) -->
-            <div class="comment reply">
-                <div class="comment-header">
-                    <span class="comment-author">Jane Doe</span>
-                    <span class="comment-time">1 hour ago</span>
-                </div>
-                <p class="comment-text">I also saw a similar wallet! Perhaps we can return it together. Contact me at jane.doe@example.com.</p>
-
-                <div class="comment-actions">
-                    <button class="upvote">Upvote</button>
-                    <button class="reply">Reply</button>
-                    <button class="report">Report</button>
-                    <button class="share">Share</button>
-                </div>
+        </div>
+    
+        <div class="comment-thread">
+            <div class="author">User4</div>
+            <div class="text">Comment4</div>
+            <div class="actions">
+                <span>Reply</span>
             </div>
-
-            <!-- Another Reply (more indented) -->
-            <div class="comment reply">
-                <div class="comment-header">
-                    <span class="comment-author">Sam Smith</span>
-                    <span class="comment-time">30 minutes ago</span>
-                </div>
-                <p class="comment-text">Yes, I think we should meet up and give it back to the rightful owner. I'll be waiting near the main gate.</p>
-
-                <div class="comment-actions">
-                    <button class="upvote">Upvote</button>
-                    <button class="reply">Reply</button>
-                    <button class="report">Report</button>
-                    <button class="share">Share</button>
-                </div>
+        </div>
+    
+        <div class="comment-thread">
+            <div class="author">User5</div>
+            <div class="text">Comment5</div>
+            <div class="actions">
+                <span>Reply</span>
+            </div>
+        </div>
+    
+        <div class="comment-thread">
+            <div class="author">User6</div>
+            <div class="text">Comment6</div>
+            <div class="actions">
+                <span>Reply</span>
             </div>
         </div>
 
