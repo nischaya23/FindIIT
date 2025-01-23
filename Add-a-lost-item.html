@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Lost Item</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* Header (same as existing header style) */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(45deg, #000, #333);
+            padding: 20px 40px;
+            height: 80px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1000;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        header nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Container */
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        label {
+            font-size: 16px;
+            color: #333;
+            margin: 10px 0;
+            display: block;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #000;
+            outline: none;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 300px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            padding: 8px 12px;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .tag:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .tag input {
+            border: none;
+            background: transparent;
+            font-size: 14px;
+        }
+
+        .upload-btn {
+            display: block;
+            margin: 10px 0;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            background-color: #218838;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #333;
+        }
+
+        .file-preview {
+            margin-top: 10px;
+        }
+
+        .file-preview img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Find IIT</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Status</a>
+            <a href="#">Map</a>
+            <a href="#">Profile</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Add a Lost Item</h1>
+
+        <form id="lostItemForm">
+            <!-- Dropdown for Common Lost Items -->
+            <label for="item">Select Lost Item:</label>
+            <select id="item" name="item">
+                <option value="wallet">Wallet</option>
+                <option value="keys">Keys</option>
+                <option value="phone">Phone</option>
+                <option value="bag">Bag</option>
+                <option value="others">Other (Specify below)</option>
+            </select>
+
+            <!-- Item Name (Only if 'Others' is selected) -->
+            <label for="otherItem" id="otherItemLabel" style="display: none;">Item Name:</label>
+            <input type="text" id="otherItem" name="otherItem" style="display: none;" placeholder="Enter item name">
+
+            <!-- Description -->
+            <label for="description">Item Description:</label>
+            <textarea id="description" name="description" rows="5" placeholder="Write a brief description of the item"></textarea>
+
+            <!-- Tags -->
+            <label for="tags">Add Tags (separate tags by commas):</label>
+            <input type="text" id="tagsInput" name="tags" placeholder="e.g., Metal, Black, Wallet" onkeyup="updateTags()">
+            <div class="tags-container" id="tagsContainer"></div>
+
+            <!-- Location -->
+            <label for="location">Location of Loss:</label>
+            <div id="locationInput" class="map-container"></div>
+            <input type="text" id="location" name="location" placeholder="Latitude, Longitude" readonly />
+            
+            <!-- Contact Details -->
+            <label for="contact">Contact Details (Point of Contact):</label>
+            <input type="text" id="contact" name="contact" placeholder="Phone number, email, etc.">
+
+            <!-- Image Upload -->
+            <label for="image">Upload Image of the Item:</label>
+            <input type="file" id="image" name="image" accept=".jpeg,.jpg" onchange="previewImage(event)">
+            <div class="file-preview" id="filePreview"></div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn">Submit Lost Item</button>
+        </form>
+    </div>
+
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
+
+    <script>
+        let map;
+        let marker;
+        let latitude;
+        let longitude;
+
+        function initMap() {
+            const initialPosition = { lat: 37.7749, lng: -122.4194 }; // Default position (San Francisco)
+
+            // Initialize map
+            map = new google.maps.Map(document.getElementById("locationInput"), {
+                center: initialPosition,
+                zoom: 12,
+            });
+
+            // Marker initialization
+            marker = new google.maps.Marker({
+                position: initialPosition,
+                map: map,
+                draggable: true, // Allow dragging the marker
+                title: "Drag me to the location",
+            });
+
+            // Update location input when marker is moved
+            google.maps.event.addListener(marker, 'dragend', function () {
+                const position = marker.getPosition();
+                latitude = position.lat();
+                longitude = position.lng();
+                document.getElementById("location").value = `${latitude}, ${longitude}`;
+            });
+
+            // Set the location on click event
+            google.maps.event.addListener(map, 'click', function (event) {
+                const clickedLocation = event.latLng;
+                marker.setPosition(clickedLocation);
+                latitude = clickedLocation.lat();
+                longitude = clickedLocation.lng();
+                document.getElementById("location").value = `${latitude}, ${longitude}`;
+            });
+        }
+    </script>
+
+
+    <script>
+        // Function to show the "Other Item" name input when "Others" is selected from dropdown
+        const itemSelect = document.getElementById('item');
+        const otherItemInput = document.getElementById('otherItem');
+        const otherItemLabel = document.getElementById('otherItemLabel');
+
+        itemSelect.addEventListener('change', function() {
+            if (this.value === 'others') {
+                otherItemInput.style.display = 'block';
+                otherItemLabel.style.display = 'block';
+            } else {
+                otherItemInput.style.display = 'none';
+                otherItemLabel.style.display = 'none';
+            }
+        });
+
+        // Function to update tags as the user types
+        const tagsContainer = document.getElementById('tagsContainer');
+        const tagsInput = document.getElementById('tagsInput');
+
+        function updateTags() {
+            const tagsArray = tagsInput.value.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
+            tagsContainer.innerHTML = '';
+            tagsArray.forEach(tag => {
+                const tagElement = document.createElement('div');
+                tagElement.classList.add('tag');
+                tagElement.textContent = tag;
+                tagsContainer.appendChild(tagElement);
+            });
+        }
+
+        // Function to preview image
+        function previewImage(event) {
+            const filePreview = document.getElementById('filePreview');
+            filePreview.innerHTML = '';
+            const file = event.target.files[0];
+
+            if (file && file.type.startsWith('image/jpeg')) {
+                const imgElement = document.createElement('img');
+                imgElement.src = URL.createObjectURL(file);
+                filePreview.appendChild(imgElement);
+            } else {
+                alert('Please upload a valid .jpeg file.');
+            }
+        }
+    </script>
+</body>
+</html>

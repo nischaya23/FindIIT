@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Find IIT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        html {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%; /* Ensures the body takes full height */
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #000;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(45deg, #000, #333);
+            padding: 20px 40px;
+            height: 80px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1000;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        header nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            width: 100%; /* Ensure the profile container spans the full width */
+            margin: 30px auto;
+            padding: 0 20px;
+            flex-grow: 1; /* Ensures this section takes remaining space */
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Ensures the header spans the full width of the profile container */
+            max-width: 1200px; /* Keep the profile header width consistent with container */
+            margin: 0 auto; /* Centers the profile header */
+        }
+
+        .profile-header img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-details {
+            flex-grow: 1;
+        }
+
+        .profile-details h2 {
+            margin: 0;
+            font-size: 30px;
+            color: #000;
+        }
+
+        .profile-details p {
+            margin: 10px 0 0 0;
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Style the edit profile button */
+        .edit-profile-button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .edit-profile-button:hover {
+            background-color: #0056b3;
+        }
+
+        .profile-info {
+            background: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            max-width: 1200px; /* Ensure the profile info section is also consistent */
+            width: 100%; /* Ensure the width spans the entire available space */
+            margin: 30px auto; /* Centers the profile info section */
+        }
+
+        .profile-info h3 {
+            margin: 0 0 20px 0;
+            font-size: 24px;
+            color: #000;
+        }
+
+        .profile-info .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .profile-info .info-row span {
+            font-weight: bold;
+        }
+
+        footer {
+            background: linear-gradient(45deg, #000, #333);
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Find IIT</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">History</a>
+            <a href="#">Map</a>
+            <a href="#">Profile</a>
+        </nav>
+    </header>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <img src="xavier.jpg" alt="Profile Picture">
+            <div class="profile-details">
+                <h2>Xavier</h2>
+                <p>IIT Kanpur</p>
+            </div>
+            <!-- Edit Profile Button -->
+            <a href="edit-profile.html" class="edit-profile-button">Edit Profile</a>
+        </div>
+
+        <div class="profile-info">
+            <h3>Personal Information</h3>
+            <div class="info-row">
+                <span>Email:</span> <span>johndoe@iitk.ac.in</span>
+            </div>
+            <div class="info-row">
+                <span>Phone Number:</span> <span>+91 9876543210</span>
+            </div>
+            <div class="info-row">
+                <span>I'D Number:</span> <span>230XXX</span>
+            </div>
+            <div class="info-row">
+                <span>Designation</span> <span>Strudent</span>
+            </div>
+            <div class="info-row">
+                <span>Department</span> <span>Computer Science</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 Find IIT. All rights reserved.
+    </footer>
+</body>
+</html>

@@ -1,0 +1,524 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost and Found</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #000;
+            perspective: 1000px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(45deg, #000, #333);
+            padding: 20px 40px;
+            height: 80px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1000;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        header nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .search-container {
+            margin: 20px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px; /* Space between the search bar and buttons */
+        }
+
+        .search-bar {
+            padding: 15px;
+            width: 60%; /* Adjust width as needed */
+            font-size: 16px;
+            border: 2px solid #eee;
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            background: linear-gradient(to right, #f8f8f8, #fff);
+        }
+
+        .search-bar:focus {
+            transform: translateZ(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            outline: none;
+            border-color: #000;
+        }
+
+        .add-lost-item,
+        .add-found-item {
+            padding: 10px 20px;
+            background-color: #53c9ec;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-lost-item:hover,
+        .add-found-item:hover {
+            background-color: #43adce;
+
+        }
+
+        .add-lost-item,
+        .add-found-item {
+            font-size: 14px; /* Adjust size */
+            font-weight: bold;
+        }
+
+        .common-items-panel {
+            display: flex;
+            justify-content: flex-start;
+            padding: 20px;
+            margin: 20px auto;
+            background: linear-gradient(to right, #f0f0f0, #e0e0e0);
+            border-radius: 15px;
+            max-width: 90%;
+            overflow-x: auto;
+            white-space: nowrap;
+            transform-style: preserve-3d;
+        }
+
+        .common-item {
+            text-align: center;
+            width: 100px;
+            margin-right: 20px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .common-item:hover {
+            transform: scale(1.1) translateZ(20px);
+        }
+
+        .common-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+            padding: 30px;
+            transform-style: preserve-3d;
+        }
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            padding: 20px;
+            border-radius: 20px;
+            width: calc(45% - 20px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .item:hover {
+            transform: translateZ(20px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .item img {
+            max-width: 100px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .item-info {
+            width: 100%;
+            text-align: center;
+        }
+
+        .item-info h2 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            color: #000;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .item-info p {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .tags {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+        .tag {
+            background-color: #e0e0e0;
+            color: #000;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tag:hover {
+            transform: translateZ(5px) scale(1.1);
+            background-color: #000;
+            color: #fff;
+        }
+
+        .status {
+            font-weight: bold;
+            font-size: 16px;
+            margin: 10px 0;
+            padding: 8px 20px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .status.lost {
+            background-color: rgba(255, 0, 0, 0.1);
+            color: red;
+        }
+
+        .status.found {
+            background-color: rgba(0, 255, 0, 0.1);
+            color: green;
+        }
+
+        .location-tag {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #fff;
+            font-weight: bold;
+            background-color: #4a51b8;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .location-tag:hover {
+            transform: translateZ(10px);
+            background-color: #3c45c2;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .location-tag i {
+            margin-right: 8px;
+        }
+
+        .add-item {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transform-style: preserve-3d;
+        }
+
+        .add-item:hover {
+            transform: translateZ(20px) rotate(180deg);
+            background-color: #333;
+        }
+
+        .contact-us {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background-color: #333;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-us:hover {
+            transform: translateZ(10px);
+            background-color: #444;
+        }
+
+        footer {
+            background: linear-gradient(45deg, #000, #333);
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .location-map {
+            margin: 40px auto;
+            text-align: center;
+            max-width: 90%;
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+        }
+
+        .location-map:hover {
+            transform: translateZ(20px);
+        }
+
+        .location-map h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .location-map img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Find IIT</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">History</a>
+            <a href="#">Map</a>
+            <a href="#">Profile</a>
+        </nav>
+    </header>
+
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search for items...">
+        <button class="add-lost-item">Add a Lost Item Here</button>
+        <button class="add-found-item">Add a Found Item Here</button>
+    </div>
+
+    <div class="common-items-panel">
+        <div class="common-item">
+            <img src="wallet.jpg" alt="Wallet">
+            <p>Wallet</p>
+        </div>
+        <div class="common-item">
+            <img src="keychain.png" alt="Keys">
+            <p>Keys</p>
+        </div>
+        <div class="common-item">
+            <img src="phone.jpg" alt="Phone">
+            <p>Phone</p>
+        </div>
+        <div class="common-item">
+            <img src="wallet.jpg" alt="Wallet">
+            <p>Wallet</p>
+        </div>
+        <div class="common-item">
+            <img src="keychain.png" alt="Keys">
+            <p>Keys</p>
+        </div>
+        <div class="common-item">
+            <img src="phone.jpg" alt="Phone">
+            <p>Phone</p>
+        </div>
+        <div class="common-item">
+            <img src="wallet.jpg" alt="Wallet">
+            <p>Wallet</p>
+        </div>
+        <div class="common-item">
+            <img src="keychain.png" alt="Keys">
+            <p>Keys</p>
+        </div>
+        <div class="common-item">
+            <img src="phone.jpg" alt="Phone">
+            <p>Phone</p>
+        </div>
+        <div class="common-item">
+            <img src="wallet.jpg" alt="Wallet">
+            <p>Wallet</p>
+        </div>
+        <div class="common-item">
+            <img src="keychain.png" alt="Keys">
+            <p>Keys</p>
+        </div>
+        <div class="common-item">
+            <img src="phone.jpg" alt="Phone">
+            <p>Phone</p>
+        </div>
+        <div class="common-item">
+            <img src="wallet.jpg" alt="Wallet">
+            <p>Wallet</p>
+        </div>
+        <div class="common-item">
+            <img src="keychain.png" alt="Keys">
+            <p>Keys</p>
+        </div>
+        <div class="common-item">
+            <img src="phone.jpg" alt="Phone">
+            <p>Phone</p>
+        </div>
+        <div class="common-item">
+            <img src="wallet.jpg" alt="Wallet">
+            <p>Wallet</p>
+        </div>
+        <div class="common-item">
+            <img src="keychain.png" alt="Keys">
+            <p>Keys</p>
+        </div>
+        <div class="common-item">
+            <img src="phone.jpg" alt="Phone">
+            <p>Phone</p>
+        </div>
+
+    </div>
+
+    <div class="container">
+
+        <div class="item">
+            <img src="keychain.png" alt="Keychain">
+            <div class="item-info">
+                <h2>Keychain</h2>
+                <p>A sleek, black leather keychain with an engraved name. Durable and stylish, it holds keys securely while adding a touch of personalization.</p>
+                <div class="tags">
+                    <div class="tag">Metal</div>
+                    <div class="tag">Key</div>
+                    <div class="tag">Black</div>
+                </div>
+            </div>
+            <div class="status lost">LOST</div>
+            <div class="location-tag">
+                <i class="fas fa-map-marker-alt"></i> Location: Library, IIT Kanpur
+            </div>
+        </div>
+
+        
+        <div class="item">
+            <img src="wallet.jpg" alt="Wallet">
+            <div class="item-info">
+                <h2>Keychain</h2>
+                <p>A sleek, black leather keychain with an engraved name. Durable and stylish, it holds keys securely while adding a touch of personalization.</p>
+                <div class="tags">
+                    <div class="tag">Metal</div>
+                    <div class="tag">Key</div>
+                    <div class="tag">Black</div>
+                </div>
+            </div>
+            <div class="status found">FOUND</div>
+            <div class="location-tag">
+                <i class="fas fa-map-marker-alt"></i> Location: Library, IIT Kanpur
+            </div>
+        </div>
+        <div class="item">
+            <img src="phone.jpg" alt="Phone">
+            <div class="item-info">
+                <h2>Keychain</h2>
+                <p>A sleek, black leather keychain with an engraved name. Durable and stylish, it holds keys securely while adding a touch of personalization.</p>
+                <div class="tags">
+                    <div class="tag">Metal</div>
+                    <div class="tag">Key</div>
+                    <div class="tag">Black</div>
+                </div>
+            </div>
+            <div class="status lost">LOST</div>
+            <div class="location-tag">
+                <i class="fas fa-map-marker-alt"></i> Location: Library, IIT Kanpur
+            </div>
+        </div>
+
+        
+        <div class="item">
+            <img src="keychain.png" alt="Keychain">
+            <div class="item-info">
+                <h2>Keychain</h2>
+                <p>A sleek, black leather keychain with an engraved name. Durable and stylish, it holds keys securely while adding a touch of personalization.</p>
+                <div class="tags">
+                    <div class="tag">Metal</div>
+                    <div class="tag">Key</div>
+                    <div class="tag">Black</div>
+                </div>
+            </div>
+            <div class="status found">FOUND</div>
+            <div class="location-tag">
+                <i class="fas fa-map-marker-alt"></i> Location: Library, IIT Kanpur
+            </div>
+        </div>
+    </div>
+
+    <div class="location-map">
+        <h3>Location Map</h3>
+        <img src="https://via.placeholder.com/500x300" alt="Map with Location Marker">
+    </div>
+
+    <button class="add-item">+</button>
+    <a href="#" class="contact-us">Contact Us</a>
+
+    <footer>
+        &copy; 2025 Find IIT. All rights reserved.
+    </footer>
+</body>
+</html> 
