@@ -203,27 +203,86 @@
                     <i class="fas fa-key"></i>
                     <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
                 </div>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const password = document.getElementById("password");
+                        const confirmPassword = document.getElementById("confirm-password");
+                
+                        confirmPassword.addEventListener("input", function () {
+                            if (password.value !== confirmPassword.value) {
+                                confirmPassword.setCustomValidity("Passwords do not match!");
+                            } else {
+                                confirmPassword.setCustomValidity("");
+                            }
+                        });
+                    });
+                </script>
                
                 <div class="form-group">
                     <label for="email">Email</label>
                     <i class="fas fa-envelope"></i>
                     <input type="email" id="email" name="email" placeholder="Enter your email" required>
                 </div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const email = document.getElementById("email");
+                
+                        email.addEventListener("input", function () {
+                            const emailPattern = /^[a-zA-Z0-9._%+-]+@iitk\.ac\.in$/;
+                            if (!emailPattern.test(email.value)) {
+                                email.setCustomValidity("Please enter a valid IITK email (e.g., user@iitk.ac.in).");
+                            } else {
+                                email.setCustomValidity(""); // Clears the error message
+                            }
+                        });
+                    });
+                </script>
+
+                
                 <div class="form-group">
                     <label for="phone-number">Phone Number</label>
                     <i class="fas fa-phone-alt"></i>
                     <input type="text" id="phone-number" name="phone-number" placeholder="Enter your phone number" required>
                 </div>
-                <div class="form-group">
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const phoneNumber = document.getElementById("phone-number");
+                
+                        phoneNumber.addEventListener("input", function () {
+                            const phonePattern = /^[6-9]\d{9}$/; // Indian mobile numbers start with 6-9 and have 10 digits
+                
+                            if (!phonePattern.test(phoneNumber.value)) {
+                                phoneNumber.setCustomValidity("Please enter a valid 10-digit Indian phone number.");
+                            } else {
+                                phoneNumber.setCustomValidity(""); // Clears the error message
+                            }
+                        });
+                    });
+                </script>
+
+<!--                 <div class="form-group">
                     <label for="department">Department</label>
                     <i class="fas fa-building"></i>
                     <input type="text" id="department" name="department" placeholder="Enter your department" required>
-                </div>
-                <div class="form-group">
+                </div> -->
+                
+
+<!--                 <div class="form-group">
                     <label for="year-of-study">Year of Study</label>
-                    <i class="fas fa-calendar-alt"></i>
-                    <input type="text" id="year-of-study" name="year-of-study" placeholder="Enter your year of study" required>
+                    <select id="year-of-study" name="year-of-study" required>
+                        <option value="" disabled selected>Select your year</option>
+                        <option value="1">Y20</option>
+                        <option value="2">Y21</option>
+                        <option value="3">Y22</option>
+                        <option value="4">Y23</option>
+                        <option value="5">Y24</option>
+                        <option value="6"></option>
+                        <option value="7">Faculty</option>
+                        <option value="8">Others</option>
+                    </select>
                 </div>
+ -->
 
                 <div class="form-actions">
                     <button type="submit">Create Account</button>
