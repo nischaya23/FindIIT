@@ -31,9 +31,14 @@ exports.signup = async (req, res) => {
             if (user.isVerified) {
                 return res.status(400).json({ message: "Email already exists" });
             }
-            user.password = hashedPassword;
-            user.otp = otp;
-            user.otpExpires = otpExpires;
+            if (user.otpExpires > Date.now()) {
+                user.password = hashedPassword;
+                return res.status(201).json({ message: "Previous OTP still valid" });
+            } else {
+                user.password = hashedPassword;
+                user.otp = otp;
+                user.otpExpires = otpExpires;
+            }
         } else {
             user = new User({ email, password: hashedPassword, otp, otpExpires, verified: false });
         }
