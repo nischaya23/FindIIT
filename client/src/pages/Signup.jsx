@@ -5,11 +5,20 @@ import { Link } from 'react-router-dom';
 const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirm_password, setConfirmPassword] = useState("");
     const [otp, setOtp] = useState("");
     const [step, setStep] = useState(1);
 
     const handleSignup = async () => {
         try {
+            if (password !== confirm_password) {
+                alert("Passwords do not match");
+                return;
+            }
+            if (!email.endsWith('@iitk.ac.in')) {
+                alert("Please use your IITK email address");
+                return;
+            }
             await signup(email, password);
             alert("OTP sent to your email");
             setStep(2);
@@ -48,6 +57,7 @@ const Signup = () => {
                         <>
                             <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} style={{ width: "100%", padding: "12px", border: "1px solid #ccc", borderRadius: "8px", marginBottom: "12px" }} />
                             <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} style={{ width: "100%", padding: "12px", border: "1px solid #ccc", borderRadius: "8px", marginBottom: "12px" }} />
+                            <input type="password" placeholder="Confirm Password" value={confirm_password} onChange={(e) => setConfirmPassword(e.target.value)} style={{ width: "100%", padding: "12px", border: "1px solid #ccc", borderRadius: "8px", marginBottom: "12px" }} />
                             <button onClick={handleSignup} style={{ width: "100%", backgroundColor: "black", color: "white", padding: "12px", borderRadius: "8px", cursor: "pointer" }}>Sign Up</button>
                         </>
                     ) : (
