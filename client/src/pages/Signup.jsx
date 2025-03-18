@@ -15,10 +15,6 @@ const Signup = () => {
                 alert("Passwords do not match");
                 return;
             }
-            if (!email.endsWith('@iitk.ac.in')) {
-                alert("Please use your IITK email address");
-                return;
-            }
             await signup(email, password);
             alert("OTP sent to your email");
             setStep(2);

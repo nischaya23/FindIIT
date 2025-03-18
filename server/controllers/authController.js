@@ -20,6 +20,9 @@ const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString()
 // Signup
 exports.signup = async (req, res) => {
     const { email, password } = req.body;
+    if (!email.endsWith('@iitk.ac.in')) {
+        return res.status(400).json({ message: "Invalid email. Use iitk mail id" });
+    }
     try {
         let user = await User.findOne({ email });
 
