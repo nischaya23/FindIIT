@@ -9,20 +9,25 @@ const Signup = () => {
     const [confirm_password, setConfirmPassword] = useState("");
     const [otp, setOtp] = useState("");
     const [step, setStep] = useState(1);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
 
     const handleForgot = async () => {
         try {
+            setLoading(true);
             await forgot(email).then((res) => alert(res.data.message));
             setStep(2);
         } catch (error) {
             alert(error.response.data.message);
+        } finally {
+            setLoading(false);
         }
     }
 
     const handleVerifyOTPreset = async () => {
         try {
+            setLoading(true);
             if (password !== confirm_password) {
                 alert("Passwords do not match");
                 return;
@@ -31,6 +36,8 @@ const Signup = () => {
             navigate("/login");
         } catch (error) {
             alert(error.response.data.message);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -41,14 +48,14 @@ const Signup = () => {
             {step === 1 ? (
                 <>
                     <InputField type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                    <ButtonField onClick={handleForgot}>Send OTP</ButtonField>
+                    <ButtonField onClick={handleForgot} disabled={loading}>Send OTP</ButtonField>
                 </>
             ) : (
                 <>
                     <InputField type="text" placeholder="Enter OTP" value={otp} onChange={(e) => setOtp(e.target.value)} />
                     <InputField type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     <InputField type="password" placeholder="Confirm Password" value={confirm_password} onChange={(e) => setConfirmPassword(e.target.value)} />
-                    <ButtonField onClick={handleVerifyOTPreset}>Reset Password</ButtonField>
+                    <ButtonField onClick={handleVerifyOTPreset} disabled={loading}>Reset Password</ButtonField>
                 </>
             )}
 

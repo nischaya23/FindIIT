@@ -9,11 +9,13 @@ const Signup = () => {
     const [confirm_password, setConfirmPassword] = useState("");
     const [otp, setOtp] = useState("");
     const [step, setStep] = useState(1);
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
     const handleSignup = async () => {
         try {
+            setLoading(true);
             if (password !== confirm_password) {
                 alert("Passwords do not match");
                 return;
@@ -22,15 +24,20 @@ const Signup = () => {
             setStep(2);
         } catch (error) {
             alert(error.response.data.message);
+        } finally {
+            setLoading(false);
         }
     };
 
     const handleVerifyOTP = async () => {
         try {
+            setLoading(true);
             await verifyOTP(email, otp).then((res) => alert(res.data.message));
             navigate("/login");
         } catch (error) {
             alert(error.response.data.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -43,12 +50,12 @@ const Signup = () => {
                     <InputField type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                     <InputField type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     <InputField type="password" placeholder="Confirm Password" value={confirm_password} onChange={(e) => setConfirmPassword(e.target.value)} />
-                    <ButtonField onClick={handleSignup}>Sign Up</ButtonField>
+                    <ButtonField onClick={handleSignup} disabled={loading}>Sign Up</ButtonField>
                 </>
             ) : (
                 <>
                     <InputField type="text" placeholder="Enter OTP" value={otp} onChange={(e) => setOtp(e.target.value)} />
-                    <ButtonField onClick={handleVerifyOTP}>Verify OTP</ButtonField>
+                    <ButtonField onClick={handleVerifyOTP} disabled={loading}>Verify OTP</ButtonField>
                 </>
             )}
 

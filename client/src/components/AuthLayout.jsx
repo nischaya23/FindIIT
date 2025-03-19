@@ -29,8 +29,8 @@ const InputField = ({ type, placeholder, value, onChange }) => (
     <input type={type} placeholder={placeholder} value={value} onChange={onChange} style={{ width: "100%", padding: "12px", border: "1px solid #ccc", borderRadius: "8px", marginBottom: "12px" }} />
 );
 
-const ButtonField = ({ onClick, children }) => (
-    <button onClick={onClick} style={{ width: "100%", backgroundColor: "black", color: "white", padding: "12px", borderRadius: "8px", cursor: "pointer" }}>{children}</button>
+const ButtonField = ({ onClick, disabled, children }) => (
+    <button onClick={onClick} disabled={disabled} style={{ width: "100%", backgroundColor: "black", color: "white", padding: "12px", borderRadius: "8px", cursor: "pointer" }}>{disabled ? "Processing..." : children}</button>
 );
 
 const RedirectField = ({ link, already, todo }) => (
