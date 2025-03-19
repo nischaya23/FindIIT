@@ -74,7 +74,7 @@ exports.verifyOTP = async (req, res) => {
         user.otpExpires = undefined;
         await user.save();
 
-        res.json({ message: "Signup successful", token });
+        res.json({ message: "Signup successful" });
     } catch (error) {
         res.status(500).json({ message: "Error verifying OTP" });
     }
