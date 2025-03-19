@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { login } from "../api/auth";
 import { AuthLayout, InputField, ButtonField, RedirectField, HeadingField } from '../components/AuthLayout';
+import {  useNavigate} from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         try {
             await login(email, password);
             alert("Login successful");
+            navigate("/dashboard");
         } catch (error) {
             alert(error.response.data.message);
         }

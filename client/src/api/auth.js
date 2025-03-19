@@ -11,5 +11,52 @@ export const verifyOTP = async (email, otp) => {
 };
 
 export const login = async (email, password) => {
-    return axios.post(`${API_URL}/login`, { email, password });
+    const response = await axios.post(`${API_URL}/login`, { email, password });
+    
+    // Store token automatically on successful login
+    if (response.data && response.data.token) {
+        localStorage.setItem('token', response.data.token);
+    }
+    
+    return response.data;
 };
+
+export const logout = () => {
+    localStorage.removeItem('token');
+    // You might want to clear other stored data too
+    // localStorage.removeItem('userData');
+};
+
+export const getAuthToken = () => {
+    return localStorage.getItem('token');
+};
+
+export const isAuthenticated = () => { //TODO  
+    return localStorage.getItem('token') !== null;
+};
+
+// Add this to your axios requests
+axios.interceptors.request.use(
+    (config) => {
+        const token = getAuthToken();
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
+// Handle 401 responses (token expired)
+axios.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 401) {
+            logout();
+            window.location.href = '/login';
+        }
+        return Promise.reject(error);
+    }
+);

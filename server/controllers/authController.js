@@ -74,8 +74,6 @@ exports.verifyOTP = async (req, res) => {
         user.otpExpires = undefined;
         await user.save();
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-
         res.json({ message: "Signup successful", token });
     } catch (error) {
         res.status(500).json({ message: "Error verifying OTP" });
@@ -92,7 +90,8 @@ exports.login = async (req, res) => {
         const isValidPassword = await bcrypt.compare(password, user.password);
         if (!isValidPassword) return res.status(400).json({ message: "Invalid email or password" });
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        const tokenPayload = { id: user._id, email: user.email || "missing@email.com" };
+        const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: "1h" });
 
         res.json({ message: "Login successful", token });
     } catch (error) {
