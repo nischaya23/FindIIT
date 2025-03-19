@@ -36,6 +36,7 @@ exports.signup = async (req, res) => {
             }
             if (user.otpExpires > Date.now()) {
                 user.password = hashedPassword;
+                await user.save();
                 return res.status(201).json({ message: "Previous OTP still valid" });
             } else {
                 user.password = hashedPassword;
@@ -55,10 +56,10 @@ exports.signup = async (req, res) => {
             text: `Your OTP code is ${otp}`,
         });
 
-        res.status(201).json({ message: "OTP sent to email" });
+        return res.status(201).json({ message: "OTP sent to email" });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Error signing up" });
+        return res.status(500).json({ message: "Error signing up" });
     }
 };
 
@@ -67,16 +68,80 @@ exports.verifyOTP = async (req, res) => {
     const { email, otp } = req.body;
     try {
         const user = await User.findOne({ email, otp, otpExpires: { $gt: Date.now() } });
-        if (!user) return res.status(400).json({ message: "Invalid OTP or expired" });
+        if (!user) {
+            const userWithExpiredOtp = await User.findOne({ email, otp, otpExpires: { $lt: Date.now() } });
+            if (userWithExpiredOtp) {
+                return res.status(400).json({ message: "OTP has expired" });
+            } else {
+                return res.status(400).json({ message: "Invalid OTP" });
+            }
+        }
+        if (user.isVerified) return res.json({ message: "Email already verified" });
 
         user.isVerified = true;
         user.otp = undefined;
         user.otpExpires = undefined;
         await user.save();
 
-        res.json({ message: "Signup successful" });
+        return res.json({ message: "Signup successful" });
     } catch (error) {
-        res.status(500).json({ message: "Error verifying OTP" });
+        return res.status(500).json({ message: "Error verifying OTP" });
+    }
+};
+
+// Forgot
+exports.forgot = async (req, res) => {
+    const { email } = req.body;
+    try {
+        const user = await User.findOne({ email });
+        if (!user || !user.isVerified) return res.status(400).json({ message: "User not found" });
+
+        if (user.otpExpires !== undefined && user.otpExpires > Date.now()) {
+            return res.status(201).json({ message: "Previous OTP still valid" });
+        }
+
+        const otp = generateOTP();
+        user.otp = otp;
+        user.otpExpires = Date.now() + 300000;
+
+        await user.save();
+
+        // Send OTP
+        await transporter.sendMail({
+            to: email,
+            subject: "Your OTP Code",
+            text: `Your OTP code to reset password is ${otp}`,
+        });
+
+        return res.status(201).json({ message: "OTP sent to email" });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Error verifying OTP" });
+    }
+};
+
+// Verify OTP
+exports.verifyOTPreset = async (req, res) => {
+    const { email, otp, password } = req.body;
+    try {
+        const user = await User.findOne({ email, otp, otpExpires: { $gt: Date.now() } });
+        if (!user) {
+            const userWithExpiredOtp = await User.findOne({ email, otp, otpExpires: { $lt: Date.now() } });
+            if (userWithExpiredOtp) {
+                return res.status(400).json({ message: "OTP has expired" });
+            } else {
+                return res.status(400).json({ message: "Invalid OTP" });
+            }
+        }
+        if (!user.isVerified) return res.status(400).json({ message: "Email does not exists" });
+        user.password = await bcrypt.hash(password, 10);
+        user.otp = undefined;
+        user.otpExpires = undefined;
+        await user.save();
+
+        return res.json({ message: "Reset successful" });
+    } catch (error) {
+        return res.status(500).json({ message: "Error verifying OTP" });
     }
 };
 
@@ -93,8 +158,8 @@ exports.login = async (req, res) => {
         const tokenPayload = { id: user._id, email: user.email || "missing@email.com" };
         const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-        res.json({ message: "Login successful", token });
+        return res.json({ message: "Login successful", token });
     } catch (error) {
-        res.status(500).json({ message: "Error logging in" });
+        return res.status(500).json({ message: "Error logging in" });
     }
 };

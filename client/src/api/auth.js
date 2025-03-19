@@ -10,15 +10,23 @@ export const verifyOTP = async (email, otp) => {
     return axios.post(`${API_URL}/verify-otp`, { email, otp });
 };
 
+export const forgot = async (email) => {
+    return axios.post(`${API_URL}/forgot`, { email });
+};
+
+export const verifyOTPreset = async (email, otp, password) => {
+    return axios.post(`${API_URL}/verify-otp-reset`, { email, otp, password });
+};
+
 export const login = async (email, password) => {
     const response = await axios.post(`${API_URL}/login`, { email, password });
-    
+
     // Store token automatically on successful login
     if (response.data && response.data.token) {
         localStorage.setItem('token', response.data.token);
     }
-    
-    return response.data;
+
+    return response;
 };
 
 export const logout = () => {
