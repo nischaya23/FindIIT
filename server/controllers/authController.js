@@ -14,6 +14,8 @@ const transporter = nodemailer.createTransport({
     },
 });
 
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
 // Generate OTP
 const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
 
@@ -22,6 +24,9 @@ exports.signup = async (req, res) => {
     const { email, password } = req.body;
     if (!email.endsWith('@iitk.ac.in')) {
         return res.status(400).json({ message: "Invalid email. Use iitk mail id" });
+    }
+    if (!passwordRegex.test(password)) {
+        return res.status(400).json({ message: "Password must be at least 8 characters, contain at least one uppercase letter, one lowercase letter, one number and one special character" });
     }
     try {
         let user = await User.findOne({ email });
@@ -124,6 +129,9 @@ exports.forgot = async (req, res) => {
 exports.verifyOTPreset = async (req, res) => {
     const { email, otp, password } = req.body;
     try {
+        if (!passwordRegex.test(password)) {
+            return res.status(400).json({ message: "Password must be at least 8 characters, contain at least one uppercase letter, one lowercase letter, one number and one special character" });
+        }
         const user = await User.findOne({ email, otp, otpExpires: { $gt: Date.now() } });
         if (!user) {
             const userWithExpiredOtp = await User.findOne({ email, otp, otpExpires: { $lt: Date.now() } });

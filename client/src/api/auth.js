@@ -39,8 +39,8 @@ export const getAuthToken = () => {
     return localStorage.getItem('token');
 };
 
-export const isAuthenticated = () => { //TODO  
-    return localStorage.getItem('token') !== null;
+export const isAuthenticated = () => {
+    return getAuthToken() !== null;
 };
 
 // Add this to your axios requests
@@ -61,7 +61,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     (response) => response,
     (error) => {
-        if (error.response?.status === 401) {
+        if (error.response?.status === 401 || error.response?.status === 403) {
             logout();
             window.location.href = '/login';
         }

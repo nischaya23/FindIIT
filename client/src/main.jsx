@@ -5,8 +5,8 @@ import { Navigate } from 'react-router-dom';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import ForgotPass from './pages/ForgotPass';
-import Dashboard from './pages/Dashboard'; // Make sure you create this component
-import ProtectedRoute from './components/ProtectedRoute'; // We'll need to create this
+import Homepage from './pages/Homepage';
+import ProtectedRoute from './components/ProtectedRoute';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -19,7 +19,7 @@ createRoot(document.getElementById('root')).render(
 
         {/* Protected routes */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Homepage />} />
           {/* Add more protected routes here */}
         </Route>
 
