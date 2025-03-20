@@ -6,6 +6,13 @@ const userSchema = new mongoose.Schema({
     isVerified: { type: Boolean, default: false },
     otp: { type: String },
     otpExpires: { type: Date },
+
+    name: { type: String },
+    phone: { type: String },
+    department: { type: String },
+    designation: { type: String },
+    profilePicture: { type: String, default: "" },
+
 });
 
 module.exports = mongoose.model("User", userSchema);

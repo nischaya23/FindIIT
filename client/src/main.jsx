@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import ForgotPass from './pages/ForgotPass';
+import Profile from "./pages/Profile";
 import Homepage from './pages/Homepage';
 import AddItem from './pages/AddItem';
 import ProductDetails from './pages/ProductDetails';
@@ -24,6 +25,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/dashboard" element={<Homepage />} />
           <Route path="/add_item" element={<AddItem />} />
           <Route path='/product/:id' element={<ProductDetails />} />
+          <Route path="/profile" element={<Profile />} />
           {/* Add more protected routes here */}
         </Route>
 
