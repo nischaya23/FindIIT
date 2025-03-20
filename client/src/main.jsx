@@ -6,6 +6,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import ForgotPass from './pages/ForgotPass';
 import Homepage from './pages/Homepage';
+import AddItem from './pages/AddItem';
 import ProtectedRoute from './components/ProtectedRoute';
 
 createRoot(document.getElementById('root')).render(
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')).render(
         {/* Protected routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Homepage />} />
+          <Route path="/add_item" element={<AddItem />} />
           {/* Add more protected routes here */}
         </Route>
 
