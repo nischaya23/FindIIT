@@ -13,3 +13,7 @@ export const createProduct = async (formData) => {
         },
     });
 };
+
+export const getProductById = async (id) => {
+    return await axios.get(`${API_URL}/${id}`);
+};

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getProducts } from "../api/products";
 import ProductCard from "../components/ProductCard";
 import SearchBar from "../components/SearchBar";
+import NavBar from "../components/NavBar";
 
 const HomePage = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -23,6 +24,7 @@ const HomePage = () => {
 
     return (
         <div>
+            <NavBar />
             <SearchBar onChange={(e) => handleSearch(e.target.value)} value={searchTerm} />
             <div className="product-grid">
                 {products?.map((product) => (

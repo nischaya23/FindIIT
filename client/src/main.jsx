@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import ForgotPass from './pages/ForgotPass';
 import Homepage from './pages/Homepage';
 import AddItem from './pages/AddItem';
+import ProductDetails from './pages/ProductDetails';
 import ProtectedRoute from './components/ProtectedRoute';
 
 createRoot(document.getElementById('root')).render(
@@ -22,6 +23,7 @@ createRoot(document.getElementById('root')).render(
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Homepage />} />
           <Route path="/add_item" element={<AddItem />} />
+          <Route path='/product/:id' element={<ProductDetails />} />
           {/* Add more protected routes here */}
         </Route>
 

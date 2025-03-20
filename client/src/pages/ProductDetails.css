@@ -1,0 +1,154 @@
+/* Ensure spacing below navbar */
+.details-container {
+    max-width: 900px;
+    margin: 80px auto 40px; /* 80px top margin to adjust for navbar */
+    padding: 20px;
+}
+
+/* Details Card */
+.details-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.details-header h2 {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.lost {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.found {
+    background: #d4edda;
+    color: #155724;
+}
+
+/* Grid Layout */
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Left Section */
+.details-left {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.item-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.map-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.location-section p {
+    font-size: 14px;
+    color: #555;
+    margin-top: 5px;
+}
+
+/* Right Section */
+.details-right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-section {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.info-section h3 {
+    background: gray;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.info-content label {
+    font-size: 12px;
+    color: #777;
+}
+
+.info-content p {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 3px;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.tag {
+    background: #ddd;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+/* Contact Button */
+.contact-btn {
+    width: 100%;
+    padding: 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.contact-btn:hover {
+    background: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .details-container {
+        margin: 100px auto 40px;
+        padding: 15px;
+    }
+}

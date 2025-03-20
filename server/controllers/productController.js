@@ -85,7 +85,7 @@ exports.getProductById = async (req, res) => {
             return res.status(404).json({ success: false, message: "Product not found" });
         }
 
-        res.status(200).json({ success: true, data: product });
+        res.status(200).json({ success: true, data: product, message: "Returned product" });
     } catch (error) {
         console.error("Error fetching product:", error.message);
         res.status(500).json({ success: false, message: "Server Error" });
