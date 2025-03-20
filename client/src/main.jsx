@@ -6,6 +6,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import ForgotPass from './pages/ForgotPass';
 import Dashboard from './pages/Dashboard'; // Make sure you create this component
+import Profile from "./pages/Profile";
 import ProtectedRoute from './components/ProtectedRoute'; // We'll need to create this
 
 createRoot(document.getElementById('root')).render(
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')).render(
         {/* Protected routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
           {/* Add more protected routes here */}
         </Route>
 
