@@ -1,0 +1,120 @@
+.auth-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #2d2d2d;
+}
+
+.auth-box {
+    width: 650px;
+    display: flex;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+}
+
+.auth-left {
+    width: 50%;
+    background-color: black;
+    color: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+}
+
+.auth-left h3,
+.auth-left h4,
+.auth-left h1 {
+    font-family: serif;
+}
+
+.auth-left h3,
+.auth-left h4 {
+    font-size: 18px;
+}
+
+.auth-left h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.auth-icons {
+    margin-top: 24px;
+}
+
+.auth-icon-large {
+    width: 64px;
+    height: 64px;
+    background-color: #555;
+    border-radius: 50%;
+    opacity: 0.4;
+}
+
+.auth-icon-small {
+    width: 40px;
+    height: 40px;
+    background-color: #777;
+    border-radius: 50%;
+    opacity: 0.4;
+    margin-top: 16px;
+}
+
+.auth-right {
+    width: 50%;
+    background-color: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.button-field {
+    width: 100%;
+    background-color: black;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.button-field:disabled {
+    cursor: not-allowed;
+    background-color: #333;
+}
+
+.redirect-field {
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+    margin-top: 16px;
+    font-family: serif;
+}
+
+.redirect-field a {
+    color: black;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.heading-field {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    font-family: serif;
+}
