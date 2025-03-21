@@ -13,7 +13,7 @@ const Login = () => {
     const handleLogin = async () => {
         try {
             setLoading(true);
-            await login(email, password).then((res) => alert(res.data.message));
+            await login(email, password);
             navigate("/dashboard");
         } catch (error) {
             alert(error.response.data.message);
