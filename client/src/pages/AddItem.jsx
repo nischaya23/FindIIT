@@ -120,7 +120,7 @@ const AddProduct = () => {
                             <input type="file" name="uploadedImage" onChange={handleChange} accept="image/*" />
                         </div>
 
-                        <button type="submit" className="submit-button">
+                        <button type="submit" className="submit-button" onClick={() => window.location.href = "/dashboard"}>
                             Submit Report
                         </button>
                     </form>
