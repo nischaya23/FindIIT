@@ -60,7 +60,7 @@ const AddProduct = () => {
                     <h2 className="form-title">Report an Product</h2>
 
                     <form onSubmit={handleAddProduct}>
-                        <div className="form-group">``
+                        <div className="form-group">
                             <label className="label">Product Status</label>
                             <div className="radio-group">
                                 <label>
@@ -120,7 +120,7 @@ const AddProduct = () => {
                             <input type="file" name="uploadedImage" onChange={handleChange} accept="image/*" />
                         </div>
 
-                        <button type="submit" className="submit-button">
+                        <button type="submit" className="submit-button" onClick={() => window.location.href = "/dashboard"}>
                             Submit Report
                         </button>
                     </form>

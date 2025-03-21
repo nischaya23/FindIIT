@@ -8,6 +8,7 @@ const ProductCard = ({ product }) => {
                 <span className={`status-badge ${product.itemStatus === "lost" ? "lost" : "found"}`}>
                     {product.itemStatus.toUpperCase()}
                 </span>
+                <br></br>
                 <img src={`http://localhost:5000${product.uploadedImage}`} alt={product.description} className="product-image" />
                 <h3 className="product-title">{product.category}</h3>
                 <p className="product-description">{product.description}</p>
