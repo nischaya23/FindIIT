@@ -1,0 +1,90 @@
+server
+1. config
+        db.js
+2. controller
+        authController.js
+        productController.js
+        profileController.js
+3. middleware
+        authMiddleware.js
+4. models
+        Product.js
+        User.js
+5. routes
+        authRoutes.js
+        productRoutes.js
+        profileRoutes.js
+6. uploads
+7. index.js
+
+
+client
+1. public
+2. src
+    a. api
+    b. components
+    c. pages
+    main.jsx
+
+    import { StrictMode } from 'react';
+    import { createRoot } from 'react-dom/client';
+    import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+    import { Navigate } from 'react-router-dom';
+    import Signup from './pages/Signup';
+    import Login from './pages/Login';
+    import ForgotPass from './pages/ForgotPass';
+    import Profile from "./pages/Profile";
+    import Homepage from './pages/Homepage';
+    import AddItem from './pages/AddItem';
+    import ProductDetails from './pages/ProductDetails';
+    import NotFoundPage from './pages/404';
+    import ProtectedRoute from './components/ProtectedRoute';
+
+    createRoot(document.getElementById('root')).render(
+    <StrictMode>
+        <Router>
+        <Routes>
+            {/* Public routes */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/forgot" element={<ForgotPass />} />
+
+            {/* Protected routes */}
+            <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<Navigate to="/dashboard" />} />
+            <Route path="/dashboard" element={<Homepage />} />
+            <Route path="/add_item" element={<AddItem />} />
+            <Route path='/product/:id' element={<ProductDetails />} />
+            <Route path="/profile" element={<Profile />} />
+            {/* Add more protected routes here */}
+            </Route>
+
+            {/* Redirect to 404 for any undefined routes */}
+            <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+        </Router>
+    </StrictMode>
+    );
+
+3. index.html
+        <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Find IIT</title>
+        <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="module" src="/src/main.jsx"></script>
+    </body>
+    </html>
+
