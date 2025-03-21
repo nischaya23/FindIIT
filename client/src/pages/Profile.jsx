@@ -93,6 +93,8 @@ const Profile = () => {
                     <h3>Edit Profile</h3>
                     <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" className="input-field" />
                     <input name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone" className="input-field" />
+                    <input name="department" value={formData.department} onChange={handleChange} placeholder="Department" className="input-field" />
+                    <input name="designation" value={formData.designation} onChange={handleChange} placeholder="Designation" className="input-field" />
                     <button type="submit" className="btn btn-green">Save</button>
                 </form>
             )}

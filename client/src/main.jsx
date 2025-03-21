@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import Homepage from './pages/Homepage';
 import AddItem from './pages/AddItem';
 import ProductDetails from './pages/ProductDetails';
+import NotFoundPage from './pages/404';
 import ProtectedRoute from './components/ProtectedRoute';
 
 createRoot(document.getElementById('root')).render(
@@ -22,6 +23,7 @@ createRoot(document.getElementById('root')).render(
 
         {/* Protected routes */}
         <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<Homepage />} />
           <Route path="/add_item" element={<AddItem />} />
           <Route path='/product/:id' element={<ProductDetails />} />
@@ -29,8 +31,8 @@ createRoot(document.getElementById('root')).render(
           {/* Add more protected routes here */}
         </Route>
 
-        {/* Redirect to login for any undefined routes */}
-        <Route path="*" element={<Navigate to="/login" />} />
+        {/* Redirect to 404 for any undefined routes */}
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   </StrictMode>
