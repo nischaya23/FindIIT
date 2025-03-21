@@ -30,7 +30,7 @@ const ProductDetails = () => {
                     <div className="details-header">
                         <h2>Lost Item Details</h2>
                         <span className={`status ${product.itemStatus === "lost" ? "lost" : "found"}`}>
-                            Status: {product.itemStatus}
+                            {product.itemStatus}
                         </span>
                     </div>
 
@@ -97,9 +97,10 @@ const ProductDetails = () => {
                             </div>
 
                             <button className="contact-btn">Contact</button>
+                            <button className="claim-product">Claim product</button>
                         </div>
                     </div>
-                </div>
+                </div>  
             </div>
             <a href="/add_item" className="floating-button">
                 +

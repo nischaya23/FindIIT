@@ -54,10 +54,19 @@
     gap: 6px;
     margin-top: 8px;
     font-size: 0.75rem;
+    flex-wrap: wrap;
 }
 
 .tag {
     background-color: #e5e7eb;
     padding: 4px 8px;
     border-radius: 5px;
+    /*  */
+    /* word-wrap: break-word; /* Allows words to break */
+    overflow-wrap: break-word;
+    white-space: nowrap; /* Prevents wrapping */
+    overflow: hidden; /* Hides overflow content */
+    text-overflow: ellipsis; /* Adds '...' to cut-off text */
+    max-width: 100%; /* Adjust based on design */
+    display: inline-block;
 }

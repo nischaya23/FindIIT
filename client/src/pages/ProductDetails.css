@@ -137,6 +137,18 @@
     transition: background 0.3s;
 }
 
+.claim-product {
+    width: 100%;
+    padding: 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
 .contact-btn:hover {
     background: #333;
 }
