@@ -29,6 +29,11 @@ const AddProduct = () => {
                 ...prev,
                 coordinates: { ...prev.coordinates, [name]: value },
             }));
+        } else if (name === "tags") {
+            setNewProduct((prev) => ({
+                ...prev,
+                tags: value.split(",").map(tag => tag.trim())
+            }));
         } else {
             setNewProduct((prev) => ({ ...prev, [name]: value }));
         }
@@ -42,6 +47,8 @@ const AddProduct = () => {
             if (key === "coordinates") {
                 formData.append("coordinates[latitude]", newProduct.coordinates.latitude);
                 formData.append("coordinates[longitude]", newProduct.coordinates.longitude);
+            } else if (key === "tags") {
+                newProduct.tags.forEach(tag => formData.append("tags[]", tag));
             } else {
                 formData.append(key, newProduct[key]);
             }
