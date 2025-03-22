@@ -2,7 +2,8 @@
   position: sticky;
   top: 0;
   width: 100%;
-  z-index: 1000; /* Ensures it stays above other elements */
+  z-index: 1000;
+  /* Ensures it stays above other elements */
   background-color: black;
   padding: 16px;
   display: flex;

@@ -10,7 +10,7 @@ const Chat = () => {
     const { roomId } = useParams();
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState("");
-    const userId = localStorage.getItem("userId") || "test-user"; 
+    const userId = localStorage.getItem("userId") || "test-user";
 
     useEffect(() => {
         socket.connect();
@@ -68,7 +68,7 @@ const Chat = () => {
                 <div className="chat-header-info">
                     <img src="https://via.placeholder.com/40" alt="Profile" className="profile-pic" />
                     <div>
-                    <strong>NEED TO SORT THIS:John Doe</strong>
+                        <strong>NEED TO SORT THIS:John Doe</strong>
                         {/* <p className="status">Online</p> */}
                     </div>
                 </div>

@@ -1,7 +1,8 @@
 /* Ensure spacing below navbar */
 .details-container {
     max-width: 900px;
-    margin: 80px auto 40px; /* 80px top margin to adjust for navbar */
+    margin: 80px auto 40px;
+    /* 80px top margin to adjust for navbar */
     padding: 20px;
 }
 

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./NavBar.css";
-import {logout} from "../api/auth";
+import { logout } from "../api/auth";
 const Navbar = () => {
   return (
     <nav className="navbar">

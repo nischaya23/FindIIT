@@ -7,7 +7,8 @@
 .search-input {
     width: 50%;
     padding: 12px;
-    border: 1px solid #d1d5db; /* Gray border */
+    border: 1px solid #d1d5db;
+    /* Gray border */
     border-radius: 8px;
     color: black;
     font-size: 16px;
@@ -26,29 +27,36 @@
 }
 
 .search-button:hover {
-    background-color: #1f2937; /* Darker gray on hover */
+    background-color: #1f2937;
+    /* Darker gray on hover */
 }
 
 .floating-button {
     position: fixed;
-    bottom: 1.5rem; /* 6 in Tailwind spacing */
-    right: 1.5rem; /* 6 in Tailwind spacing */
+    bottom: 1.5rem;
+    /* 6 in Tailwind spacing */
+    right: 1.5rem;
+    /* 6 in Tailwind spacing */
     background-color: black;
     color: white;
-    width: 48px; /* 12 in Tailwind sizing */
-    height: 48px; /* 12 in Tailwind sizing */
+    width: 48px;
+    /* 12 in Tailwind sizing */
+    height: 48px;
+    /* 12 in Tailwind sizing */
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    font-size: 1.5rem; /* 2xl in Tailwind */
+    font-size: 1.5rem;
+    /* 2xl in Tailwind */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
     text-decoration: none;
 }
 
 .floating-button:hover {
-    background-color: #1f2937; /* Equivalent to gray-800 */
+    background-color: #1f2937;
+    /* Equivalent to gray-800 */
 }
 
 .product-grid {

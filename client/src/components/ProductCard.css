@@ -64,9 +64,13 @@
     /*  */
     /* word-wrap: break-word; /* Allows words to break */
     overflow-wrap: break-word;
-    white-space: nowrap; /* Prevents wrapping */
-    overflow: hidden; /* Hides overflow content */
-    text-overflow: ellipsis; /* Adds '...' to cut-off text */
-    max-width: 100%; /* Adjust based on design */
+    white-space: nowrap;
+    /* Prevents wrapping */
+    overflow: hidden;
+    /* Hides overflow content */
+    text-overflow: ellipsis;
+    /* Adds '...' to cut-off text */
+    max-width: 100%;
+    /* Adjust based on design */
     display: inline-block;
 }

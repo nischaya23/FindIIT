@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createProduct } from "../api/products";
 import "./AddItem.css";
 import NavBar from "../components/NavBar";
+import { useNavigate } from 'react-router-dom';
 
 const AddProduct = () => {
     const [newProduct, setNewProduct] = useState({
@@ -14,6 +15,7 @@ const AddProduct = () => {
         contactDetails: "",
         uploadedImage: "",
     });
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -47,6 +49,7 @@ const AddProduct = () => {
 
         try {
             await createProduct(formData).then((res) => alert(res.data.message));
+            navigate("/dashboard");
         } catch (error) {
             alert(error.response.data.message);
         }
@@ -120,7 +123,7 @@ const AddProduct = () => {
                             <input type="file" name="uploadedImage" onChange={handleChange} accept="image/*" />
                         </div>
 
-                        <button type="submit" className="submit-button" onClick={() => window.location.href = "/dashboard"}>
+                        <button type="submit" className="submit-button">
                             Submit Report
                         </button>
                     </form>

@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
-const path = require("path"); 
+const path = require("path");
 const { Server } = require("socket.io");
 const { createServer } = require("http");
 
@@ -16,7 +16,7 @@ const io = new Server(httpServer, {
 });
 
 // Middlewares
-app.use(express.json()); 
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));

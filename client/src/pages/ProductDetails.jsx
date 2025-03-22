@@ -100,7 +100,7 @@ const ProductDetails = () => {
                             <button className="claim-product">Claim product</button>
                         </div>
                     </div>
-                </div>  
+                </div>
             </div>
             <a href="/add_item" className="floating-button">
                 +
