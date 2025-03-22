@@ -11,6 +11,7 @@ import AddItem from './pages/AddItem';
 import ProductDetails from './pages/ProductDetails';
 import NotFoundPage from './pages/404';
 import ProtectedRoute from './components/ProtectedRoute';
+import Chat from "./pages/Chat";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot" element={<ForgotPass />} />
+        <Route path="/chat/:roomId" element={<Chat />} />
 
         {/* Protected routes */}
         <Route element={<ProtectedRoute />}>
