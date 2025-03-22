@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { APIProvider, Map, Marker, InfoWindow } from '@vis.gl/react-google-maps';
 
-// Map component that can be reused across the application
+// Map component
 const MapComponent = ({ 
   defaultCenter = { lat:26.521421, lng: 80.232133 }, // IITK coord
   defaultZoom = 15,
@@ -11,11 +11,34 @@ const MapComponent = ({
 }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [apiKey, setApiKey] = useState('');
+  const [apiLoaded, setApiLoaded] = useState(false);
+  const [markerIcons, setMarkerIcons] = useState({
+    lost: null,
+    found: null
+  });
   
-  //Fetch
+  // Fetch API key
   useEffect(() => {
     setApiKey(import.meta.env.VITE_GOOGLE_MAPS_API_KEY);
   }, []);
+
+  const handleApiLoad = () => {
+    console.log('Maps API has loaded.');
+    if (window.google) {
+      // Create marker icons once API is loaded
+      setMarkerIcons({
+        lost: {
+          url: '/client/marker/lost-marker2.png',
+          scaledSize: new window.google.maps.Size(30, 30)
+        },
+        found: {
+          url: '/client/marker/found-marker2.png',
+          scaledSize: new window.google.maps.Size(30, 30)
+        }
+      });
+      setApiLoaded(true);
+    }
+  };
 
   const handleMarkerClick = (item) => {
     setSelectedItem(item);
@@ -26,41 +49,36 @@ const MapComponent = ({
 
   return (
     <div style={{ height: '82vh', width: '100%' }}>
-      <APIProvider apiKey={apiKey} onLoad={() => console.log('Maps API has loaded.')}>
+      <APIProvider apiKey={apiKey} onLoad={handleApiLoad}>
         <Map
           defaultZoom={defaultZoom}
           defaultCenter={defaultCenter}
           mapId="findIIT-map"
-          onCameraChanged={(ev) => console.log('Camera changed:', ev.detail.center, 'Zoom:', ev.detail.zoom)}
         >
-          {items.map((item) => (
+          {apiLoaded && items.map((item) => (
             <Marker
               key={item.id}
-              position={{ lat: item.lat, lng: item.lng }}
+              position={{ lat: Number(item.lat), lng: Number(item.lng) }}
               onClick={() => handleMarkerClick(item)}
-              icon={{
-                url: item.type === 'lost' ? '/client/marker/lost-marker2.png' : '/client/marker/found-marker2.png',
-                scaledSize: new google.maps.Size(30, 30), // Adjust these values as needed
-              }}
+              icon={item.type === 'lost' ? markerIcons.lost : markerIcons.found}
             />
           ))}
 
           {selectedItem && (
-  <InfoWindow
-    position={{ lat: selectedItem.lat, lng: selectedItem.lng }}
-    onCloseClick={() => setSelectedItem(null)}
-  >
-    <div className="info-window">
-      <h3>{selectedItem.name}</h3>
-      <p>Type: {selectedItem.type}</p>
-      <p>{selectedItem.type === 'lost' ? 'Lost on:' : 'Found on:'} {selectedItem.date}</p>
-      <button className="found-btn">
-        {selectedItem.type === 'lost' ? 'I found this' : 'This is mine'}
-      </button>
-    </div>
-  </InfoWindow>
-)
-}
+            <InfoWindow
+              position={{ lat: selectedItem.lat, lng: selectedItem.lng }}
+              onCloseClick={() => setSelectedItem(null)}
+            >
+              <div className="info-window">
+                <h3>{selectedItem.name}</h3>
+                <p>Type: {selectedItem.type}</p>
+                <p>{selectedItem.type === 'lost' ? 'Lost on:' : 'Found on:'} {selectedItem.date}</p>
+                <button className="found-btn">
+                  {selectedItem.type === 'lost' ? 'I found this' : 'This is mine'}
+                </button>
+              </div>
+            </InfoWindow>
+          )}
         </Map>
       </APIProvider>
     </div>

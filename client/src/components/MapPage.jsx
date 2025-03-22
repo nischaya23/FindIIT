@@ -13,7 +13,6 @@ const MapPage = () => {
     const fetchItems = async () => {
       try {
         setLoading(true);
-        // In a real implementation, this would be a call to your API
         const response = await fetch('/api/items');
         const data = await response.json();
         setItems(data);
