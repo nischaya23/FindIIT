@@ -1,120 +1,243 @@
+/* ---------- 1. Full-Page Background ---------- */
 .auth-container {
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: #2d2d2d;
-}
-
-.auth-box {
-    width: 650px;
+    /* Base dark gradient with two overlaid patterns:
+       - A wave texture (replace URL with your own if desired)
+       - A subtle radial dotted texture */
+       background-image: url("./AuthBack.jpg");
+    
+      
+    background-size: auto, auto, cover;
+    background-blend-mode: overlay, overlay, normal;
+    animation: bgPulse 10s ease-in-out infinite alternate;
+  }
+  
+  /* Background pulsing animation */
+  @keyframes bgPulse {
+    from { filter: brightness(0.9); }
+    to   { filter: brightness(1.1); }
+  }
+  
+  /* ---------- 2. Floating Auth Box ---------- */
+  .auth-box {
+    position: relative;
+    width: 720px;
     display: flex;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    border-radius: 16px;
+    border-radius: 20px;
     overflow: hidden;
     aspect-ratio: 4/3;
-}
-
-.auth-left {
+    background: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border: 3px solid #fff;
+    animation: fadeIn 1s ease-out;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Glowing aura effect */
+  .auth-box::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    border-radius: 26px;
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.4);
+    z-index: -1;
+    opacity: 0.8;
+    animation: auraPulse 3s infinite alternate;
+  }
+  
+  @keyframes auraPulse {
+    from { box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.4); }
+    to   { box-shadow: 0 0 30px 10px rgba(255, 255, 255, 0.6); }
+  }
+  
+  /* Hover lift for a floating effect */
+  .auth-box:hover {
+    transform: translateY(-10px);
+  }
+  
+  /* Smooth fade-in animation */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* ---------- 3. Left Panel (Branding) ---------- */
+  .auth-left {
     width: 50%;
-    background-color: black;
-    color: white;
-    padding: 40px;
+    /* Dark glass background with diagonal stripes overlay */
+    background: 
+      repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.02) 0,
+        rgba(255,255,255,0.02) 3px,
+        transparent 3px,
+        transparent 9px
+      ),
+      rgba(0, 0, 0, 0.8);
+    background-blend-mode: overlay;
+    color: #fff;
+    padding: 60px 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border-top-left-radius: 16px;
-    border-bottom-left-radius: 16px;
-}
-
-.auth-left h3,
-.auth-left h4,
-.auth-left h1 {
-    font-family: serif;
-}
-
-.auth-left h3,
-.auth-left h4 {
-    font-size: 18px;
-}
-
-.auth-left h1 {
-    font-size: 32px;
-    font-weight: bold;
-    margin-top: 8px;
-}
-
-.auth-icons {
+    align-items: center;
+    text-align: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+  }
+  
+  /* Optional logo/brand image */
+  .brand-icon {
+    width: 60px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 4px 6px rgba(255, 255, 255, 0.3));
+  }
+  
+  /* Elegant headings with classic serif fonts */
+  .auth-left h1 {
+    font-size: 42px;
+    font-weight: 900;
+    margin: 0 0 10px;
+    font-family: 'Georgia', serif;
+    background: linear-gradient(90deg, #fff, #ccc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 3px 8px rgba(255, 255, 255, 0.3);
+  }
+  
+  .auth-left h3,
+  .auth-left h4 {
+    font-size: 20px;
+    font-weight: 500;
+    opacity: 0.9;
+    margin: 10px 0;
+    font-family: 'Georgia', serif;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Icon container for additional branding elements */
+  .auth-icons {
     margin-top: 24px;
-}
-
-.auth-icon-large {
-    width: 64px;
-    height: 64px;
-    background-color: #555;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+  
+  .auth-icon-large,
+  .auth-icon-small {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 50%;
-    opacity: 0.4;
-}
-
-.auth-icon-small {
-    width: 40px;
-    height: 40px;
-    background-color: #777;
-    border-radius: 50%;
-    opacity: 0.4;
-    margin-top: 16px;
-}
-
-.auth-right {
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  
+  .auth-icon-large {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .auth-icon-small {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .auth-icon-large:hover,
+  .auth-icon-small:hover {
+    transform: scale(1.08);
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* ---------- 4. Right Panel (Form) ---------- */
+  .auth-right {
     width: 50%;
-    background-color: white;
-    padding: 40px;
+    background: #fff;
+    padding: 60px 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border-top-right-radius: 16px;
-    border-bottom-right-radius: 16px;
-}
-
-.input-field {
+  }
+  
+  /* Form heading with classic, bold typography */
+  .heading-field {
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    font-family: 'Georgia', serif;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #333;
+    text-shadow: 0 2px 4px rgba(200, 200, 200, 0.6);
+  }
+  
+  /* Input fields with clean focus effects */
+  .input-field {
     width: 100%;
-    padding: 12px;
+    padding: 15px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    margin-bottom: 12px;
-}
-
-.button-field {
+    margin-bottom: 20px;
+    font-size: 16px;
+    background: #fff;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .input-field:focus {
+    border-color: #000;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+    outline: none;
+  }
+  
+  /* Button with gradient background and dynamic hover effect */
+  .button-field {
     width: 100%;
-    background-color: black;
-    color: white;
-    padding: 12px;
+    padding: 15px;
+    background: linear-gradient(45deg, #fff, #ccc);
+    border: none;
     border-radius: 8px;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-}
-
-.button-field:disabled {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .button-field:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+  }
+  
+  .button-field:disabled {
     cursor: not-allowed;
-    background-color: #333;
-}
-
-.redirect-field {
+    background-color: #ccc;
+  }
+  
+  /* Redirect text styling with refined typography */
+  .redirect-field {
     text-align: center;
-    color: #666;
+    font-family: 'Georgia', serif;
     font-size: 14px;
-    margin-top: 16px;
-    font-family: serif;
-}
-
-.redirect-field a {
-    color: black;
-    font-weight: 600;
+    color: #666;
+    margin-top: 20px;
+  }
+  
+  .redirect-field a {
+    color: #000;
     text-decoration: none;
-}
-
-.heading-field {
-    font-size: 24px;
-    font-weight: 600;
-    text-align: center;
-    font-family: serif;
-}
+    font-weight: bold;
+    transition: text-decoration 0.3s ease;
+  }
+  
+  .redirect-field a:hover {
+    text-decoration: underline;
+  }
+  
