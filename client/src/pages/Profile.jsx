@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getID } from "../api/auth"
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -126,6 +126,11 @@ const Profile = () => {
                         <input name="department" value={formData.department} onChange={handleChange} placeholder="Department" className="input-field" />
                         <input name="designation" value={formData.designation} onChange={handleChange} placeholder="Designation" className="input-field" />
                         <input type="file" name="profilePicture" onChange={handleChange} accept="image/*" />
+                        <br></br>
+                        <br></br>
+                        <a href="/forgot">Change Password</a>
+                        <br></br>
+                        <br></br>
                         <button type="submit" className="btn btn-green">Save</button>
                     </form>
                 )}

@@ -33,6 +33,12 @@
   transition: color 0.3s ease;
 }
 
+.logo-link {
+  /* color: white; */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
 .nav-link:hover {
   color: gray;
 }

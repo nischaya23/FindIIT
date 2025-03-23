@@ -32,7 +32,7 @@ const HomePage = () => {
                 ))}
             </div>
             <a href="/add_item" className="floating-button">
-                +
+                
             </a>
         </div>
     );
