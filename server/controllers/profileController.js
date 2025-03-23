@@ -19,6 +19,9 @@ exports.updateProfile = async (req, res) => {
         const user = await User.findById(req.user.id);
         if (!user) return res.status(404).json({ message: "User not found" });
 
+        if(req.file){
+            user.profilePicture = `/uploads/${req.file.filename}`;
+        }
         // Update Fields
         if (name) user.name = name;
         if (phone) user.phone = phone;

@@ -13,6 +13,7 @@ const Profile = () => {
         phone: "",
         department: "",
         designation: "",
+        profilePicture: "",
     });
 
     const navigate = useNavigate();
@@ -37,7 +38,11 @@ const Profile = () => {
     }, [navigate]);
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        if (e.target.name === "profilePicture") {
+            setFormData({ ...formData, [e.target.name]: e.target.files[0] })
+        } else {
+            setFormData({ ...formData, [e.target.name]: e.target.value });
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -66,7 +71,7 @@ const Profile = () => {
                 <div className="profile-card">
                     <div className="profile-info">
                         <img
-                            src={user.profilePicture || "http://www.gravatar.com/avatar/0e39d18b89822d1d9871e0d1bc839d06?s=128&d=identicon&r=PG"}
+                            src={`http://localhost:5000${user.profilePicture}` || "http://www.gravatar.com/avatar/0e39d18b89822d1d9871e0d1bc839d06?s=128&d=identicon&r=PG"}
                             alt="Profile"
                             className="profile-img"
                         />
@@ -95,6 +100,7 @@ const Profile = () => {
                         <input name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone" className="input-field" />
                         <input name="department" value={formData.department} onChange={handleChange} placeholder="Department" className="input-field" />
                         <input name="designation" value={formData.designation} onChange={handleChange} placeholder="Designation" className="input-field" />
+                        <input type="file" name="profilePicture" onChange={handleChange} accept="image/*" />
                         <button type="submit" className="btn btn-green">Save</button>
                     </form>
                 )}
