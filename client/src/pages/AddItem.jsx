@@ -15,6 +15,7 @@ const AddProduct = () => {
         contactDetails: "",
         uploadedImage: "",
     });
+    const [isSubmitting, setIsSubmitting] = useState(false); // Loading state
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -41,6 +42,7 @@ const AddProduct = () => {
 
     const handleAddProduct = async (e) => {
         e.preventDefault();
+        setIsSubmitting(true);
 
         const formData = new FormData();
         for (const key in newProduct) {
@@ -59,6 +61,8 @@ const AddProduct = () => {
             navigate("/dashboard");
         } catch (error) {
             alert(error.response.data.message);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -67,9 +71,10 @@ const AddProduct = () => {
             <NavBar />
             <main className="container">
                 <div className="form-box">
-                    <h2 className="form-title">Report an Product</h2>
+                    <h2 className="form-title">Report a Product</h2>
 
                     <form onSubmit={handleAddProduct}>
+                        {/* Form Fields */}
                         <div className="form-group">
                             <label className="label">Product Status</label>
                             <div className="radio-group">
@@ -130,8 +135,8 @@ const AddProduct = () => {
                             <input type="file" name="uploadedImage" onChange={handleChange} accept="image/*" />
                         </div>
 
-                        <button type="submit" className="submit-button">
-                            Submit Report
+                        <button type="submit" className="submit-button" disabled={isSubmitting}>
+                            {isSubmitting ? "Processing..." : "Submit Report"}
                         </button>
                     </form>
                 </div>
