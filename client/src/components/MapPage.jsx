@@ -26,23 +26,35 @@ const MapPage = () => {
     fetchItems();
   }, []);
 
-const filteredItems = items.map(item => ({
-  id: item._id, // Map MongoDB _id to id for consistency
-  name: item.name,
-  type: item.type,
-  lat: item.lat,
-  lng: item.lng,
-  date: item.date,
-  description: item.description
-})).filter(item => {
-  const matchesFilter = filter === 'all' || item.type === filter;
-  const matchesSearch = !searchQuery || 
-    item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.description?.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredItems = items.map(item => ({
+    id: item._id, // Map MongoDB _id to id for consistency
+    name: item.name,
+    type: item.type,
+    lat: item.lat,
+    lng: item.lng,
+    date: item.date,
+    description: item.description,
+    tags: item.tags || [], // Include tags array with fallback to empty array
+    user: item.user || {} // Include user object with fallback to empty object
+  })).filter(item => {
+    const matchesFilter = filter === 'all' || item.type === filter;
+    
+    const matchesSearch = !searchQuery || 
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      // Search in tags
+      (item.tags && item.tags.some(tag => 
+        tag.toLowerCase().includes(searchQuery.toLowerCase())
+      )) ||
+      // Search in user name and email
+      (item.user && (
+        item.user.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.user.email?.toLowerCase().includes(searchQuery.toLowerCase())
+      ));
+    
+    return matchesFilter && matchesSearch;
+  });
   
-  return matchesFilter && matchesSearch;
-});
-
 
   return (
     <div className="map-page">

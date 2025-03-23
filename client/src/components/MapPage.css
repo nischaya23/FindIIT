@@ -84,18 +84,41 @@
     background-color: green;
   }
   
-  .info-window {
-    padding: 5px;
-    max-width: 200px;
-  }
-  
-  .found-btn {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 4px;
-    margin-top: 5px;
-  }
+.info-window {
+  padding: 10px;
+  max-width: 300px;
+}
+
+.info-window h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.info-window p {
+  margin: 5px 0;
+}
+
+.user-info {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+.user-info h4 {
+  margin-top: 0;
+  color: #555;
+}
+
+.found-btn {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.found-btn:hover {
+  background-color: #45a049;
+}
