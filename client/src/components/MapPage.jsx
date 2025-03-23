@@ -26,15 +26,23 @@ const MapPage = () => {
     fetchItems();
   }, []);
 
-  // Filter and search items
-  const filteredItems = items.filter(item => {
-    const matchesFilter = filter === 'all' || item.type === filter;
-    const matchesSearch = !searchQuery || 
-      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.description?.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    return matchesFilter && matchesSearch;
-  });
+const filteredItems = items.map(item => ({
+  id: item._id, // Map MongoDB _id to id for consistency
+  name: item.name,
+  type: item.type,
+  lat: item.lat,
+  lng: item.lng,
+  date: item.date,
+  description: item.description
+})).filter(item => {
+  const matchesFilter = filter === 'all' || item.type === filter;
+  const matchesSearch = !searchQuery || 
+    item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.description?.toLowerCase().includes(searchQuery.toLowerCase());
+  
+  return matchesFilter && matchesSearch;
+});
+
 
   return (
     <div className="map-page">
