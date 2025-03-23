@@ -3,6 +3,7 @@ import { getProducts } from "../api/products";
 import ProductCard from "../components/ProductCard";
 import SearchBar from "../components/SearchBar";
 import NavBar from "../components/NavBar";
+import "./Homepage.css";
 
 const HomePage = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -23,7 +24,7 @@ const HomePage = () => {
     }, []);
 
     return (
-        <div>
+        <div className="homepage-container">
             <NavBar />
             <SearchBar onChange={(e) => handleSearch(e.target.value)} value={searchTerm} />
             <div className="product-grid">

@@ -1,78 +1,93 @@
+.product-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
 .product-card {
     background-color: white;
     color: black;
     padding: 1rem;
-    border-radius: 10px;
+    border-radius: 12px;
     width: 256px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+    /* border: 1px solid #d1d5db;   */
+    border: 1px solid gray;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    text-decoration: none;
 }
 
+/* Add hover effect */
 .product-card:hover {
     transform: scale(1.05);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.25); /* Stronger shadow on hover */
 }
 
+/* Image with black border */
+.product-image {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    margin-top: 8px;
+    border-radius: 10px;
+    border: 2px solid black; /* Black accent border */
+}
+
+/* Styling for the status badge */
 .status-badge {
     display: inline-block;
-    padding: 4px 8px;
-    font-size: 0.75rem;
-    border-radius: 5px;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    border-radius: 8px;
     font-weight: bold;
     color: white;
 }
 
-.lost {
-    background-color: #ef4444;
+/* Lost and Found Badge Colors */
+.product-card .status-badge.lost {
+    background-color: #fbc8c8; /* Red for lost */
+    color: red
 }
 
-.found {
-    background-color: #10b981;
+/* Correct background color for found */
+.product-card .status-badge.found {
+    background-color: #a5f6d0; /* Green for found */
+    color: green
 }
 
-.product-image {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    margin-top: 8px;
-    border-radius: 8px;
-}
-
+/* Title with better font */
 .product-title {
-    margin-top: 8px;
+    margin-top: 12px;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    color: #1f2937;
+    text-decoration: none;
 }
 
+/* Description with soft color */
 .product-description {
     font-size: 0.9rem;
     color: #4b5563;
     margin-top: 4px;
+    text-decoration: none;
 }
 
+/* Tags styled with border */
 .product-tags {
     display: flex;
     gap: 6px;
-    margin-top: 8px;
+    margin-top: 10px;
     font-size: 0.75rem;
     flex-wrap: wrap;
+    text-decoration: none;
 }
 
 .tag {
     background-color: #e5e7eb;
     padding: 4px 8px;
     border-radius: 5px;
-    /*  */
-    /* word-wrap: break-word; /* Allows words to break */
-    overflow-wrap: break-word;
-    white-space: nowrap;
-    /* Prevents wrapping */
-    overflow: hidden;
-    /* Hides overflow content */
-    text-overflow: ellipsis;
-    /* Adds '...' to cut-off text */
-    max-width: 100%;
-    /* Adjust based on design */
-    display: inline-block;
+    border: 1px solid #6b7280; /* Gray border for tags */
+    color: #1f2937;
+    text-decoration: none;
 }
 
 .product-grid {
