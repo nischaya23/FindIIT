@@ -49,11 +49,22 @@ const MapComponent = ({
 
   return (
     <div style={{ height: '82vh', width: '100%' }}>
-      <APIProvider apiKey={apiKey} onLoad={handleApiLoad}>
+      <APIProvider 
+        apiKey={apiKey} 
+        onLoad={handleApiLoad}
+        options={{
+          loading: 'async',
+          callback: 'Function.prototype'
+        }}
+      >
         <Map
           defaultZoom={defaultZoom}
           defaultCenter={defaultCenter}
           mapId="findIIT-map"
+          onLoad={() => {
+            // Force a resize event after map loads to ensure proper rendering
+            window.dispatchEvent(new Event('resize'));
+          }}
         >
           {apiLoaded && items.map((item) => (
             <Marker
@@ -64,34 +75,33 @@ const MapComponent = ({
             />
           ))}
 
-{selectedItem && (
-  <InfoWindow
-    position={{ lat: selectedItem.lat, lng: selectedItem.lng }}
-    onCloseClick={() => setSelectedItem(null)}
-  >
-    <div className="info-window">
-      <h3>{selectedItem.name}</h3>
-      <p><strong>Type:</strong> {selectedItem.type}</p>
-      <p><strong>{selectedItem.type === 'lost' ? 'Lost on:' : 'Found on:'}</strong> {selectedItem.date}</p>
-      <p><strong>Description:</strong> {selectedItem.description}</p>
-      {selectedItem.tags && selectedItem.tags.length > 0 && (
-        <p><strong>Tags:</strong> {selectedItem.tags.join(', ')}</p>
-      )}
-      {selectedItem.user && (
-        <div className="user-info">
-          <h4>Posted by:</h4>
-          <p><strong>Name:</strong> {selectedItem.user.name}</p>
-          <p><strong>Email:</strong> {selectedItem.user.email}</p>
-          <p><strong>Phone:</strong> {selectedItem.user.phone}</p>
-        </div>
-      )}
-      <button className="found-btn">
-        Claim
-      </button>
-    </div>
-  </InfoWindow>
-)}
-
+          {selectedItem && (
+            <InfoWindow
+              position={{ lat: selectedItem.lat, lng: selectedItem.lng }}
+              onCloseClick={() => setSelectedItem(null)}
+            >
+              <div className="info-window">
+                <h3>{selectedItem.name}</h3>
+                <p><strong>Type:</strong> {selectedItem.type}</p>
+                <p><strong>{selectedItem.type === 'lost' ? 'Lost on:' : 'Found on:'}</strong> {selectedItem.date}</p>
+                <p><strong>Description:</strong> {selectedItem.description}</p>
+                {selectedItem.tags && selectedItem.tags.length > 0 && (
+                  <p><strong>Tags:</strong> {selectedItem.tags.join(', ')}</p>
+                )}
+                {selectedItem.user && (
+                  <div className="user-info">
+                    <h4>Posted by:</h4>
+                    <p><strong>Name:</strong> {selectedItem.user.name}</p>
+                    <p><strong>Email:</strong> {selectedItem.user.email}</p>
+                    <p><strong>Phone:</strong> {selectedItem.user.phone}</p>
+                  </div>
+                )}
+                <button className="found-btn">
+                  {selectedItem.type === 'lost' ? 'Found' : 'Claim'}
+                </button>
+              </div>
+            </InfoWindow>
+          )}
         </Map>
       </APIProvider>
     </div>
