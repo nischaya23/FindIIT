@@ -1,4 +1,5 @@
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 const API_URL = "http://localhost:5000/api/auth";
 
@@ -39,6 +40,19 @@ export const getAuthToken = () => {
     return localStorage.getItem('token');
 };
 
+export const getID = () => {
+    const token = getAuthToken();
+    if (!token) return null;
+
+    try {
+        const decoded = jwtDecode(token);
+        return decoded.id || null;
+    } catch (error) {
+        console.error("Error decoding token:", error);
+        return null;
+    }
+};
+
 export const isAuthenticated = () => {
     return getAuthToken() !== null;
 };
@@ -64,6 +78,9 @@ axios.interceptors.response.use(
         if (error.response?.status === 401 || error.response?.status === 403) {
             logout();
             window.location.href = '/login';
+        }
+        if (error.response?.status === 404) {
+            window.location.href = '/404';
         }
         return Promise.reject(error);
     }

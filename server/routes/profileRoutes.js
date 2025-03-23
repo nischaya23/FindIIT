@@ -6,7 +6,7 @@ const multer = require("multer");
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
-router.get("/profile", authMiddleware, getProfile);
+router.get("/profile/:id", authMiddleware, getProfile);
 router.post("/profile", authMiddleware, upload.single("profilePicture"), updateProfile);
 
 module.exports = router;

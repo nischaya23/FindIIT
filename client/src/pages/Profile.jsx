@@ -1,3 +1,5 @@
+import { useParams } from "react-router-dom";
+import { getID } from "../api/auth"
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getProfile, updateProfile } from "../api/users";
@@ -6,6 +8,7 @@ import "./Profile.css";
 import Navbar from "../components/NavBar";
 
 const Profile = () => {
+    const { id } = useParams();
     const [user, setUser] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
@@ -21,7 +24,7 @@ const Profile = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const res = await getProfile();
+                const res = await getProfile(id);
                 setUser(res.data.data);
                 setFormData({
                     name: res.data.data.name || "",
@@ -31,11 +34,11 @@ const Profile = () => {
                 });
             } catch (error) {
                 console.error("Error fetching profile", error);
-                navigate("/login");
+                navigate("/dashboard");
             }
         };
         fetchProfile();
-    }, [navigate]);
+    }, [navigate, id]);
 
     const handleChange = (e) => {
         if (e.target.name === "profilePicture") {
@@ -80,9 +83,11 @@ const Profile = () => {
                             <p className="text-muted">IIT Kanpur</p>
                         </div>
                     </div>
-                    <button onClick={() => setIsEditing(!isEditing)} className="btn btn-blue">
-                        {isEditing ? "Cancel" : "Edit Profile"}
-                    </button>
+                    {getID() === id &&
+                        <button onClick={() => setIsEditing(!isEditing)} className="btn btn-blue">
+                            {isEditing ? "Cancel" : "Edit Profile"}
+                        </button>
+                    }
                 </div>
 
                 {!isEditing ? (

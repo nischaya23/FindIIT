@@ -29,7 +29,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/dashboard" element={<Homepage />} />
           <Route path="/add_item" element={<AddItem />} />
           <Route path='/product/:id' element={<ProductDetails />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:id" element={<Profile />} />
           {/* Add more protected routes here */}
         </Route>
 
