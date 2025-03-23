@@ -6,6 +6,8 @@ import { getProfile, updateProfile } from "../api/users";
 import NavBar from "../components/NavBar";
 import "./Profile.css";
 import Navbar from "../components/NavBar";
+import ProductCard from "../components/ProductCard";
+import { getProductsByUploader } from "../api/products";
 
 const Profile = () => {
     const { id } = useParams();
@@ -18,8 +20,18 @@ const Profile = () => {
         designation: "",
         profilePicture: "",
     });
+    const [products, setProducts] = useState([]);
 
     const navigate = useNavigate();
+
+    const handleSearch = async (id) => {
+        try {
+            const res = await getProductsByUploader(id);
+            setProducts(res.data.data);
+        } catch (error) {
+            alert(error.response?.data?.message || "An error occurred");
+        }
+    };
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -38,6 +50,7 @@ const Profile = () => {
             }
         };
         fetchProfile();
+        handleSearch(id);
     }, [navigate, id]);
 
     const handleChange = (e) => {
@@ -91,12 +104,19 @@ const Profile = () => {
                 </div>
 
                 {!isEditing ? (
-                    <div className="info-card">
-                        <h3>Personal Information</h3>
-                        <p><strong>Email:</strong> {user.email}</p>
-                        <p><strong>Phone:</strong> {user.phone || "N/A"}</p>
-                        <p><strong>Department:</strong> {user.department || "N/A"}</p>
-                        <p><strong>Designation:</strong> {user.designation || "N/A"}</p>
+                    <div>
+                        <div className="info-card">
+                            <h3>Personal Information</h3>
+                            <p><strong>Email:</strong> {user.email}</p>
+                            <p><strong>Phone:</strong> {user.phone || "N/A"}</p>
+                            <p><strong>Department:</strong> {user.department || "N/A"}</p>
+                            <p><strong>Designation:</strong> {user.designation || "N/A"}</p>
+                        </div>
+                        <div className="product-grid">
+                            {products?.map((product) => (
+                                <ProductCard key={product._id} product={product} />
+                            ))}
+                        </div>
                     </div>
                 ) : (
                     <form onSubmit={handleSubmit} className="info-card">

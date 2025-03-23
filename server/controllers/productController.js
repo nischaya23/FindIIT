@@ -27,6 +27,9 @@ exports.getProducts = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
     const product = req.body;
+    const id = req.user.id;
+
+    product.uploadedBy = id;
 
     if (req.file) {
         product.uploadedImage = `/uploads/${req.file.filename}`;
@@ -89,5 +92,23 @@ exports.getProductById = async (req, res) => {
     } catch (error) {
         console.error("Error fetching product:", error.message);
         res.status(500).json({ success: false, message: "Server Error" });
+    }
+};
+
+exports.getProductsByUploader = async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log(id);
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: `Invalid uploader ID${id}` });
+        }
+
+        const products = await Product.find({ uploadedBy: id });
+
+        return res.status(200).json({ data: products, message: "Products by uploader returned" });
+    } catch (error) {
+        console.error("Error fetching products by uploader:", error.message);
+        return res.status(500).json({ message: "Server Error" });
     }
 };

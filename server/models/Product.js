@@ -10,6 +10,14 @@ const productSchema = new mongoose.Schema(
         coordinates: { latitude: { type: String, required: true, }, longitude: { type: String, required: true, }, },//TODO 2d sphere indexig
         contactDetails: { type: String, required: true, },
         uploadedImage: { type: String, required: false, },// URL or path to the image
+
+        uploadedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+        claims: [
+            {
+                user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+                status: { type: String, enum: ["Pending", "Approved", "Rejected"], default: "Pending" },
+            }
+        ],
     },
     {
         timestamps: true, // Adds createdAt and updatedAt

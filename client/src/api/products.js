@@ -17,3 +17,7 @@ export const createProduct = async (formData) => {
 export const getProductById = async (id) => {
     return await axios.get(`${API_URL}/${id}`);
 };
+
+export const getProductsByUploader = async (id) => {
+    return await axios.get(`${API_URL}/user/${id}`);
+};

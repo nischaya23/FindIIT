@@ -58,11 +58,3 @@
     background-color: #1f2937;
     /* Equivalent to gray-800 */
 }
-
-.product-grid {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-}
