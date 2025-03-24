@@ -2,7 +2,7 @@ const express = require("express");
 const { getProfile, updateProfile } = require("../controllers/profileController");
 const authMiddleware = require("../middleware/authMiddleware");
 const multer = require("multer");
-const User = require("../models/User"); // ✅ Import the User model
+const User = require("../models/User"); // Import the User model
 
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
