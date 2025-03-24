@@ -4,6 +4,7 @@ import { getProductById, deleteProduct, claimProduct, updateClaimStatus } from "
 import { getID } from "../api/auth";
 import "../pages/ProductDetails.css";
 import NavBar from "../components/NavBar";
+import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -59,6 +60,11 @@ const ProductDetails = () => {
     if (loading) return <div><NavBar /><p>Loading...</p></div>;
     if (!product) return <div><NavBar /><p>Product not found</p></div>;
 
+    const coordinates = {
+        lat: parseFloat(product.coordinates?.latitude) || 0,
+        lng: parseFloat(product.coordinates?.longitude) || 0
+    };
+
     return (
         <div>
             <NavBar />
@@ -76,7 +82,19 @@ const ProductDetails = () => {
                             <img src={`http://localhost:5000${product.uploadedImage}`} alt={product.description} className="item-image" />
                             <div className="location-section">
                                 <h3>Location</h3>
-                                <img src="/maps.png" alt="Map" className="map-image" />
+                                <div style={{ height: '300px', width: '100%', borderRadius: '8px', overflow: 'hidden' }}>
+                                    <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+                                        <Map
+                                            defaultCenter={coordinates}
+                                            defaultZoom={15}
+                                            gestureHandling={'greedy'}
+                                            disableDefaultUI={true}
+                                            style={{ width: '100%', height: '100%' }}
+                                        >
+                                            <Marker position={coordinates} />
+                                        </Map>
+                                    </APIProvider>
+                                </div>
                                 <p>Latitude: {product.coordinates?.latitude}, Longitude: {product.coordinates?.longitude}</p>
                             </div>
                         </div>
