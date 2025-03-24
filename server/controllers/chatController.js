@@ -1,19 +1,21 @@
 const Message = require("../models/Message");
+const mongoose = require("mongoose");
 
 // Send message
 exports.sendMessage = async (req, res) => {
     try {
-        const { senderId, roomId, message } = req.body;
+        const { senderId, receiverId, message } = req.body;
 
-        if (!senderId || !roomId || !message) {
+        if (!senderId || !receiverId || !message) {
             return res.status(400).json({ error: "Missing required fields" });
         }
 
-        const newMessage = new Message({ senderId, roomId, message });
+        const newMessage = new Message({ senderId, receiverId, message });
         await newMessage.save();
 
-        // Emit message only once
+        // Emit message using the unique room ID
         const io = req.app.get("socketio");
+        const roomId = [senderId, receiverId].sort().join("_"); // Ensure same room for both users
         io.to(roomId).emit("receiveMessage", newMessage);
 
         res.status(201).json(newMessage);
@@ -23,24 +25,26 @@ exports.sendMessage = async (req, res) => {
     }
 };
 
-
 // Retrieve chat history
 exports.getMessages = async (req, res) => {
     try {
-        const { roomId } = req.params;
+        const { user1, user2 } = req.params;
 
-        if (!roomId) {
-            return res.status(400).json({ error: "Room ID is required" });
+        if (!user1 || !user2) {
+            return res.status(400).json({ error: "Both user IDs are required" });
         }
 
-        const messages = await Message.find({ roomId }).sort({ createdAt: 1 });
-
-        if (!messages.length) {
-            return res.status(404).json({ error: "No messages found for this room" });
-        }
+        // Ensure IDs are ObjectIds
+        const messages = await Message.find({
+            $or: [
+                { senderId: user1, receiverId: user2 },
+                { senderId: user2, receiverId: user1 },
+            ],
+        }).sort({ createdAt: 1 });
 
         res.status(200).json(messages);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error("Error fetching messages:", error);
+        res.status(500).json({ error: "Could not retrieve messages" });
     }
 };

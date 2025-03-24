@@ -21,10 +21,10 @@ createRoot(document.getElementById('root')).render(
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot" element={<ForgotPass />} />
-        <Route path="/chat/:roomId" element={<Chat />} />
 
         {/* Protected routes */}
         <Route element={<ProtectedRoute />}>
+          <Route path="/chat/:id" element={<Chat />} />
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<Homepage />} />
           <Route path="/add_item" element={<AddItem />} />
