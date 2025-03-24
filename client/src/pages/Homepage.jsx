@@ -3,6 +3,7 @@ import { getProducts } from "../api/products";
 import SearchBar from "../components/SearchBar";
 import NavBar from "../components/NavBar";
 import ProductGrid from "../components/ProductGrid";
+import AddButton from "../components/AddButton";
 
 const HomePage = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -27,9 +28,7 @@ const HomePage = () => {
             <NavBar />
             <SearchBar onChange={(e) => handleSearch(e.target.value)} value={searchTerm} />
             <ProductGrid products={products} />
-            <a href="/add_item" className="floating-button">
-                +
-            </a>
+            <AddButton />
         </div>
     );
 };
