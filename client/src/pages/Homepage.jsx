@@ -32,6 +32,7 @@ const HomePage = () => {
                     <ProductCard key={product._id} product={product} />
                 ))}
             </div>
+            <div className="spacer"></div>
             <a href="/add_item" className="floating-button">
                 +
             </a>

@@ -10,3 +10,8 @@
     flex-direction: column;
     justify-content: flex-start;
 }
+
+.spacer {
+    height: 100px; /* Adjust this value as needed */
+    width: 100%;
+  }
