@@ -51,7 +51,7 @@ const ProductDetails = () => {
             setLoading(false);
         }
     };
-    
+
     useEffect(() => {
         fetchProduct();
     }, [id]);
@@ -122,12 +122,17 @@ const ProductDetails = () => {
                                 <h3>Time Information</h3>
                                 <div className="info-content">
                                     <div>
-                                        <label>Lost Date</label>
-                                        <p>{product.lostDate}</p>
-                                    </div>
-                                    <div>
                                         <label>Posted Date</label>
-                                        <p>{product.postedDate}</p>
+                                        <p>{new Intl.DateTimeFormat('en-US', {
+                                            year: 'numeric',
+                                            month: 'long',
+                                            day: 'numeric',
+                                            hour: '2-digit',
+                                            // minute: '2-digit',
+                                            // second: '2-digit',
+                                            hour12: true,
+                                            // timeZoneName: 'short',
+                                        }).format(new Date(product.createdAt))}</p>
                                     </div>
                                 </div>
                             </div>
