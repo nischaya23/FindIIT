@@ -5,6 +5,8 @@ import { getMessages, sendMessage } from "../api/chat";
 import { getID } from "../api/auth";
 import axios from "axios";
 import "./Chat.css";
+import { Link, useNavigate } from "react-router-dom";
+
 
 const socket = io("http://localhost:5000", { autoConnect: false });
 
@@ -14,6 +16,7 @@ const Chat = () => {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState("");
     const [receiverName, setReceiverName] = useState("User");
+    const navigate=useNavigate()
 
     useEffect(() => {
         if (!senderId || !receiverId) {
@@ -110,6 +113,9 @@ const Chat = () => {
                         <strong>{receiverName}</strong>
                     </div>
                 </div>
+                <button className="back-button" onClick={() => navigate("/previous-chats")}>
+                    ⬅️ Back to Previous Chats
+                </button>
 
                 <div className="chat-messages">
                     {messages.map((msg, index) => (

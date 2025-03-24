@@ -1,4 +1,5 @@
 const Message = require("../models/Message");
+const User=require("../models/User")
 const mongoose = require("mongoose");
 
 // Send message
@@ -46,5 +47,32 @@ exports.getMessages = async (req, res) => {
     } catch (error) {
         console.error("Error fetching messages:", error);
         res.status(500).json({ error: "Could not retrieve messages" });
+    }
+};
+
+
+exports.getPreviousChats = async (req, res) => {
+    try {
+        const userId = req.user.id; // Get logged-in user ID from middleware
+
+        // Find distinct chat partners where user is sender or receiver
+        const messages = await Message.find({
+            $or: [{ senderId: userId }, { receiverId: userId }],
+        }).sort({ createdAt: -1 });
+
+        // Extract unique user IDs
+        const chatUserIds = new Set();
+        messages.forEach((msg) => {
+            if (msg.senderId.toString() !== userId) chatUserIds.add(msg.senderId.toString());
+            if (msg.receiverId.toString() !== userId) chatUserIds.add(msg.receiverId.toString());
+        });
+
+        // Fetch chat partners' details
+        const chatUsers = await User.find({ _id: { $in: [...chatUserIds] } }).select("name email");
+
+        res.json(chatUsers);
+    } catch (error) {
+        console.error("Error fetching previous chats:", error);
+        res.status(500).json({ message: "Server error" });
     }
 };
