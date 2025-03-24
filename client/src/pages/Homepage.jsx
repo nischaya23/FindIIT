@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { getProducts } from "../api/products";
-import ProductCard from "../components/ProductCard";
 import SearchBar from "../components/SearchBar";
 import NavBar from "../components/NavBar";
+import ProductGrid from "../components/ProductGrid";
 
 const HomePage = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -26,11 +26,7 @@ const HomePage = () => {
         <div>
             <NavBar />
             <SearchBar onChange={(e) => handleSearch(e.target.value)} value={searchTerm} />
-            <div className="product-grid">
-                {products?.map((product) => (
-                    <ProductCard key={product._id} product={product} />
-                ))}
-            </div>
+            <ProductGrid products={products} />
             <a href="/add_item" className="floating-button">
                 +
             </a>

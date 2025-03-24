@@ -74,11 +74,3 @@
     /* Adjust based on design */
     display: inline-block;
 }
-
-.product-grid {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-}
