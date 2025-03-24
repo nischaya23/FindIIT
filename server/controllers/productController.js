@@ -149,7 +149,6 @@ exports.addClaimRequest = async (req, res) => {
     }
 };
 
-
 exports.handleClaimRequest = async (req, res) => {
     try {
         const { id, claimId, status } = req.params;
@@ -169,6 +168,11 @@ exports.handleClaimRequest = async (req, res) => {
         const claim = product.claims.id(claimId);
         if (!claim) return res.status(404).json({ message: "Claim not found" });
 
+        const existingApprovedClaim = product.claims.find(claim => claim.status === "Approved");
+        if (existingApprovedClaim && status === "Approved") {
+            return res.status(400).json({ message: "Only one claim can be approved per item" });
+        }
+
         claim.status = status;
         await product.save();
 
@@ -177,3 +181,4 @@ exports.handleClaimRequest = async (req, res) => {
         res.status(500).json({ message: "Server error", error: error.message });
     }
 };
+
