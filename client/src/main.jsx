@@ -13,6 +13,7 @@ import NotFoundPage from './pages/404';
 import ProtectedRoute from './components/ProtectedRoute';
 import Chat from "./pages/Chat";
 import MyItems from "./pages/MyItems";
+import PreviousChats from "./pages/PreviousChats";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -22,9 +23,11 @@ createRoot(document.getElementById('root')).render(
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot" element={<ForgotPass />} />
-        <Route path="/chat/:roomId" element={<Chat />} />
+
         {/* Protected routes */}
         <Route element={<ProtectedRoute />}>
+          <Route path="/chat/:id" element={<Chat />} />
+          <Route path="/previous-chats" element={<PreviousChats />} />
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<Homepage />} />
           <Route path="/add_item" element={<AddItem />} />

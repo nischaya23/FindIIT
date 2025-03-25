@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams,Link } from "react-router-dom";
 import { getID } from "../api/auth"
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
