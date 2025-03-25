@@ -3,32 +3,7 @@ import "./MyItems.css";
 import Navbar from "../components/NavBar";
 import { getProductsByUploader , deleteProduct} from "../api/products";
 import { getID } from "../api/auth";
-// const items = [
-//   {
-//     id: 1,
-//     name: "Black Leather Wallet",
-//     date: "Jan 15, 2025",
-//     location: "Library, IIT Kanpur",
-//     status: "Lost",
-//     image: "wallet.jpg",
-//   },
-//   {
-//     id: 2,
-//     name: "iPhone 15 Pro",
-//     date: "Jan 18, 2025",
-//     location: "Academic Area, IIT Kanpur",
-//     status: "Found",
-//     image: "iphone.jpg",
-//   },
-//   {
-//     id: 3,
-//     name: "MacBook Air",
-//     date: "Jan 20, 2025",
-//     location: "Hall 3, IIT Kanpur",
-//     status: "Lost",
-//     image: "macbook.jpg",
-//   },
-// ];
+
 
 const MyItems = () => {
   
@@ -40,8 +15,8 @@ const MyItems = () => {
 
     try {
         await deleteProduct(productId);
-        // navigate("/dashboard");
-        setItems((prevItems) => prevItems.filter((item) => item.id !== id)); // Remove from UI
+        // navigate(`/my-items/$(id)`);
+        setItems((prevItems) => prevItems.filter((item) => item._id !== productId)); // Remove from UI
     } catch (error) {
         alert(error.response?.data?.message || "An error occurred");
     }
@@ -58,6 +33,7 @@ const MyItems = () => {
     };
 
     fetchUserItems();
+    console.log(items);
   }, [id]);
 
   return (
@@ -71,8 +47,8 @@ const MyItems = () => {
       </div>
       <div className="my-item-list">
         {items.map((item) => (
-          <div key={item.id} className="my-item-card">
-            <img src={item.uploadedImage} alt={item.name} className="my-item-image" />
+          <div key={item._id} className="my-item-card">
+            <img src={`http://localhost:5000${item.uploadedImage}`} alt={item.name} className="my-item-image" />
             <div className="my-item-info">
               <h3>{item.name}</h3>
               <p>📅 Posted: {item.createdAt.slice(0,10).split("-").reverse().join("-")}</p>
@@ -81,7 +57,7 @@ const MyItems = () => {
             <div className="my-item-actions">
               <span className={`my-item-status ${item.itemStatus.toLowerCase()}`}>{item.itemStatus}</span>
               <button className="my-item-edit">Edit</button>
-              <button className="my-item-delete" >Delete</button>
+              <button className="my-item-delete" onClick={() => handleDeleteProduct(item._id)}>Delete</button>
             </div>
           </div>
         ))}
