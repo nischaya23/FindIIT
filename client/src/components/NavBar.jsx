@@ -5,9 +5,11 @@ const Navbar = () => {
   const id = getID();
   return (
     <nav className="navbar">
+      <Link to="/dashboard" className="logo-link">
       <h1 className="logo">
         FIND<span className="gray-text">IIT</span>
       </h1>
+      </Link>
       <div className="nav-links">
         <Link to="/dashboard" className="nav-link">Home</Link>
 

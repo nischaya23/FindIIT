@@ -206,7 +206,7 @@ const ProductDetails = () => {
                 </div>
             </div>
             <a href="/add_item" className="floating-button">
-                +
+                
             </a>
         </div>
     );
