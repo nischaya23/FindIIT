@@ -32,6 +32,7 @@ const HomePage = () => {
             <SearchBar onChange={(e) => handleSearch(e.target.value)} value={searchTerm} />
             <ProductGrid products={products} />
             <div className="spacer"></div>
+            <AddButton />
 
         </div>
         
