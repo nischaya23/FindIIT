@@ -89,11 +89,3 @@
     color: #1f2937;
     text-decoration: none;
 }
-
-.product-grid {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-}
