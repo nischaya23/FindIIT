@@ -5,9 +5,12 @@
 }
 
 .search-input {
-    width: 50%;
-    padding: 12px;
-    border: 1px solid #d1d5db;
+    width: 50%;               /* Adjust as needed */
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 9999px;      /* Large value for a "pill" shape */
+  outline: none;              /* Remove default outline on focus */
+  font-size: 1rem;
     /* Gray border */
     border-radius: 8px;
     color: black;

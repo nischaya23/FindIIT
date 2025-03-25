@@ -1,26 +1,69 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getProductById } from "../api/products";
+import { getProductById, deleteProduct, claimProduct, updateClaimStatus } from "../api/products";
+import { getID } from "../api/auth";
 import "../pages/ProductDetails.css";
 import NavBar from "../components/NavBar";
+import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
 
 const ProductDetails = () => {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+    const userID = getID();
+
+    const handleDeleteProduct = async () => {
+        try {
+            await deleteProduct(id);
+            navigate("/dashboard");
+        } catch (error) {
+            alert(error.response?.data?.message || "An error occurred");
+        }
+    };
+
+    const handleClaimProduct = async () => {
+        try {
+            await claimProduct(id);
+            alert("Claim request submitted!");
+            fetchProduct();
+        } catch (error) {
+            alert(error.response?.data?.message || "An error occurred");
+        }
+    };
+
+    const handleClaimStatusUpdate = async (claimID, status) => {
+        try {
+            await updateClaimStatus(id, claimID, status);
+            alert(`Claim ${status}`);
+            fetchProduct(); // Refresh claims after update
+        } catch (error) {
+            alert(error.response?.data?.message || "An error occurred");
+        }
+    };
+
+    const fetchProduct = async () => {
+        try {
+            const res = await getProductById(id);
+            setProduct(res.data.data);
+        } catch (error) {
+            alert(error.response?.data?.message || "An error occurred");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const getProduct = async () => {
-            try {
-                const res = await getProductById(id);
-                setProduct(res.data.data);
-            } catch (error) {
-                alert(error.response?.data?.message || "An error occurred");
-            }
-        };
-        getProduct();
+        fetchProduct();
     }, [id]);
 
-    if (!product) return <p>Loading...</p>;
+    if (loading) return <div><NavBar /><p>Loading...</p></div>;
+    if (!product) return <div><NavBar /><p>Product not found</p></div>;
+
+    const coordinates = {
+        lat: parseFloat(product.coordinates?.latitude) || 0,
+        lng: parseFloat(product.coordinates?.longitude) || 0
+    };
 
     return (
         <div>
@@ -29,7 +72,7 @@ const ProductDetails = () => {
                 <div className="details-card">
                     <div className="details-header">
                         <h2>Lost Item Details</h2>
-                        <span className={`status ${product.itemStatus === "lost" ? "lost" : "found"}`}>
+                        <span className={`status ${product.itemStatus === "Lost" ? "lost" : "found"}`}>
                             {product.itemStatus}
                         </span>
                     </div>
@@ -39,8 +82,20 @@ const ProductDetails = () => {
                             <img src={`http://localhost:5000${product.uploadedImage}`} alt={product.description} className="item-image" />
                             <div className="location-section">
                                 <h3>Location</h3>
-                                <img src="/maps.png" alt="Map" className="map-image" />
-                                <p>Latitude: {product.coordinates?.lat}, Longitude: {product.coordinates?.lng}</p>
+                                <div style={{ height: '300px', width: '100%', borderRadius: '8px', overflow: 'hidden' }}>
+                                    <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+                                        <Map
+                                            defaultCenter={coordinates}
+                                            defaultZoom={15}
+                                            gestureHandling={'greedy'}
+                                            disableDefaultUI={true}
+                                            style={{ width: '100%', height: '100%' }}
+                                        >
+                                            <Marker position={coordinates} />
+                                        </Map>
+                                    </APIProvider>
+                                </div>
+                                <p>Latitude: {product.coordinates?.latitude}, Longitude: {product.coordinates?.longitude}</p>
                             </div>
                         </div>
 
@@ -72,12 +127,11 @@ const ProductDetails = () => {
                                 <div className="info-content">
                                     <div>
                                         <label>Posted By</label>
-                                        <p>{product.contactDetails?.name}</p>
+                                        <a href={`/profile/${product.uploadedBy}`}>User</a>
                                     </div>
                                     <div>
                                         <label>Contact Details</label>
-                                        <p>{product.contactDetails?.phone}</p>
-                                        <p>{product.contactDetails?.email}</p>
+                                        <p>{product.contactDetails}</p>
                                     </div>
                                 </div>
                             </div>
@@ -86,20 +140,69 @@ const ProductDetails = () => {
                                 <h3>Time Information</h3>
                                 <div className="info-content">
                                     <div>
-                                        <label>Lost Date</label>
-                                        <p>{product.lostDate}</p>
-                                    </div>
-                                    <div>
                                         <label>Posted Date</label>
-                                        <p>{product.postedDate}</p>
+                                        <p>{new Intl.DateTimeFormat('en-US', {
+                                            year: 'numeric',
+                                            month: 'long',
+                                            day: 'numeric',
+                                            hour: '2-digit',
+                                            // minute: '2-digit',
+                                            // second: '2-digit',
+                                            hour12: true,
+                                            // timeZoneName: 'short',
+                                        }).format(new Date(product.createdAt))}</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <button className="contact-btn">Contact</button>
-                            <button className="claim-product">Claim product</button>
+                            {userID !== product.uploadedBy && (
+                                <button className="claim-product" onClick={handleClaimProduct}>
+                                    Claim Product
+                                </button>
+                            )}
+                            {userID === product.uploadedBy && (
+                                <button className="delete-btn" onClick={handleDeleteProduct}>
+                                    Delete
+                                </button>
+                            )}
                         </div>
                     </div>
+
+                    {/* Claims Section */}
+                    {product.claims.length > 0 && (
+                        <div className="claims-section">
+                            <h3>Claims</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Status</th>
+                                        {userID === product.uploadedBy && <th>Actions</th>}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {product.claims.map((claim) => (
+                                        <tr key={claim._id}>
+                                            <td>
+                                                <a href={`/profile/${claim.user}`}>{claim.user}</a>
+                                            </td>
+                                            <td>{claim.status}</td>
+                                            {userID === product.uploadedBy && claim.status === "Pending" && (
+                                                <td>
+                                                    <button className="approve-btn" onClick={() => handleClaimStatusUpdate(claim._id, "Approved")}>
+                                                        Approve
+                                                    </button>
+                                                    <button className="reject-btn" onClick={() => handleClaimStatusUpdate(claim._id, "Rejected")}>
+                                                        Reject
+                                                    </button>
+                                                </td>
+                                            )}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
                 </div>
             </div>
             <a href="/add_item" className="floating-button">

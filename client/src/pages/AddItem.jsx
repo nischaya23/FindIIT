@@ -3,6 +3,7 @@ import { createProduct } from "../api/products";
 import "./AddItem.css";
 import NavBar from "../components/NavBar";
 import { useNavigate } from 'react-router-dom';
+import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
 
 const AddProduct = () => {
     const [newProduct, setNewProduct] = useState({
@@ -15,7 +16,8 @@ const AddProduct = () => {
         contactDetails: "",
         uploadedImage: "",
     });
-    const [isSubmitting, setIsSubmitting] = useState(false); // Loading state
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showMap, setShowMap] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -25,11 +27,6 @@ const AddProduct = () => {
                 ...prev,
                 uploadedImage: files[0],
             }));
-        } else if (name === "latitude" || name === "longitude") {
-            setNewProduct((prev) => ({
-                ...prev,
-                coordinates: { ...prev.coordinates, [name]: value },
-            }));
         } else if (name === "tags") {
             setNewProduct((prev) => ({
                 ...prev,
@@ -38,6 +35,23 @@ const AddProduct = () => {
         } else {
             setNewProduct((prev) => ({ ...prev, [name]: value }));
         }
+    };
+
+    const handleMapClick = (e) => {
+        const lat = e.detail.latLng.lat;
+        const lng = e.detail.latLng.lng;
+        
+        setNewProduct((prev) => ({
+            ...prev,
+            coordinates: { 
+                latitude: lat.toString(), 
+                longitude: lng.toString() 
+            }
+        }));
+    };
+
+    const toggleMap = () => {
+        setShowMap(!showMap);
     };
 
     const handleAddProduct = async (e) => {
@@ -116,13 +130,49 @@ const AddProduct = () => {
                         </div>
 
                         <div className="form-group">
-                            <label className="label">Latitude</label>
-                            <input type="text" name="latitude" value={newProduct.coordinates.latitude} onChange={handleChange} className="input-field" />
-                        </div>
-
-                        <div className="form-group">
-                            <label className="label">Longitude</label>
-                            <input type="text" name="longitude" value={newProduct.coordinates.longitude} onChange={handleChange} className="input-field" />
+                            <label className="label">Location Coordinates</label>
+                            <button type="button" onClick={toggleMap} className="map-button">
+                                {showMap ? "Hide Map" : "Open Map to Select Location"}
+                            </button>
+                            
+                            {showMap && (
+                                <div className="map-container" style={{ height: '400px', marginTop: '10px' }}>
+                                <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+                                    <Map
+                                        defaultZoom={14}
+                                        defaultCenter={{ lat: 26.51065, lng: 80.235739 }}
+                                        gestureHandling="greedy"
+                                        onClick={handleMapClick}
+                                        style={{ borderRadius: "10px", height: "100%" }}
+                                        options={{
+                                            disableDefaultUI: true,
+                                            zoomControl: true,
+                                            streetViewControl: false,
+                                            mapTypeControl: false,
+                                            fullscreenControl: false,
+                                            rotateControl: false,
+                                            scaleControl: false
+                                        }}
+                                    >
+                                        {newProduct.coordinates.latitude && newProduct.coordinates.longitude && (
+                                            <Marker
+                                                position={{
+                                                    lat: parseFloat(newProduct.coordinates.latitude),
+                                                    lng: parseFloat(newProduct.coordinates.longitude)
+                                                }}
+                                            />
+                                        )}
+                                    </Map>
+                                </APIProvider>
+                            </div>
+                            
+                            )}
+                            
+                            {newProduct.coordinates.latitude && newProduct.coordinates.longitude && (
+                                <div className="coordinates-display">
+                                    <p>Selected coordinates: {newProduct.coordinates.latitude}, {newProduct.coordinates.longitude}</p>
+                                </div>
+                            )}
                         </div>
 
                         <div className="form-group">

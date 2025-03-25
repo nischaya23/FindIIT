@@ -37,19 +37,30 @@ app.use("/api/chat", require("./routes/chatRoutes"));
 io.on("connection", (socket) => {
     console.log("New user connected:", socket.id);
 
-    socket.on("joinRoom", (roomId) => {
+    socket.on("joinRoom", ({ senderId, receiverId }) => {
+        const roomId = [senderId, receiverId].sort().join("_"); // Unique room for two users
         socket.join(roomId);
-        console.log(`User joined room: ${roomId}`);
+        console.log(`User ${socket.id} joined room: ${roomId}`);
     });
 
     socket.on("sendMessage", (msgData) => {
-        io.to(msgData.roomId).emit("receiveMessage", msgData);
+        const { senderId, receiverId, message } = msgData;
+
+        if (!senderId || !receiverId || !message.trim()) {
+            console.error("Invalid message data:", msgData);
+            return;
+        }
+
+        const roomId = [senderId, receiverId].sort().join("_");
+        io.to(roomId).emit("receiveMessage", msgData);
+        console.log(`Message sent in room ${roomId}:`, msgData);
     });
 
     socket.on("disconnect", () => {
-        console.log("User disconnected");
+        console.log("User disconnected:", socket.id);
     });
 });
+
 
 // Start Server
 const PORT = process.env.PORT || 5000;

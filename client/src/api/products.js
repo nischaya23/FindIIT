@@ -21,3 +21,15 @@ export const getProductById = async (id) => {
 export const getProductsByUploader = async (id) => {
     return await axios.get(`${API_URL}/user/${id}`);
 };
+
+export const deleteProduct = async (id) => {
+    return await axios.delete(`${API_URL}/${id}`);
+};
+
+export const claimProduct = async (id) => {
+    return await axios.post(`${API_URL}/${id}/claim`);
+};
+
+export const updateClaimStatus = async (id, claimID, status) => {
+    return await axios.put(`${API_URL}/${id}/claim/${claimID}/${status}`);
+};
