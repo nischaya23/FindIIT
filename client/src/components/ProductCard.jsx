@@ -5,7 +5,7 @@ const ProductCard = ({ product }) => {
     return (
         <Link to={`/product/${product._id}`} className="product-card-link">
             <div className="product-card">
-                <span className={`status-badge ${product.itemStatus === "lost" ? "lost" : "found"}`}>
+                <span className={`status-badge ${product.itemStatus === "Lost" ? "lost" : "found"}`}>
                     {product.itemStatus.toUpperCase()}
                 </span>
                 <br></br>
