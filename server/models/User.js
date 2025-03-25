@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     department: { type: String },
     designation: { type: String },
     profilePicture: { type: String },
-
+    profilePicturePreview: {type: String},
 });
 
 module.exports = mongoose.model("User", userSchema);

@@ -62,14 +62,24 @@ exports.deleteProduct = async (req, res) => {
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ success: false, message: "Invalid Product Id" });
+        return res.status(400).json({ success: false, message: "Invalid Product Id" });
     }
 
     try {
+        const product = await Product.findById(id);
+
+        if (!product) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
+
+        if (product.uploadedBy.toString() !== req.user.id) {
+            return res.status(403).json({ success: false, message: "Unauthorized: You can only delete your own products" });
+        }
+
         await Product.findByIdAndDelete(id);
         res.status(200).json({ success: true, message: "Product deleted" });
     } catch (error) {
-        console.log("error in deleting product:", error.message);
+        console.error("Error in deleting product:", error.message);
         res.status(500).json({ success: false, message: "Server Error" });
     }
 };
@@ -112,3 +122,63 @@ exports.getProductsByUploader = async (req, res) => {
         return res.status(500).json({ message: "Server Error" });
     }
 };
+
+exports.addClaimRequest = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const userId = req.user.id;
+
+        const product = await Product.findById(id);
+        if (!product) return res.status(404).json({ message: "Item not found" });
+
+        if (product.uploadedBy.toString() === userId) {
+            return res.status(400).json({ message: "You cannot claim your own item" });
+        }
+
+        const existingClaim = product.claims.find(claim => claim.user.toString() === userId);
+        if (existingClaim) {
+            return res.status(400).json({ message: "You have already claimed this item" });
+        }
+
+        product.claims.push({ user: userId, status: "Pending" });
+        await product.save();
+
+        res.status(201).json({ message: "Claim request submitted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+};
+
+exports.handleClaimRequest = async (req, res) => {
+    try {
+        const { id, claimId, status } = req.params;
+        const adminId = req.user.id;
+
+        if (!["Approved", "Rejected"].includes(status)) {
+            return res.status(400).json({ message: "Invalid status" });
+        }
+
+        const product = await Product.findById(id);
+        if (!product) return res.status(404).json({ message: "Item not found" });
+
+        if (product.uploadedBy.toString() !== adminId) {
+            return res.status(403).json({ message: "You are not authorized to approve/reject claims" });
+        }
+
+        const claim = product.claims.id(claimId);
+        if (!claim) return res.status(404).json({ message: "Claim not found" });
+
+        const existingApprovedClaim = product.claims.find(claim => claim.status === "Approved");
+        if (existingApprovedClaim && status === "Approved") {
+            return res.status(400).json({ message: "Only one claim can be approved per item" });
+        }
+
+        claim.status = status;
+        await product.save();
+
+        res.json({ message: `Claim has been ${status.toLowerCase()}` });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+};
+

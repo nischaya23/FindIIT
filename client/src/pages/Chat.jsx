@@ -2,55 +2,97 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import { getMessages, sendMessage } from "../api/chat";
+import { getID } from "../api/auth";
+import axios from "axios";
 import "./Chat.css";
+import { Link, useNavigate } from "react-router-dom";
+
 
 const socket = io("http://localhost:5000", { autoConnect: false });
 
 const Chat = () => {
-    const { roomId } = useParams();
+    const { id: receiverId } = useParams();
+    const senderId = getID();
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState("");
-    const userId = localStorage.getItem("userId") || "test-user";
+    const [receiverName, setReceiverName] = useState("User");
+    const navigate=useNavigate()
 
     useEffect(() => {
+        if (!senderId || !receiverId) {
+            console.error("Missing senderId or receiverId");
+            return;
+        }
+    
+        const roomId = [senderId, receiverId].sort().join("_");
         socket.connect();
-        socket.emit("joinRoom", roomId);
-
+        socket.emit("joinRoom", { senderId, receiverId });
+    
         const fetchMessages = async () => {
             try {
-                const res = await getMessages(roomId);
+                const res = await getMessages(senderId, receiverId);
                 setMessages(res);
             } catch (error) {
                 console.error("Error fetching messages", error);
             }
         };
         fetchMessages();
-
-        const handleReceiveMessage = (data) => {
-            setMessages((prev) => [...prev, data]);
+        const fetchReceiverName = async () => {
+            try {
+                const res = await axios.get(`http://localhost:5000/api/user/${receiverId}`);
+                setReceiverName(res.data.name || "Unknown User");
+            } catch (error) {
+                console.error("Error fetching receiver name:", error);
+            }
         };
+        fetchReceiverName();
 
-        socket.on("receiveMessage", handleReceiveMessage);
-
+    
+        // Remove previous listener before adding a new one
+        socket.off("receiveMessage"); // This ensures no duplicate listeners
+    
+        socket.on("receiveMessage", (data) => {
+            setMessages((prev) => {
+                if (!prev.find((msg) => msg._id === data._id)) {
+                    return [...prev, data]; // Prevent duplicate messages in state
+                }
+                return prev;
+            });
+        });
+    
         return () => {
-            socket.off("receiveMessage", handleReceiveMessage);
+            socket.off("receiveMessage"); // Cleanup when component unmounts
             socket.disconnect();
         };
-    }, [roomId]);
+    }, [receiverId]); // Re-run only when receiverId changes
 
     const handleSend = async (e) => {
         e.preventDefault();
-        if (!message.trim()) return;
-
-        const msgData = { senderId: userId, roomId, message };
-
+        if (!senderId || !receiverId || !message.trim()) return;
+    
         try {
-            await sendMessage(msgData);
-            setMessage("");
+            const savedMessage = await sendMessage(senderId, receiverId, message);
+            const newMessage = { ...savedMessage, roomId: [senderId, receiverId].sort().join("_") };
+    
+            // Emit message through socket (ensuring it's sent only once)
+            if (socket.connected) {
+                socket.emit("sendMessage", newMessage);
+            }
+    
+            // Prevent duplicate state updates
+            setMessages((prev) => {
+                if (!prev.find((msg) => msg._id === savedMessage._id)) {
+                    return [...prev, savedMessage];
+                }
+                return prev;
+            });
+    
+            setMessage(""); // Clear input after sending
         } catch (error) {
-            console.error("Message send failed", error);
+            console.error("Error sending message:", error);
         }
     };
+    
 
     return (
         <div className="chat-container">
@@ -66,18 +108,20 @@ const Chat = () => {
 
             <div className="chat-box">
                 <div className="chat-header-info">
-                    <img src="https://via.placeholder.com/40" alt="Profile" className="profile-pic" />
+                    {/* <img src="./" alt="Profile" className="profile-pic" /> */}
                     <div>
-                        <strong>NEED TO SORT THIS:John Doe</strong>
-                        {/* <p className="status">Online</p> */}
+                        <strong>{receiverName}</strong>
                     </div>
                 </div>
+                <button className="back-button" onClick={() => navigate("/previous-chats")}>
+                    ⬅️ Back to Previous Chats
+                </button>
 
                 <div className="chat-messages">
                     {messages.map((msg, index) => (
-                        <div key={index} className={`chat-bubble ${msg.senderId === userId ? "sent" : "received"}`}>
+                        <div key={index} className={`chat-bubble ${msg.senderId === senderId ? "sent" : "received"}`}>
                             <p>{msg.message}</p>
-                            <span className="timestamp">10:30 AM</span>
+                            <span className="timestamp">{new Date(msg.createdAt).toLocaleTimeString()}</span>
                         </div>
                     ))}
                 </div>

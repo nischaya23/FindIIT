@@ -6,6 +6,7 @@ import "./Homepage.css";
 import ProductGrid from "../components/ProductGrid";
 import AddButton from "../components/AddButton";
 
+
 const HomePage = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [products, setProducts] = useState([]);
@@ -25,13 +26,15 @@ const HomePage = () => {
     }, []);
 
     return (
+
         <div className="homepage-container">
             <NavBar />
             <SearchBar onChange={(e) => handleSearch(e.target.value)} value={searchTerm} />
             <ProductGrid products={products} />
             <div className="spacer"></div>
-            <AddButton />
+
         </div>
+        
     );
 };
 
