@@ -18,7 +18,10 @@ const Profile = () => {
         designation: "",
         profilePicture: "",
     });
+
     const [products, setProducts] = useState([]);
+
+    const [preview, setPreview] = useState(null);
 
     const navigate = useNavigate();
 
@@ -53,7 +56,14 @@ const Profile = () => {
 
     const handleChange = (e) => {
         if (e.target.name === "profilePicture") {
-            setFormData({ ...formData, [e.target.name]: e.target.files[0] })
+            const file = e.target.files[0];
+            setFormData({ 
+                ...formData, 
+                profilePicture: file,
+             })
+             if(file){
+                setPreview(URL.createObjectURL(file));
+             }
         } else {
             setFormData({ ...formData, [e.target.name]: e.target.value });
         }
@@ -80,6 +90,8 @@ const Profile = () => {
     const self = (getID() === id);
 
     return (
+    <>
+        <NavBar />
         <ProfileLayout
             user={user}
             setIsEditing={setIsEditing}
@@ -87,9 +99,11 @@ const Profile = () => {
             products={products}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
+            preview={preview}
             self={self}
             formData={formData}
         />
+    </>
     );
 };
 

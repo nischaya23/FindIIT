@@ -1,3 +1,41 @@
+.userProfileInfoCard {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+}
+
+.userProfileInfoTitle {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.userProfileInfoDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.userProfileInfoRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.userProfileLabel {
+    font-weight: bold;
+    color: #555;
+}
+
+.userProfileInfoRow:last-child {
+    border-bottom: none;
+}
+
+
 /* General Styling */
 body {
     font-family: Arial, sans-serif;
@@ -6,37 +44,11 @@ body {
     padding: 0;
 }
 
-/* Header */
-.header {
-    background: white;
-    padding: 15px 40px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-}
 
-.logo span {
-    color: gray;
-}
 
-.nav-links a {
-    margin: 0 15px;
-    text-decoration: none;
-    color: #555;
-    font-weight: 500;
-    transition: color 0.2s ease-in-out;
-}
 
-.nav-links a:hover {
-    color: #ff4081;
-}
+
 
 /* Profile Card */
 .profile-container {
@@ -93,6 +105,7 @@ body {
 .btn-green {
     background-color: #28a745;
     color: white;
+    margin-left: auto;
 }
 
 .btn-green:hover {
@@ -125,4 +138,63 @@ body {
 .loading-text {
     text-align: center;
     color: #666;
+}
+.file-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px; 
+    margin-top: 8px;
+    /* width: 100%; */
+}
+
+.custom-file-button {
+    display: flex;
+    justify-self: flex-end;
+    margin-left: 20px;
+    padding: 10px 18px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+}
+
+.custom-file-button:hover {
+    background-color: #2563eb;
+}
+
+.file-name {
+    font-size: 14px;
+    color: #444;
+}
+
+.userProfileEditBtn, .userProfileChatBtn {
+    padding: 15px 35px;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+    border : silver;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.userProfileEditBtn {
+    background: #3b82f6;
+    color: white;
+}
+
+.userProfileEditBtn:hover {
+    background: #2563eb;
+}
+
+.userProfileChatBtn {
+    background: #22c55e;
+    color: white;
+}
+
+.userProfileChatBtn:hover {
+    background: #16a34a;
 }

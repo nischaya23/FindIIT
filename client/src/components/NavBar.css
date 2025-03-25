@@ -3,7 +3,7 @@
   top: 0;
   width: 100%;
   z-index: 1000;
-  /* Ensures it stays above other elements */
+
   background-color: black;
   padding: 16px;
   display: flex;
@@ -24,15 +24,18 @@
 .nav-links {
   display: flex;
   gap: 24px;
-  /* Equivalent to space-x-6 */
+
 }
 
-.nav-link {
-  color: white;
+.nav-links a {
+  margin: 0 15px;
   text-decoration: none;
-  transition: color 0.3s ease;
+  color: white;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
 }
+
 
 .nav-link:hover {
-  color: gray;
+  color: rgb(97, 182, 211);
 }
