@@ -1,0 +1,105 @@
+.my-item-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .my-item-summary {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .my-item-box {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    flex: 1;
+    margin: 0 10px;
+    font-weight: bold;
+  }
+  
+  .my-item-box span {
+    display: block;
+    font-size: 24px;
+    margin-top: 5px;
+    color: #333;
+  }
+  
+  .my-item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .my-item-card {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .my-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+  }
+  
+  .my-item-info {
+    flex-grow: 1;
+  }
+  
+  .my-item-info h3 {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .my-item-info p {
+    margin: 5px 0;
+    color: #666;
+  }
+  
+  .my-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .my-item-status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .my-item-status.lost {
+    background: #f8d7da;
+    color: #dc3545;
+  }
+  
+  .my-item-status.found {
+    background: #d4edda;
+    color: #28a745;
+  }
+  
+  .my-item-edit, .my-item-delete {
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .my-item-edit {
+    background: #6c757d;
+    color: white;
+  }
+  
+  .my-item-delete {
+    background: #dc3545;
+    color: white;
+  }
+  
