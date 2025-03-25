@@ -85,7 +85,7 @@ const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, 
                         <option>Staff</option>
                     </select>
                     <div className="file-input-container">
-                        <input type="file" name="profilePicture" onChange={handleChange} accept="image/*" hidden/>
+                        <input type="file" name="profilePicture" id="fileInput" onChange={handleChange} accept="image/*" hidden/>
                         <div className="choose-file-btn">
                             <label htmlFor="fileInput" className="custom-file-button" > Choose File</label>
                         </div>
