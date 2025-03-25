@@ -15,7 +15,7 @@ const Navbar = () => {
 
         { <Link to="/map" className="nav-link">Map</Link> }
 
-        <Link to={`/my-items/${id}`} className="nav-link">My Items</Link>
+        <Link to={`/my-items`} className="nav-link">My Items</Link>
 
         <Link to={`/profile/${id}`} className="nav-link">Profile</Link>
         <Link to="/login" className="nav-link" onClick={logout}>Logout</Link>
