@@ -1,10 +1,10 @@
-import React , {useState , useEffect} from "react";
+import React , {useState , useEffect } from "react";
 import "./MyItems.css";
 import Navbar from "../components/NavBar";
 import { getProductsByUploader , deleteProduct} from "../api/products";
 import { getID } from "../api/auth";
 import AddButton from "../components/AddButton";
-
+import { Link } from "react-router-dom";
 
 const MyItems = () => {
   
@@ -48,7 +48,7 @@ const MyItems = () => {
       </div>
       <div className="my-item-list">
         {items.map((item) => (
-          <div key={item._id} className="my-item-card">
+          <Link to={`/product/${item._id}`} key={item._id} className="my-item-card">
             <img src={`http://localhost:5000${item.uploadedImage}`} alt={item.name} className="my-item-image" />
             <div className="my-item-info">
               <h3>{item.name}</h3>
@@ -57,10 +57,18 @@ const MyItems = () => {
             </div>
             <div className="my-item-actions">
               <span className={`my-item-status ${item.itemStatus.toLowerCase()}`}>{item.itemStatus}</span>
-              <button className="my-item-edit">Edit</button>
-              <button className="my-item-delete" onClick={() => handleDeleteProduct(item._id)}>Delete</button>
+              {/* <button className="my-item-edit">Edit</button> */}
+              <button 
+                  className="my-item-delete" 
+                  onClick={(e) => {
+                  e.stopPropagation(); // Prevent Link from triggering
+                  e.preventDefault(); // Prevent navigation
+                  handleDeleteProduct(item._id);
+                }}
+              >
+                Delete</button>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

@@ -6,6 +6,13 @@ const path = require("path");
 const { Server } = require("socket.io");
 const { createServer } = require("http");
 
+
+const authRoutes = require("./routes/authRoutes");
+const productRoutes = require("./routes/productRoutes");
+const profileRoutes = require("./routes/profileRoutes");
+const chatRoutes = require("./routes/chatRoutes");
+
+
 // Initialize Express app
 const app = express();
 const httpServer = createServer(app); // Corrected
@@ -28,10 +35,12 @@ app.set("socketio", io);
 connectDB();
 
 // Routes
-app.use("/api/auth", require("./routes/authRoutes"));
-app.use("/api/products", require("./routes/productRoutes"));
-app.use("/api/user", require("./routes/profileRoutes"));
-app.use("/api/chat", require("./routes/chatRoutes"));
+app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/user", profileRoutes);
+app.use("/api/chat", chatRoutes);
+
+
 
 // Socket.io Logic
 io.on("connection", (socket) => {
@@ -60,7 +69,20 @@ io.on("connection", (socket) => {
         console.log("User disconnected:", socket.id);
     });
 });
+if (process.env.NODE_ENV === 'production') {
+  const distPath = path.join(__dirname, '../dist');
+  app.use(express.static(distPath));
+  
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
 
+  app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send("Something broke!");
+});
+
+}
 
 // Start Server
 const PORT = process.env.PORT || 5000;

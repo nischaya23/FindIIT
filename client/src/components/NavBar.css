@@ -1,4 +1,4 @@
-.navbar {
+/* .navbar {
   position: sticky;
   top: 0;
   width: 100%;
@@ -37,7 +37,6 @@
 }
 
 .logo-link {
-  /* color: white; */
   text-decoration: none;
   transition: color 0.3s ease;
 }
@@ -45,5 +44,57 @@
 .nav-links a:hover {
   color: #61b6d3;
   background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+} */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+
+  background: linear-gradient(to right,#1B1B1B
+  ,
+  #003153);
+  padding: 24px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgb(232, 229, 229);
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 2px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: rgb(249, 247, 247);
+  font-size: 1.2rem;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease-in-out;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.logo-link {
+  /* color: white; */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #61b6d3;
+  background: rgba(232, 221, 221, 0.1);
   transform: scale(1.1);
 }
