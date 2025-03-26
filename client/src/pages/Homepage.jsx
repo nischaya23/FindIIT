@@ -28,13 +28,20 @@ const HomePage = () => {
     return (
 
         <div className="homepage-container">
-            <NavBar />
-            <SearchBar onChange={(e) => handleSearch(e.target.value)} value={searchTerm} />
+        <NavBar />
+        
+        <div className="content-wrapper">
+            <div className="header">
+                <h1 className="text-wrapper">FINDIIT</h1>
+                <SearchBar onChange={(e) => handleSearch(e.target.value)} value={searchTerm} />
+            </div>
+    
             <ProductGrid products={products} />
-            <div className="spacer"></div>
-            <AddButton />
-
         </div>
+    
+        <AddButton />
+    </div>
+    
         
     );
 };

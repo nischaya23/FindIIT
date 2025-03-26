@@ -2,20 +2,25 @@
   position: sticky;
   top: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 990;
 
-  background: linear-gradient(to right, #ffffff, #f3e3e3);
-  padding: 24px 40px;
+  background: linear-gradient(to right, #1B1B1B, #003153);
+  padding: 7px 20px;  /* Reduced padding */
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
+.nav-logo {
+  width: 60px;  /* Adjust size */
+  height: auto;
+}
+
 .logo {
   font-size: 2rem;
   font-weight: bold;
-  color: black;
+  color: rgb(232, 229, 229);
   font-family: 'Poppins', sans-serif;
   letter-spacing: 2px;
 }
@@ -26,8 +31,9 @@
 }
 
 .nav-links a {
+  
   text-decoration: none;
-  color: black;
+  color: rgb(249, 247, 247);
   font-size: 1.2rem;
   font-weight: 500;
   font-family: 'Poppins', sans-serif;
@@ -36,14 +42,10 @@
   border-radius: 8px;
 }
 
-.logo-link {
-  /* color: white; */
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
+
 
 .nav-links a:hover {
   color: #61b6d3;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(232, 221, 221, 0.1);
   transform: scale(1.1);
 }

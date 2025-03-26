@@ -6,9 +6,8 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <Link to="/dashboard" className="logo-link">
-      <h1 className="logo">
-        FIND<span className="gray-text">IIT</span>
-      </h1>
+      <img src="./logo.svg" alt="Logo" class="nav-logo">
+</img>
       </Link>
       <div className="nav-links">
         <Link to="/dashboard" className="nav-link">Home</Link>
