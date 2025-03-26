@@ -6,7 +6,7 @@ import { getID } from "../api/auth";
 import axios from "axios";
 import "./Chat.css";
 import { Link, useNavigate } from "react-router-dom";
-
+import Navbar from "../components/NavBar";
 
 const socket = io("http://localhost:5000", { autoConnect: false });
 
@@ -96,7 +96,7 @@ const Chat = () => {
 
     return (
         <div className="chat-container">
-            <header className="chat-header">
+            {/* <header className="chat-header">
                 <h2>FINDIIT</h2>
                 <nav>
                     <a href="/">Home</a>
@@ -104,8 +104,8 @@ const Chat = () => {
                     <a href="/map">Map</a>
                     <a href="/profile">Profile</a>
                 </nav>
-            </header>
-
+            </header> */}
+            <Navbar />
             <div className="chat-box">
                 <div className="chat-header-info">
                     {/* <img src="./" alt="Profile" className="profile-pic" /> */}
