@@ -13,7 +13,13 @@
   min-height: 100vh;
   background-color: var(--primary-black);
   font-family: 'Arial', sans-serif;
+  background-image: url('pp2.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
+
 
 .auth-box {
   display: flex;
