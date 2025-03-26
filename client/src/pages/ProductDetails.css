@@ -35,13 +35,13 @@
 }
 
 .lost {
-    background: #fff3cd;
-    color: #856404;
+    background: #fbc8c8;
+    color: red;
 }
 
 .found {
-    background: #d4edda;
-    color: #155724;
+    background: #a5f6d0;
+    color: green;
 }
 
 /* Grid Layout */
@@ -138,7 +138,7 @@
     transition: background 0.3s;
 }
 
-.claim-product {
+.product-button {
     width: 100%;
     padding: 10px;
     background: black;
@@ -147,6 +147,11 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    transition: background 0.3s;
+}
+
+.product-button:hover{
+    background: rgb(58, 58, 58);
     transition: background 0.3s;
 }
 

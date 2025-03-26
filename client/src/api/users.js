@@ -13,3 +13,7 @@ export const updateProfile = async (formData) => {
         },
     });
 };
+
+export const getUserById = async (id) => {
+    return await axios.get(`${API_URL}/${id}`);
+};

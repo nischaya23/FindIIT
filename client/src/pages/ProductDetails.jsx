@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getProductById, deleteProduct, claimProduct, updateClaimStatus } from "../api/products";
+import { getUserById } from "../api/users";
 import { getID } from "../api/auth";
 import "../pages/ProductDetails.css";
 import NavBar from "../components/NavBar";
@@ -12,7 +13,7 @@ const ProductDetails = () => {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const userID = getID();
-
+    const email_poster = getUserById(userID)
     const handleDeleteProduct = async () => {
         try {
             await deleteProduct(id);
@@ -127,7 +128,9 @@ const ProductDetails = () => {
                                 <div className="info-content">
                                     <div>
                                         <label>Posted By</label>
-                                        <a href={`/profile/${product.uploadedBy}`}>User</a>
+                                        {/* <a href={`/profile/${product.uploadedBy}`}>{getUserById(${product.uploadedBy}).email}</a> */}
+                                        {/* <a href={`/profile/${product.uploadedBy}`}>{email_poster}</a> */}
+                                        <a href={`/profile/${product.uploadedBy}`}>{product.uploadedBy}</a>
                                     </div>
                                     <div>
                                         <label>Contact Details</label>
@@ -156,12 +159,12 @@ const ProductDetails = () => {
                             </div>
 
                             {userID !== product.uploadedBy && (
-                                <button className="claim-product" onClick={handleClaimProduct}>
+                                <button className="product-button" onClick={handleClaimProduct}>
                                     Claim Product
                                 </button>
                             )}
                             {userID === product.uploadedBy && (
-                                <button className="delete-btn" onClick={handleDeleteProduct}>
+                                <button className="product-button" onClick={handleDeleteProduct}>
                                     Delete
                                 </button>
                             )}
