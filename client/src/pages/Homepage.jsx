@@ -16,7 +16,7 @@ const HomePage = () => {
         try {
             const res = await getProducts(search);
             setProducts(res.data.data);
-            console.log(products.length);
+            // console.log(products.length);
         } catch (error) {
             alert(error.response?.data?.message || "An error occurred");
         }
