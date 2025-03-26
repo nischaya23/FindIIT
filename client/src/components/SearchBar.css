@@ -33,3 +33,44 @@
     background-color: #1f2937;
     /* Darker gray on hover */
 }
+
+.floating-button {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background-color: black;
+    color: white;
+    width: 48px; /* Initial size */
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px; /* Keeps it rounded initially */
+    font-size: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease-in-out;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 16px;
+}
+
+/* Default text inside the button */
+.floating-button::after {
+    content: "+"; /* Initial icon */
+    transition: opacity 30s ease-in-out;
+}
+
+/* On hover, expand and change text */
+.floating-button:hover {
+    width: auto; /* Allows it to expand as needed */
+    min-width: 120px; /* Ensures smooth expansion */
+    border-radius: 50px; /* Slightly rounded corners when expanded */
+    padding: 0 20px;
+    transition: opacity 20s ease-in-out;
+}
+
+.floating-button:hover::after {
+    content: "Report Item";
+    opacity: 1;
+}

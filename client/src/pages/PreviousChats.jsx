@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./PreviousChats.css";
+import Navbar from "../components/NavBar";
 
 const PreviousChats = () => {
     const [chats, setChats] = useState([]);
@@ -55,6 +56,8 @@ const PreviousChats = () => {
     };
 
     return (
+        <>
+        <Navbar />
         <div className="previous-chats-container">
             <h2>Previous Chats</h2>
 
@@ -84,7 +87,7 @@ const PreviousChats = () => {
                 </ul>
             )}
         </div>
-        
+        </>
     );
 };
 

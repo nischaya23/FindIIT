@@ -36,6 +36,12 @@
   border-radius: 8px;
 }
 
+.logo-link {
+  /* color: white; */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
 .nav-links a:hover {
   color: #61b6d3;
   background: rgba(255, 255, 255, 0.1);

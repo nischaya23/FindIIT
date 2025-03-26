@@ -33,7 +33,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/add_item" element={<AddItem />} />
           <Route path='/product/:id' element={<ProductDetails />} />
           <Route path="/profile/:id" element={<Profile />} />
-          <Route path="/my-items/:id" element={<MyItems />}/>
+          <Route path="/my-items" element={<MyItems />}/>
           {/* Add more protected routes here */}
         </Route>
         {/* Redirect to 404 for any undefined routes */}
