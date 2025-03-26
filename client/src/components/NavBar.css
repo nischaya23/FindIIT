@@ -1,4 +1,4 @@
-/* .navbar {
+.navbar {
   position: sticky;
   top: 0;
   width: 100%;
@@ -45,9 +45,9 @@
   color: #61b6d3;
   background: rgba(255, 255, 255, 0.1);
   transform: scale(1.1);
-} */
+}
 
-.navbar {
+/* .navbar {
   position: sticky;
   top: 0;
   width: 100%;
@@ -88,7 +88,7 @@
 }
 
 .logo-link {
-  /* color: white; */
+
   text-decoration: none;
   transition: color 0.3s ease;
 }
@@ -97,4 +97,4 @@
   color: #61b6d3;
   background: rgba(232, 221, 221, 0.1);
   transform: scale(1.1);
-}
+} */
