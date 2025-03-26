@@ -5,6 +5,7 @@ import { getID } from "../api/auth";
 import "../pages/ProductDetails.css";
 import NavBar from "../components/NavBar";
 import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
+import AddButton from "../components/AddButton";
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -184,7 +185,7 @@ const ProductDetails = () => {
                                     {product.claims.map((claim) => (
                                         <tr key={claim._id}>
                                             <td>
-                                                <a href={`/profile/${claim.user}`}>{claim.user}</a>
+                                                <a href={`/profile/${claim.user}`}>{claim.email}</a>
                                             </td>
                                             <td>{claim.status}</td>
                                             {userID === product.uploadedBy && claim.status === "Pending" && (
@@ -205,9 +206,7 @@ const ProductDetails = () => {
                     )}
                 </div>
             </div>
-            <a href="/add_item" className="floating-button">
-                
-            </a>
+            <AddButton />
         </div>
     );
 };

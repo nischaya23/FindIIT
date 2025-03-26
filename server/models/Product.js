@@ -15,6 +15,7 @@ const productSchema = new mongoose.Schema(
         claims: [
             {
                 user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+                email: { type: String, required: true },
                 status: { type: String, enum: ["Pending", "Approved", "Rejected"], default: "Pending" },
             }
         ],

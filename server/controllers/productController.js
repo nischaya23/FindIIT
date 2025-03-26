@@ -127,6 +127,8 @@ exports.addClaimRequest = async (req, res) => {
     try {
         const { id } = req.params;
         const userId = req.user.id;
+        const userEmail = req.user.email;
+        console.log(userEmail);
 
         const product = await Product.findById(id);
         if (!product) return res.status(404).json({ message: "Item not found" });
@@ -140,7 +142,7 @@ exports.addClaimRequest = async (req, res) => {
             return res.status(400).json({ message: "You have already claimed this item" });
         }
 
-        product.claims.push({ user: userId, status: "Pending" });
+        product.claims.push({ user: userId, email: userEmail, status: "Pending" });
         await product.save();
 
         res.status(201).json({ message: "Claim request submitted successfully" });
