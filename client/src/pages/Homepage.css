@@ -1,0 +1,17 @@
+/* HomePage.css or App.css */
+.homepage-container {
+    background-image: url('../components/HomepageBackground.jpg'); /* Relative or absolute path */
+    background-size: cover; /* Ensures the image covers the entire page */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Avoid repeating */
+    min-height: 100vh; /* Ensures it takes the full height */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.spacer {
+    height: 100px; /* Adjust this value as needed */
+    width: 100%;
+  }
