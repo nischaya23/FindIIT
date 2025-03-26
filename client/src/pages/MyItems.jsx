@@ -3,6 +3,7 @@ import "./MyItems.css";
 import Navbar from "../components/NavBar";
 import { getProductsByUploader , deleteProduct} from "../api/products";
 import { getID } from "../api/auth";
+import AddButton from "../components/AddButton";
 
 
 const MyItems = () => {
@@ -63,6 +64,7 @@ const MyItems = () => {
         ))}
       </div>
     </div>
+    <AddButton/>
     </>
   );
 };
