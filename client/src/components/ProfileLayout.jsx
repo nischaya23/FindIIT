@@ -2,8 +2,6 @@ import './ProfileLayout.css';
 import './ProductGrid'
 import {Link} from "react-router-dom";
 // import ProductGrid from './ProductGrid';
-import {Link} from 'react-router-dom'
-
 
 const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, handleSubmit, self, formData , preview}) => {
     return (
