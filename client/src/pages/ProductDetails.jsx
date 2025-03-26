@@ -128,7 +128,7 @@ const ProductDetails = () => {
                                 <div className="info-content">
                                     <div>
                                         <label>Posted By</label>
-                                        <a href={`/profile/${product.uploadedBy}`}>User</a>
+                                        <a href={`/profile/${product.uploadedBy}`}>{product.email || "user"}</a>
                                     </div>
                                     <div>
                                         <label>Contact Details</label>
@@ -185,7 +185,7 @@ const ProductDetails = () => {
                                     {product.claims.map((claim) => (
                                         <tr key={claim._id}>
                                             <td>
-                                                <a href={`/profile/${claim.user}`}>{claim.email}</a>
+                                                <a href={`/profile/${claim.user}`}>{claim.email || claim.user || "user"}</a>
                                             </td>
                                             <td>{claim.status}</td>
                                             {userID === product.uploadedBy && claim.status === "Pending" && (

@@ -28,8 +28,10 @@ exports.getProducts = async (req, res) => {
 exports.createProduct = async (req, res) => {
     const product = req.body;
     const id = req.user.id;
+    const emailUser = req.user.email;
 
     product.uploadedBy = id;
+    product.email = emailUser;
 
     if (req.file) {
         product.uploadedImage = `/uploads/${req.file.filename}`;

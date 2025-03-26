@@ -12,6 +12,7 @@ const productSchema = new mongoose.Schema(
         uploadedImage: { type: String, required: false, },// URL or path to the image
 
         uploadedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+        email: { type: String, required: true },
         claims: [
             {
                 user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
