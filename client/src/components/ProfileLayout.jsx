@@ -21,7 +21,7 @@ const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, 
                         <p className="text-muted">IIT Kanpur</p>
                     </div>
                 </div>
-                {self && !isEditing && <Link to={`/previous-chats`}><button className="userProfileChatBtn">{"My Chats"}</button></Link>}
+                {self && !isEditing && <Link to={`/chats`}><button className="userProfileChatBtn">{"My Chats"}</button></Link>}
                 {!self && !isEditing && <Link to={`/chat/${user._id}`}><button className="userProfileChatBtn">{"Chat with User"}</button></Link>}
                 {self &&
                     <button onClick={() => setIsEditing(!isEditing)} className="userProfileEditBtn">

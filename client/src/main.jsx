@@ -11,9 +11,8 @@ import AddItem from './pages/AddItem';
 import ProductDetails from './pages/ProductDetails';
 import NotFoundPage from './pages/404';
 import ProtectedRoute from './components/ProtectedRoute';
-import Chat from "./pages/Chat";
 import MyItems from "./pages/MyItems";
-import PreviousChats from "./pages/PreviousChats";
+import ChatPage from "./pages/ChatPage";
 import MapPage from './components/MapPage';
 
 
@@ -29,8 +28,7 @@ createRoot(document.getElementById('root')).render(
 
         {/* Protected routes */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/chat/:id" element={<Chat />} />
-          <Route path="/previous-chats" element={<PreviousChats />} />
+          <Route path="/chats" element={<ChatPage />} />
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<Homepage />} />
           <Route path="/add_item" element={<AddItem />} />

@@ -1,0 +1,19 @@
+.chat-page {
+    display: flex;
+    height: 86vh;
+    width: 100%;
+}
+
+.previous-chats {
+    width: 30%;
+    border-right: 1px solid #ccc;
+    padding: 20px;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.chat-window {
+    width: 70%;
+    padding: 20px;
+    height: 100%;
+}
