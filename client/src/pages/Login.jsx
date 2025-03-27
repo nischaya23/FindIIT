@@ -2,7 +2,7 @@ import { useState } from "react";
 import { login } from "../api/auth";
 import { AuthLayout, InputField, ButtonField, RedirectField, HeadingField } from '../components/AuthLayout';
 import { useNavigate } from 'react-router-dom';
-import {Eye , EyeOff} from "lucide-react";
+import {Eye , EyeClosed} from "lucide-react";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -40,7 +40,7 @@ const Login = () => {
                     className="eye-icon" 
                     onClick={() => setShowPassword(!showPassword)}
                 >
-                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                    {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
                 </button>
             </div>
             <ButtonField onClick={handleLogin} disabled={loading}>Log In</ButtonField>

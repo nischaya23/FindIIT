@@ -2,6 +2,7 @@ import { useState } from "react";
 import { signup, verifyOTP } from "../api/auth";
 import { AuthLayout, InputField, ButtonField, RedirectField, HeadingField } from '../components/AuthLayout';
 import { useNavigate } from "react-router-dom";
+import {Eye , EyeClosed} from "lucide-react";
 
 const Signup = () => {
     const [email, setEmail] = useState("");
@@ -10,7 +11,8 @@ const Signup = () => {
     const [otp, setOtp] = useState("");
     const [step, setStep] = useState(1);
     const [loading, setLoading] = useState(false);
-
+    const [showPassword, setShowPassword] = useState(false); 
+    
     const navigate = useNavigate();
 
     const handleSignup = async () => {
@@ -48,7 +50,23 @@ const Signup = () => {
             {step === 1 ? (
                 <>
                     <InputField type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                    <InputField type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    {/* <InputField type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} /> */}
+                    <div className="eyePassword">
+                        <input 
+                            type={showPassword ? "text" : "password"}  
+                            placeholder="Password" 
+                            value={password} 
+                            onChange={(e) => setPassword(e.target.value)} 
+                            className="input-field password-input"
+                        />
+                        <button 
+                            type="button" 
+                            className="eye-icon" 
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
+                        </button>
+                    </div>
                     <InputField type="password" placeholder="Confirm Password" value={confirm_password} onChange={(e) => setConfirmPassword(e.target.value)} />
                     <ButtonField onClick={handleSignup} disabled={loading}>Sign Up</ButtonField>
                 </>
