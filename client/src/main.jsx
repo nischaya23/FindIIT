@@ -14,6 +14,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Chat from "./pages/Chat";
 import MyItems from "./pages/MyItems";
 import PreviousChats from "./pages/PreviousChats";
+import MapPage from './components/MapPage';
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -34,7 +36,9 @@ createRoot(document.getElementById('root')).render(
           <Route path="/add_item" element={<AddItem />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/profile/:id" element={<Profile />} />
-          <Route path="/my-items" element={<MyItems />} />
+          <Route path="/my-items" element={<MyItems />}/>
+          <Route path="/map" element={<MapPage />} />
+
           {/* Add more protected routes here */}
         </Route>
         {/* Redirect to 404 for any undefined routes */}

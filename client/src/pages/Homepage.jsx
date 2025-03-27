@@ -16,6 +16,7 @@ const HomePage = () => {
         try {
             const res = await getProducts(search);
             setProducts(res.data.data);
+            // console.log(products.length);
         } catch (error) {
             alert(error.response?.data?.message || "An error occurred");
         }
@@ -24,7 +25,9 @@ const HomePage = () => {
     useEffect(() => {
         handleSearch();
     }, []);
-
+    // useEffect(() => {
+    //     console.log("Updated products:", products.length);
+    // }, [products]);
     return (
 
         <div className="homepage-container">

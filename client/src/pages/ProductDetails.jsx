@@ -26,7 +26,8 @@ const ProductDetails = () => {
     const handleClaimProduct = async () => {
         try {
             await claimProduct(id);
-            alert("Claim request submitted!");
+            if(product.itemStatus === "Lost") alert("Potential match request submitted!");
+            if(product.itemStatus === "Found") alert("Claim request submitted!");
             fetchProduct();
         } catch (error) {
             alert(error.response?.data?.message || "An error occurred");
@@ -158,6 +159,7 @@ const ProductDetails = () => {
 
                             {userID !== product.uploadedBy && (
                                 <button className="claim-product" onClick={handleClaimProduct}>
+                                    {/* {product.itemStatus === "Lost" ? "Report Potential match Product" : "Claim Product"} */}
                                     Claim Product
                                 </button>
                             )}
