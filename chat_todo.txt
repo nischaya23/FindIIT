@@ -1,3 +1,0 @@
-txt list
-txt choose by mail
-dashboard integration
