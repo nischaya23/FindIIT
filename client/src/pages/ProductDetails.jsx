@@ -72,9 +72,9 @@ const ProductDetails = () => {
             <div className="details-container">
                 <div className="details-card">
                     <div className="details-header">
-                        <h2>Lost Item Details</h2>
+                        <h2>{product.itemStatus} Item Details</h2>
                         <span className={`status ${product.itemStatus === "Lost" ? "lost" : "found"}`}>
-                            {product.itemStatus}
+                            {product.itemStatus.toUpperCase()}
                         </span>
                     </div>
 
@@ -127,7 +127,7 @@ const ProductDetails = () => {
                                 <h3>Contact Information</h3>
                                 <div className="info-content">
                                     <div>
-                                        <label>Posted By</label>
+                                        <label>Posted By </label>
                                         <a href={`/profile/${product.uploadedBy}`}>{product.email || "user"}</a>
                                     </div>
                                     <div>

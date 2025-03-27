@@ -31,7 +31,7 @@
     object-fit: contain;
     margin-top: 8px;
     border-radius: 10px;
-    border: 2px solid black; /* Black accent border */
+    border: 1px solid black; /* Black accent border */
 }
 
 /* Styling for the status badge */

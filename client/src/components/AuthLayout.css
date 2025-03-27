@@ -32,6 +32,7 @@
   overflow: hidden;
   animation: fadeInSlide 0.7s ease-out;
   transition: all 0.4s ease;
+  border: rgb(48, 47, 47) 1px solid;
 }
 
 .auth-box:hover {

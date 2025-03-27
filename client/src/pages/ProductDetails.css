@@ -35,13 +35,13 @@
 }
 
 .lost {
-    background: #fff3cd;
-    color: #856404;
+    background: #fbc8c8;
+    color: red;
 }
 
 .found {
-    background: #d4edda;
-    color: #155724;
+    background: #a5f6d0;
+    color: green;
 }
 
 /* Grid Layout */
@@ -61,7 +61,7 @@
 .item-image {
     width: 100%;
     height: 250px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 8px;
 }
 
