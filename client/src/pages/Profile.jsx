@@ -100,8 +100,10 @@ const Profile = () => {
             handleChange={handleChange}
             handleSubmit={handleSubmit}
             preview={preview}
+            setPreview={setPreview}
             self={self}
             formData={formData}
+            setFormData={setFormData}
         />
     </>
     );

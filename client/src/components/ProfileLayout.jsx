@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 
 
-const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, handleSubmit, self, formData , preview}) => {
+const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, handleSubmit, self, formData ,setFormData ,  preview , setPreview}) => {
     return (
         <div className="profile-container">
 
@@ -24,7 +24,22 @@ const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, 
                 {self && !isEditing && <Link to={`/chats`}><button className="userProfileChatBtn">{"My Chats"}</button></Link>}
                 {!self && !isEditing && <Link to={`/chat/${user._id}`}><button className="userProfileChatBtn">{"Chat with User"}</button></Link>}
                 {self &&
-                    <button onClick={() => setIsEditing(!isEditing)} className="userProfileEditBtn">
+                    <button 
+                    onClick={() => {
+                        if (isEditing) {
+                            // Revert changes by resetting formData to original user data
+                            setFormData({
+                                name: user.name || "",
+                                phone: user.phone || "",
+                                department: user.department || "",
+                                designation: user.designation || "",
+                                profilePicture: "",
+                            });
+                            setPreview(null); // Reset image preview
+                        }
+                        setIsEditing(!isEditing);
+                    }} 
+                    className="userProfileEditBtn">
                         {isEditing ? "Cancel" : "Edit Profile"}
                     </button>
                 }
