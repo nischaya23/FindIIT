@@ -2,11 +2,12 @@ import { useState } from "react";
 import { login } from "../api/auth";
 import { AuthLayout, InputField, ButtonField, RedirectField, HeadingField } from '../components/AuthLayout';
 import { useNavigate } from 'react-router-dom';
-
+import {Eye , EyeOff} from "lucide-react";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const navigate = useNavigate();
 
@@ -26,7 +27,22 @@ const Login = () => {
         <AuthLayout>
             <HeadingField>Login to Account</HeadingField>
             <InputField type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-            <InputField type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <div className="eyePassword">
+                <input 
+                    type={showPassword ? "text" : "password"}  
+                    placeholder="Password" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    className="input-field password-input"
+                />
+                <button 
+                    type="button" 
+                    className="eye-icon" 
+                    onClick={() => setShowPassword(!showPassword)}
+                >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+            </div>
             <ButtonField onClick={handleLogin} disabled={loading}>Log In</ButtonField>
             <RedirectField link="/signup" already="New User?" todo="Signup here" />
             <RedirectField link="/forgot" already="Forgot Password?" todo="Reset here" />
