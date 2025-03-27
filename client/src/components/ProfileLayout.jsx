@@ -3,6 +3,8 @@ import './ProductGrid'
 import {Link} from "react-router-dom";
 // import ProductGrid from './ProductGrid';
 
+
+
 const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, handleSubmit, self, formData , preview}) => {
     return (
         <div className="profile-container">
