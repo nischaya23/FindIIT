@@ -71,7 +71,7 @@ const MapComponent = ({
           {apiLoaded && items.map((item) => (
             <Marker
               key={item.id}
-              position={{ lat: Number(item.lat), lng: Number(item.lng) }}
+              position={{ lat: item.lat, lng: item.lng }}
               onClick={() => handleMarkerClick(item)}
               icon={markerIcons[item.type] || undefined}
             />
