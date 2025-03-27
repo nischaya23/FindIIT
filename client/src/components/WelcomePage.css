@@ -1,0 +1,57 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+.welcome-page {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding: 2rem 0;
+  background-color: #000000; /* Black background */
+  overflow: hidden;
+}
+
+.welcome-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+
+.welcome-content h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 6rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.welcome-content p {
+  font-size: 1.75rem;
+  font-weight: 300;
+  color: #FFFFFF;
+}
+
+
+.login-button-container {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 5vh;
+}
+
+.welcome-button {
+  padding: 12px 30px !important;
+  font-size: 1.1rem !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.welcome-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+}
