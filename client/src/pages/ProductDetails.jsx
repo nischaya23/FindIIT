@@ -26,8 +26,7 @@ const ProductDetails = () => {
     const handleClaimProduct = async () => {
         try {
             await claimProduct(id);
-            if(product.itemStatus === "Lost") alert("Potential match request submitted!");
-            if(product.itemStatus === "Found") alert("Claim request submitted!");
+            alert("Claim request submitted!");
             fetchProduct();
         } catch (error) {
             alert(error.response?.data?.message || "An error occurred");
