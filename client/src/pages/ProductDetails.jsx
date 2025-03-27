@@ -69,7 +69,7 @@ const ProductDetails = () => {
     };
 
     return (
-        <div>
+        <div  className="whole-product-details">
             <NavBar />
             <div className="details-container">
                 <div className="details-card">

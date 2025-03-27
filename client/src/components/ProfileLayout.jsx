@@ -21,28 +21,30 @@ const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, 
                         <p className="text-muted">IIT Kanpur</p>
                     </div>
                 </div>
-                {self && !isEditing && <Link to={`/chats`}><button className="userProfileChatBtn">{"My Chats"}</button></Link>}
-                {!self && !isEditing && <Link to={`/chat/${user._id}`}><button className="userProfileChatBtn">{"Chat with User"}</button></Link>}
-                {self &&
-                    <button 
-                    onClick={() => {
-                        if (isEditing) {
-                            // Revert changes by resetting formData to original user data
-                            setFormData({
-                                name: user.name || "",
-                                phone: user.phone || "",
-                                department: user.department || "",
-                                designation: user.designation || "",
-                                profilePicture: "",
-                            });
-                            setPreview(null); // Reset image preview
-                        }
-                        setIsEditing(!isEditing);
-                    }} 
-                    className="userProfileEditBtn">
-                        {isEditing ? "Cancel" : "Edit Profile"}
-                    </button>
-                }
+                <div>
+                    {self && !isEditing && <Link to={`/chats`}><button className="userProfileChatBtn">{"My Chats"}</button></Link>}
+                    {!self && !isEditing && <Link to={`/chat/${user._id}`}><button className="userProfileChatBtn">{"Chat with User"}</button></Link>}
+                    {self &&
+                        <button 
+                        onClick={() => {
+                            if (isEditing) {
+                                // Revert changes by resetting formData to original user data
+                                setFormData({
+                                    name: user.name || "",
+                                    phone: user.phone || "",
+                                    department: user.department || "",
+                                    designation: user.designation || "",
+                                    profilePicture: "",
+                                });
+                                setPreview(null); // Reset image preview
+                            }
+                            setIsEditing(!isEditing);
+                        }} 
+                        className="userProfileEditBtn">
+                            {isEditing ? "Cancel" : "Edit Profile"}
+                        </button>
+                    }
+                </div>
             </div>
 
             {!isEditing ? (

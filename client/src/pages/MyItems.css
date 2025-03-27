@@ -3,6 +3,14 @@
     font-family: Arial, sans-serif;
   }
   
+  .whole-my-item {
+    background-image: url('../components/HomepageBackground.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+  }
+
   .my-item-summary {
     display: flex;
     justify-content: space-between;
@@ -52,7 +60,8 @@
     border-radius: 10px;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-
+    width: 97%;
+    align-self: center;
   }
   
   .my-item-card:hover{

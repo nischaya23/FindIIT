@@ -66,3 +66,6 @@
     font-size: 14px;
 }
 
+.chat-item {
+    cursor: pointer;
+}

@@ -1,7 +1,8 @@
 /* Container styling for the homepage */
 .homepage-container {
   position: relative;
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
+  background-image: url('../components/HomepageBackground.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

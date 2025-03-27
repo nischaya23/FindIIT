@@ -179,6 +179,7 @@ body {
     border : silver;
     cursor: pointer;
     text-decoration: none;
+    margin: 5px;
 }
 
 .userProfileEditBtn {

@@ -1,3 +1,11 @@
+.whole-product-details {
+    background-image: url('../components/HomepageBackground.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+  }
+
 /* Ensure spacing below navbar */
 .details-container {
     max-width: 900px;

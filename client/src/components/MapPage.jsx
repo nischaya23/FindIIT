@@ -4,6 +4,7 @@ import { getProducts } from "../api/products";
 import {getProfile} from "../api/users";
 import './MapPage.css';
 import Navbar from './NavBar';
+import AddButton from './AddButton'
 
 const MapPage = () => {
   const [items, setItems] = useState([]);
@@ -239,6 +240,7 @@ const MapPage = () => {
         </div>
       </div>
     </div>
+    <AddButton />
     </>
   );
 };

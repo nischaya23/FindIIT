@@ -47,42 +47,42 @@ const MyItems = () => {
     return `${day}-${month}-${year} at ${hours}:${minutes}`;
   };
   return (
-    <>
-    <Navbar />
-    <div className="my-item-container">
-      <div className="my-item-summary">
-        <div className="my-item-box">Total Items <span>{items.length}</span></div>
-        <div className="my-item-box">Items Lost <span>{items.filter(item => item.itemStatus === 'Lost').length}</span></div>
-        <div className="my-item-box">Items Found <span>{items.filter(item => item.itemStatus === 'Found').length}</span></div>
+    <div className="whole-my-item">
+      <Navbar />
+      <div className="my-item-container">
+        <div className="my-item-summary">
+          <div className="my-item-box">Total Items <span>{items.length}</span></div>
+          <div className="my-item-box">Items Lost <span>{items.filter(item => item.itemStatus === 'Lost').length}</span></div>
+          <div className="my-item-box">Items Found <span>{items.filter(item => item.itemStatus === 'Found').length}</span></div>
+        </div>
+        <div className="my-item-list">
+          {items.map((item) => (
+            <Link to={`/product/${item._id}`} key={item._id} className="my-item-card">
+              <img src={`http://localhost:5000${item.uploadedImage}`} alt={item.name} className="my-item-image" />
+              <div className="my-item-info">
+                <h3>{item.name}</h3>
+                <p>📅 Posted: {formatTimestamp(item.createdAt)}</p>
+                <p>📍 {item.location}</p>
+              </div>
+              <div className="my-item-actions">
+                <span className={`my-item-status ${item.itemStatus.toLowerCase()}`}>{item.itemStatus}</span>
+                {/* <button className="my-item-edit">Edit</button> */}
+                <button 
+                    className="my-item-delete" 
+                    onClick={(e) => {
+                    e.stopPropagation(); // Prevent Link from triggering
+                    e.preventDefault(); // Prevent navigation
+                    handleDeleteProduct(item._id);
+                  }}
+                >
+                  Delete</button>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
-      <div className="my-item-list">
-        {items.map((item) => (
-          <Link to={`/product/${item._id}`} key={item._id} className="my-item-card">
-            <img src={`http://localhost:5000${item.uploadedImage}`} alt={item.name} className="my-item-image" />
-            <div className="my-item-info">
-              <h3>{item.name}</h3>
-              <p>📅 Posted: {formatTimestamp(item.createdAt)}</p>
-              <p>📍 {item.location}</p>
-            </div>
-            <div className="my-item-actions">
-              <span className={`my-item-status ${item.itemStatus.toLowerCase()}`}>{item.itemStatus}</span>
-              {/* <button className="my-item-edit">Edit</button> */}
-              <button 
-                  className="my-item-delete" 
-                  onClick={(e) => {
-                  e.stopPropagation(); // Prevent Link from triggering
-                  e.preventDefault(); // Prevent navigation
-                  handleDeleteProduct(item._id);
-                }}
-              >
-                Delete</button>
-            </div>
-          </Link>
-        ))}
-      </div>
+      <AddButton/>
     </div>
-    <AddButton/>
-    </>
   );
 };
 

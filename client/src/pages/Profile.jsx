@@ -6,6 +6,8 @@ import { getProfile, updateProfile } from "../api/users";
 import NavBar from "../components/NavBar";
 import ProfileLayout from "../components/ProfileLayout";
 import { getProductsByUploader } from "../api/products";
+import "./Profile.css"
+import AddButton from '../components/AddButton'
 
 const Profile = () => {
     const { id } = useParams();
@@ -91,7 +93,7 @@ const Profile = () => {
     const self = (getID() === id);
 
     return (
-    <>
+    <div className="profile-page">
         <NavBar />
         <ProfileLayout
             user={user}
@@ -106,7 +108,8 @@ const Profile = () => {
             formData={formData}
             setFormData={setFormData}
         />
-    </>
+        <AddButton />
+    </div>
     );
 };
 

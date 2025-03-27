@@ -81,7 +81,7 @@ const AddProduct = () => {
     };
 
     return (
-        <div>
+        <div className="whole-add-item">
             <NavBar />
             <main className="container">
                 <div className="form-box">
