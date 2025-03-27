@@ -1,3 +1,10 @@
+.whole-chat-page{
+    background-image: url('../components/messages_background.jpg');
+    background-size: cover;  /* Makes the image cover the whole area */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents repeating */
+}
+
 .chat-page {
     display: flex;
     height: 86vh;
@@ -16,4 +23,34 @@
     width: 70%;
     padding: 20px;
     height: 100%;
+}
+
+.chat-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    color: #555;
+    background: white;  /* White with 60% transparency */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chat-placeholder img {
+    width: 80px;
+    opacity: 0.75;
+    margin-bottom: 10px;
+}
+
+.chat-placeholder h3 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.chat-placeholder p {
+    font-size: 1rem;
+    color: #777;
 }
