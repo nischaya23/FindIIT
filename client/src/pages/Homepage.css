@@ -1,17 +1,169 @@
-/* HomePage.css or App.css */
+/* Container styling for the homepage */
 .homepage-container {
-    background-image: url('../components/HomepageBackground.jpg'); /* Relative or absolute path */
-    background-size: cover; /* Ensures the image covers the entire page */
-    background-position: center; /* Centers the image */
-    background-repeat: no-repeat; /* Avoid repeating */
-    min-height: 100vh; /* Ensures it takes the full height */
+    position: relative;
+    background-color: whitesmoke;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-}
-
-.spacer {
-    height: 100px; /* Adjust this value as needed */
-    width: 100%;
   }
+  
+  /* Floating objects container */
+  .floating-objects {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; 
+    z-index: 0; 
+  }
+  
+  /* Base styling for floating objects (keys, etc.) */
+  .floating-object {
+    position: absolute;
+    width: 50px;
+    opacity: 0.8;
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  /* Specific positions and animation durations for each object */
+  .object1 {
+    top: 20%;
+    left: 25%;
+    animation-duration: 8s;
+  }
+  
+  .object2 {
+    top: 38%;
+    left: 9%;
+    animation-duration: 10s;
+  }
+  
+  
+  .object4 {
+    top: 10%;
+    left: 71%;
+    animation-duration: 7s;
+  }
+  
+  .object5 {
+    top: 32%;
+    left: 92%;
+    animation-duration: 7s;
+    z-index: 1000;
+  }
+  
+  /* Floating animation keyframes */
+  @keyframes float {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  /* Styling for the hero section */
+  .hero-section {
+    text-align: center;
+    margin: 40px auto;
+    max-width: 600px;
+    color: black;
+    position: relative;
+    z-index: 1; /* Ensures content is above the floating objects */
+  }
+  
+  .hero-section h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .hero-section .highlight {
+    color: #007bff;
+  }
+  
+  .hero-section p {
+    font-size: 1.5rem;
+    color: #555;
+    margin-top: 10px;
+  }
+  
+  /* Spacer styling */
+  .spacer {
+    height: 100px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* ------------------------------- */
+  /* NEW: Browse By Category Section */
+  /* ------------------------------- */
+  
+  .browse-section {
+    text-align: center;
+    margin: 2rem auto;
+    position: relative;
+    /* z-index: 1; Above floating objects */
+  }
+  
+  .browse-section h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .browse-section p {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 2rem;
+  }
+  
+  .category-container {
+    display: flex;
+    flex-wrap: wrap;      /* Allows wrapping on smaller screens */
+    justify-content: center;
+    gap: 2rem;            /* Space between cards */
+  }
+  
+  .category-card {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    width: 140px;         /* Adjust to your preference */
+    padding: 1.5rem 1rem;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .category-card:hover {
+    transform: translateY(-10px); /* The upward "hover" effect */
+  }
+  
+  .category-card img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1rem;
+  }
+  
+  .category-card h3 {
+    margin: 0.5rem 0 0.25rem;
+    font-size: 1.1rem;
+    color: #333;
+  }
+  
+  .category-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
