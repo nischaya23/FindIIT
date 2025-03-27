@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { signup, verifyOTP } from "../api/auth";
 import { AuthLayout, InputField, ButtonField, RedirectField, HeadingField } from '../components/AuthLayout';
 import { useNavigate } from "react-router-dom";
@@ -42,6 +42,26 @@ const Signup = () => {
             setLoading(false);
         }
     };
+
+    const handleKeyDown = (e) => {
+        // console.log("key pressed" , e.key);
+        if(e.key === "Enter"){
+            if (step === 1) {
+                handleSignup();
+            } 
+            else if (step === 2) {
+                handleVerifyOTP();
+            }
+        }
+    }
+    
+    useEffect(()=>{
+        
+        document.addEventListener("keydown", handleKeyDown);
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [step , email , password , confirm_password , otp]);
 
     return (
         <AuthLayout>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { login } from "../api/auth";
 import { AuthLayout, InputField, ButtonField, RedirectField, HeadingField } from '../components/AuthLayout';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +22,21 @@ const Login = () => {
             setLoading(false);
         }
     };
+    const handleKeyDown = (e) => {
+        // console.log("key pressed" , e.key);
+        if(e.key === "Enter"){
+            handleLogin();
+        }
+    }
 
+    useEffect(()=>{
+        
+        document.addEventListener("keydown", handleKeyDown);
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [email,password]);
+    
     return (
         <AuthLayout>
             <HeadingField>Login to Account</HeadingField>
