@@ -51,6 +51,16 @@ const MapComponent = ({
     if (onItemSelect) onItemSelect(item);
   };
 
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); 
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${day}-${month}-${year} at ${hours}:${minutes}`;
+  };
+
   if (!apiKey) return <div>Loading map...</div>;
 
   return (
@@ -90,7 +100,7 @@ const MapComponent = ({
               <Link to={`/product/${selectedItem.id}`} className="info-window" style={{ textDecoration: 'none' , color: 'black'}}>
                 <h3>{selectedItem.name}</h3>
                 <p><strong>Type:</strong> {selectedItem.type}</p>
-                <p><strong>{selectedItem.type === 'lost' ? 'Lost on:' : 'Found on:'}</strong> {selectedItem.date}</p>
+                <p><strong>{selectedItem.type === 'lost' ? 'Lost on:' : 'Found on:'}</strong> {formatTimestamp(selectedItem.date)}</p>
                 <p><strong>Description:</strong> {selectedItem.description}</p>
                 {selectedItem.tags && selectedItem.tags.length > 0 && (
                   <p><strong>Tags:</strong> {selectedItem.tags.join(', ')}</p>
@@ -98,9 +108,9 @@ const MapComponent = ({
                 {selectedItem.user && (
                   <div className="user-info">
                     <h4>Posted by:</h4>
-                    <p><strong>Name:</strong> {selectedItem.user.name}</p>
+                    <p><strong>Name:</strong> {selectedItem.user.name ? selectedItem.user.name : "N/A"} </p>
                     <p><strong>Email:</strong> {selectedItem.user.email}</p>
-                    <p><strong>Phone:</strong> {selectedItem.user.phone}</p>
+                    <p><strong>Phone:</strong> {selectedItem.user.phone ? selectedItem.user.phone : "N/A"} </p>
                   </div>
                 )}
                 {/* <button className="found-btn">

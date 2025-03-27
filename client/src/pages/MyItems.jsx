@@ -37,6 +37,15 @@ const MyItems = () => {
     console.log(items);
   }, [id]);
 
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); 
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${day}-${month}-${year} at ${hours}:${minutes}`;
+  };
   return (
     <>
     <Navbar />
@@ -52,7 +61,7 @@ const MyItems = () => {
             <img src={`http://localhost:5000${item.uploadedImage}`} alt={item.name} className="my-item-image" />
             <div className="my-item-info">
               <h3>{item.name}</h3>
-              <p>📅 Posted: {item.createdAt.slice(0,10).split("-").reverse().join("-")}</p>
+              <p>📅 Posted: {formatTimestamp(item.createdAt)}</p>
               <p>📍 {item.location}</p>
             </div>
             <div className="my-item-actions">
