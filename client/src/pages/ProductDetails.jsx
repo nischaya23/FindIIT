@@ -15,6 +15,8 @@ const ProductDetails = () => {
     const userID = getID();
 
     const handleDeleteProduct = async () => {
+        if (!window.confirm("Are you sure you want to delete this item?")) return;
+        
         try {
             await deleteProduct(id);
             navigate("/dashboard");

@@ -78,6 +78,7 @@ const Profile = () => {
         } catch (error) {
             console.log("Error updating profile", error);
         }
+        alert("Profile Updated Succesfully");
     };
 
     if (!user) return (
