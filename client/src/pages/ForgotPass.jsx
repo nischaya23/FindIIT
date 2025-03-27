@@ -2,7 +2,7 @@ import { useState } from "react";
 import { forgot, verifyOTPreset } from "../api/auth";
 import { AuthLayout, InputField, ButtonField, RedirectField, HeadingField } from '../components/AuthLayout';
 import { useNavigate } from 'react-router-dom';
-import {Eye , EyeOff} from "lucide-react";
+import {Eye , EyeClosed} from "lucide-react";
 
 const Signup = () => {
     const [email, setEmail] = useState("");
