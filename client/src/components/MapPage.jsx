@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useRef} from 'react';
 import MapComponent from './MapComponent';
 import { getProducts } from "../api/products";
 import './MapPage.css';
@@ -8,13 +8,31 @@ const MapPage = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showFilterPanel, setShowFilterPanel] = useState(false);
-  
+  const filterPanelRef = useRef(null);
   // Filter state variables
   const [filterType, setFilterType] = useState('all'); // 'all', 'lost', or 'found'
   const [filterTag, setFilterTag] = useState('');
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+
+
+  // Close the filter panel when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (filterPanelRef.current && !filterPanelRef.current.contains(event.target)) {
+        setShowFilterPanel(false);
+      }
+    };
+
+    // Add event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      // Cleanup event listener when component unmounts
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Fetch items from server
   useEffect(() => {
@@ -137,7 +155,7 @@ const MapPage = () => {
 
       {/* Filter dropdown overlay */}
       {showFilterPanel && (
-        <div className="filter-dropdown">
+        <div className="filter-dropdown" ref={filterPanelRef}>
           <div className="filter-section">
             <label>Type:</label>
             <select value={filterType} onChange={(e) => setFilterType(e.target.value)}>
