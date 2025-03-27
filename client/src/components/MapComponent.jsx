@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { APIProvider, Map, Marker, InfoWindow } from '@vis.gl/react-google-maps';
+import { Link } from "react-router-dom";
 
 // Map component
 const MapComponent = ({ 
@@ -86,7 +87,7 @@ const MapComponent = ({
               position={{ lat: selectedItem.lat, lng: selectedItem.lng }}
               onCloseClick={() => setSelectedItem(null)}
             >
-              <div className="info-window">
+              <Link to={`/product/${selectedItem.id}`} className="info-window" style={{ textDecoration: 'none' , color: 'black'}}>
                 <h3>{selectedItem.name}</h3>
                 <p><strong>Type:</strong> {selectedItem.type}</p>
                 <p><strong>{selectedItem.type === 'lost' ? 'Lost on:' : 'Found on:'}</strong> {selectedItem.date}</p>
@@ -102,10 +103,10 @@ const MapComponent = ({
                     <p><strong>Phone:</strong> {selectedItem.user.phone}</p>
                   </div>
                 )}
-                <button className="found-btn">
+                {/* <button className="found-btn">
                   {selectedItem.type === 'lost' ? 'Found' : 'Claim'}
-                </button>
-              </div>
+                </button> */}
+              </Link>
             </InfoWindow>
           )}
         </Map>
