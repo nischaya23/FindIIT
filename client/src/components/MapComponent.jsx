@@ -24,6 +24,9 @@ const MapComponent = ({
   // useEffect(()=>{
   //   console.log("markerIcons" , markerIcons);
   // }, [markerIcons]);
+//   useEffect(() => {
+//     console.log("Items in MapComponent:", items);
+// }, [items]);
   const handleApiLoad = () => {
     console.log('Maps API has loaded.');
     if (window.google) {

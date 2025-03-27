@@ -1,6 +1,7 @@
 import React, { useState, useEffect , useRef} from 'react';
 import MapComponent from './MapComponent';
 import { getProducts } from "../api/products";
+import {getProfile} from "../api/users";
 import './MapPage.css';
 import Navbar from './NavBar';
 
@@ -16,6 +17,19 @@ const MapPage = () => {
   const [dateTo, setDateTo] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
+  const fetchUserById = async (userId) => {
+      try {
+          const response = await getProfile(userId);
+          return response.data.data;
+          // const data = await response.json();
+          // if (data.success) {
+          //    return data.data; 
+          // }
+      } catch (error) {
+            console.error("Error fetching user:", error);
+      }
+      return {}; // Return empty object if error
+  }
 
   // Close the filter panel when clicking outside
   useEffect(() => {
@@ -40,8 +54,16 @@ const MapPage = () => {
       try {
         setLoading(true);
         const res = await getProducts(search);
-        // console.log(res.data);
-        setItems(res.data.data);
+        const products = res.data.data;
+
+        const updatedProducts = await Promise.all(
+          products.map(async (item) => {
+            const user = await fetchUserById(item.uploadedBy); // Fetch user by ID
+            return { ...item, user }; // Attach user data to item
+          })
+        );
+
+        setItems(updatedProducts);
 
         // console.log(items.length);
       } catch (error) {
@@ -55,9 +77,9 @@ const MapPage = () => {
     fetchItems();
   }, []);
 
-  // useEffect(() => {
-    // console.log("Updated products:", items.length);
-    // console.log(items);
+//   useEffect(() => {
+//     console.log("Updated products:", items.length);
+//     console.log(items);
 // }, [items]);
 
   // Helper: parse date string into Date object
@@ -69,14 +91,14 @@ const MapPage = () => {
   const filteredItems = items
     .map(item => ({
       id: item._id, // Map MongoDB _id to id for consistency
-      name: item.category,
+      name: item.category,                      
       type: item.itemStatus.toLowerCase(),      //!
       lat: Number(item.coordinates.latitude),   //!
       lng: Number(item.coordinates.longitude),  //!
       date: item.createdAt,                     //!
       description: item.description,
       tags: item.tags || [],
-      user: item.uploadedBy || {}               //!
+      user: item.user || {}                     //!
     }))
     .filter(item => {
       // Type filter (only lost and found now)
