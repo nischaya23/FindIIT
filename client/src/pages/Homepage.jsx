@@ -1,33 +1,42 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getProducts } from "../api/products";
 import SearchBar from "../components/SearchBar";
 import NavBar from "../components/NavBar";
-import "./Homepage.css";
 import ProductGrid from "../components/ProductGrid";
 import AddButton from "../components/AddButton";
-
+import "./Homepage.css";
 
 const HomePage = () => {
-    const [searchTerm, setSearchTerm] = useState("");
-    const [products, setProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [products, setProducts] = useState([]);
 
-    const handleSearch = async (search = "") => {
-        setSearchTerm(search);
-        try {
-            const res = await getProducts(search);
-            setProducts(res.data.data);
-            // console.log(products.length);
-        } catch (error) {
-            alert(error.response?.data?.message || "An error occurred");
-        }
-    };
+  // 1. Create a ref for the "Browse By Category" section (or wherever your cards are)
+  const browseSectionRef = useRef(null);
+
+  // 2. Handle user input in the search bar
+  const handleSearchInput = (value) => {
+    setSearchTerm(value);
+
+    // Whenever user types anything, scroll to the card section
+    if (browseSectionRef.current) {
+      browseSectionRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  // 3. Search logic
+  const handleSearch = async (search = "") => {
+    try {
+      const res = await getProducts(search);
+      setProducts(res.data.data);
+    } catch (error) {
+      alert(error.response?.data?.message || "An error occurred");
+    }
+  };
 
     useEffect(() => {
         handleSearch();
     }, []);
-    // useEffect(() => {
-    //     console.log("Updated products:", products.length);
-    // }, [products]);
+
     return (
 
         <div className="homepage-container">
