@@ -69,7 +69,7 @@ const ProductDetails = () => {
     };
 
     return (
-        <div  className="whole-product-details">
+        <div className="whole-product-details">
             <NavBar />
             <div className="details-container">
                 <div className="details-card">
@@ -82,7 +82,7 @@ const ProductDetails = () => {
 
                     <div className="details-grid">
                         <div className="details-left">
-                            <img src={`http://localhost:5000${product.uploadedImage}`} alt={product.description} className="item-image" />
+                            <img src={`http://localhost:5000${product.uploadedImage}`} className="product-image" onError={(e) => e.target.src = "/no-image.png"} alt="Product" />
                             <div className="location-section">
                                 <h3>Location</h3>
                                 <div style={{ height: '300px', width: '100%', borderRadius: '8px', overflow: 'hidden' }}>

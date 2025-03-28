@@ -75,12 +75,12 @@ const HomePage = () => {
         <div className="category-container">
           {/* Example cards */}
           <div className="category-card">
-            <img src="..\..\public\electronics.png" alt="Electronics" />
+            <img src="/electronics.png" alt="Electronics" />
             <h3>Electronics</h3>
             <p>127 items</p>
           </div>
           <div className="category-card">
-            <img src="..\..\public\keys.png" alt="Keys" />
+            <img src="/keys.png" alt="Keys" />
             <h3>Keys</h3>
             <p>80 items</p>
           </div>
