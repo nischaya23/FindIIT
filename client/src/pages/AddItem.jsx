@@ -65,6 +65,12 @@ const AddProduct = () => {
                 formData.append("coordinates[longitude]", newProduct.coordinates.longitude);
             } else if (key === "tags") {
                 newProduct.tags.forEach(tag => formData.append("tags[]", tag));
+            } else if (key === "uploadedImage") {
+                if (newProduct.uploadedImage) {
+                    formData.append("uploadedImage", newProduct.uploadedImage);
+                } else {
+                    formData.append("uploadedImage", "/uploads/noImage.png");
+                }
             } else {
                 formData.append(key, newProduct[key]);
             }
