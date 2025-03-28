@@ -172,6 +172,7 @@ const ProductDetails = () => {
                         </div>
                     </div>
 
+                    <div className="claim-section">
                     {/* Claims Section */}
                     {product.claims.length > 0 && (
                         <div className="info-section">
@@ -207,6 +208,7 @@ const ProductDetails = () => {
                             </table>
                         </div>
                     )}
+                    </div>
                 </div>
             </div>
             <AddButton />
