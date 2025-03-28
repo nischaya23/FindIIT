@@ -174,7 +174,7 @@ const ProductDetails = () => {
 
                     {/* Claims Section */}
                     {product.claims.length > 0 && (
-                        <div className="claims-section">
+                        <div className="info-section">
                             <h3>Claims</h3>
                             <table>
                                 <thead>

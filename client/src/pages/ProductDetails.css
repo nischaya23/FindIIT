@@ -119,6 +119,105 @@
     margin-top: 3px;
 }
 
+/* Table Styling */
+.info-section table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px; /* Adds spacing between rows */
+    /* background: #fff; */
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.info-section th, 
+.info-section td {
+    text-align: center;
+    padding: 12px 16px;
+}
+
+.info-section thead th:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.info-section thead th:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.info-section th {
+    background: #8c9094;
+    /* border-radius: 10px; */
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.info-section tbody tr {
+    background: #f9f9f9;
+    transition: background 0.3s;
+}
+
+.info-section tbody tr:hover {
+    background: #f1f1f1;
+}
+
+/* Link Styling */
+.info-section a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.info-section a:hover {
+    text-decoration: underline;
+}
+
+/* Action Buttons */
+.info-section .approve-btn, 
+.info-section .reject-btn {
+    padding: 8px 12px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.info-section .approve-btn {
+    background: #28a745;
+    color: white;
+}
+
+.info-section .approve-btn:hover {
+    background: #218838;
+}
+
+.info-section .reject-btn {
+    background: #dc3545;
+    color: white;
+}
+
+.info-section .reject-btn:hover {
+    background: #c82333;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .info-section th, 
+    .info-section td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .info-section .approve-btn, 
+    .info-section .reject-btn {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
+
 .tags {
     display: flex;
     flex-wrap: wrap;
