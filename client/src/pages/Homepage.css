@@ -105,16 +105,14 @@
   position: relative;
   z-index: 0;
 }
-
 /* ------------------------------- */
-/* NEW: Browse By Category Section */
+/* Browse By Category Section */
 /* ------------------------------- */
 
 .browse-section {
   text-align: center;
   margin: 2rem auto;
   position: relative;
-  /* z-index: 1; Above floating objects */
 }
 
 .browse-section h2 {
@@ -130,20 +128,22 @@
 
 .category-container {
   display: flex;
-  flex-wrap: wrap;      /* Allows wrapping on smaller screens */
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
   justify-content: center;
-  gap: 2rem;            /* Space between cards */
+  gap: 20px; /* Space between category cards */
 }
 
 .category-card {
   background-color: #fff;
-  border-radius: 0.5rem;
-  width: 140px;         /* Adjust to your preference */
+  border-radius: 10px;
+  width: 140px;
+  height: 150px;
   padding: 1.5rem 1rem;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease-in-out, border 0.3s ease-in-out;
   cursor: pointer;
+  border: 2px solid transparent;
 }
 
 .category-card:hover {
@@ -157,13 +157,56 @@
 }
 
 .category-card h3 {
-  margin: 0.5rem 0 0.25rem;
-  font-size: 1.1rem;
+  margin: 10px 0 5px;
+  font-size: 18px;
   color: #333;
 }
 
 .category-card p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 14px;
+  color: gray;
+}
+
+/* Highlight when selected */
+.category-card.active {
+  border-color: #007bff;
+  background-color: rgba(0, 123, 255, 0.1);
+  transform: scale(1.05);
+  font-weight: bold;
+}
+
+/* ------------------------------- */
+/* Filter Slider Section */
+/* ------------------------------- */
+
+.filter-slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+.filter-slider button {
+  background-color: black;
+  color: white;
+  border: 2px solid white;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.filter-slider button:hover {
+  background-color: white;
+  color: black;
+  border-color: black;
+}
+
+.filter-slider button.active {
+  background-color: white;
+  color: black;
+  border-color: black;
+  font-weight: bold;
 }

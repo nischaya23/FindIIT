@@ -3,18 +3,27 @@ const Product = require("../models/Product");
 
 exports.getProducts = async (req, res) => {
     try {
-        const { search } = req.query;
+        const { search, filter, category } = req.query;
         let query = {};
 
+        // Apply search filter
         if (search) {
-            query = {
-                $or: [
-                    { category: { $regex: search, $options: "i" } },
-                    { description: { $regex: search, $options: "i" } },
-                    { location: { $regex: search, $options: "i" } },
-                    { tags: { $in: [new RegExp(search, "i")] } },
-                ],
-            };
+            query.$or = [
+                { category: { $regex: search, $options: "i" } },
+                { description: { $regex: search, $options: "i" } },
+                { location: { $regex: search, $options: "i" } },
+                { tags: { $in: [new RegExp(search, "i")] } },
+            ];
+        }
+
+        // Apply lost/found filter
+        if (filter && filter !== "all") {
+            query.itemStatus = new RegExp(`^${filter}$`, "i");
+        }
+
+        // Apply category filter
+        if (category) {
+            query.category = new RegExp(`^${category}$`, "i");
         }
 
         const products = await Product.find(query);
@@ -24,6 +33,7 @@ exports.getProducts = async (req, res) => {
         return res.status(500).json({ message: "Server Error" });
     }
 };
+
 
 exports.createProduct = async (req, res) => {
     const product = req.body;
