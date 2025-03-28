@@ -77,7 +77,7 @@ axios.interceptors.response.use(
     (error) => {
         if (error.response?.status === 401 || error.response?.status === 403) {
             logout();
-            window.location.href = '/login';
+            window.location.href = '/welcome';
         }
         if (error.response?.status === 404) {
             window.location.href = '/404';
