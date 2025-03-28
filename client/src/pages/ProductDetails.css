@@ -123,8 +123,7 @@
 .info-section table {
     width: 100%;
     border-collapse: separate;
-    border-spacing: 0 8px; /* Adds spacing between rows */
-    /* background: #fff; */
+    border-spacing: 0 0;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -177,7 +176,8 @@
 .info-section .approve-btn, 
 .info-section .reject-btn {
     padding: 8px 12px;
-    margin: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
     border: none;
     border-radius: 5px;
     font-size: 14px;
