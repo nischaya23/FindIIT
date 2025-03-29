@@ -58,7 +58,7 @@ const MyItems = () => {
         <div className="my-item-list">
           {items.map((item) => (
             <Link to={`/product/${item._id}`} key={item._id} className="my-item-card">
-              <img src={`http://localhost:5000${item.uploadedImage}`} alt={item.name} className="my-item-image" />
+              <img src={`${import.meta.env.VITE_API_URL}${item.uploadedImage}`} alt={item.name} className="my-item-image" />
               <div className="my-item-info">
                 <h3>{item.name}</h3>
                 <p>📅 Posted: {formatTimestamp(item.createdAt)}</p>

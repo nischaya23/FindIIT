@@ -9,7 +9,7 @@ import { getID } from "../api/auth";
 import axios from "axios";
 import "./Chat.css";
 
-const socket = io("http://localhost:5000", { autoConnect: false });
+const socket = io(`${import.meta.env.VITE_API_URL}`, { autoConnect: false });
 
 const Chat = ({ chatId }) => {
     const senderId = getID();
@@ -40,7 +40,7 @@ const Chat = ({ chatId }) => {
 
         const fetchReceiverName = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/user/${receiverId}`);
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user/${receiverId}`);
                 setReceiverName(res.data.name || res.data.email || "Unknown User");
             } catch (error) {
                 console.error("Error fetching receiver name:", error);

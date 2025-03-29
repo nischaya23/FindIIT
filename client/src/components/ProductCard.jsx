@@ -9,7 +9,7 @@ const ProductCard = ({ product }) => {
                     {product.itemStatus.toUpperCase()}
                 </span>
                 <br></br>
-                <img src={`http://localhost:5000${product.uploadedImage}`} className="product-image"onError={(e) => e.target.src = "/no-image.png"} alt="Product"/>
+                <img src={`${import.meta.env.VITE_API_URL}${product.uploadedImage}`} className="product-image"onError={(e) => e.target.src = "/no-image.png"} alt="Product"/>
                 <h3 className="product-title">{product.category}</h3>
                 <p className="product-description">{product.description}</p>
                 <div className="product-tags">
