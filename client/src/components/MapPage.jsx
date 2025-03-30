@@ -54,7 +54,7 @@ const MapPage = () => {
     const fetchItems = async (search = "") => {
       try {
         setLoading(true);
-        const res = await getProducts(search);
+        const res = await getProducts(search, filterType, "");
         const products = res.data.data;
 
         const updatedProducts = await Promise.all(

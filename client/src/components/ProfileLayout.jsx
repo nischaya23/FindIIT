@@ -12,7 +12,7 @@ const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, 
             <div className="profile-card">
                 <div className="profile-info">
                     <img
-                        src={preview || `http://localhost:5000${user.profilePicture}` || "http://www.gravatar.com/avatar/0e39d18b89822d1d9871e0d1bc839d06?s=128&d=identicon&r=PG"}
+                        src={preview || `${import.meta.env.VITE_API_URL}${user.profilePicture}` || "http://www.gravatar.com/avatar/0e39d18b89822d1d9871e0d1bc839d06?s=128&d=identicon&r=PG"}
                         alt="Profile"
                         className="profile-img"
                     />

@@ -69,7 +69,7 @@ const ProductDetails = () => {
     };
 
     return (
-        <div  className="whole-product-details">
+        <div className="whole-product-details">
             <NavBar />
             <div className="details-container">
                 <div className="details-card">
@@ -82,7 +82,7 @@ const ProductDetails = () => {
 
                     <div className="details-grid">
                         <div className="details-left">
-                            <img src={`http://localhost:5000${product.uploadedImage}`} alt={product.description} className="item-image" />
+                            <img src={`${import.meta.env.VITE_API_URL}{product.uploadedImage}`} className="product-image" onError={(e) => e.target.src = "/no-image.png"} alt="Product" />
                             <div className="location-section">
                                 <h3>Location</h3>
                                 <div style={{ height: '300px', width: '100%', borderRadius: '8px', overflow: 'hidden' }}>
@@ -172,9 +172,10 @@ const ProductDetails = () => {
                         </div>
                     </div>
 
+                    <div className="claim-section">
                     {/* Claims Section */}
                     {product.claims.length > 0 && (
-                        <div className="claims-section">
+                        <div className="info-section">
                             <h3>Claims</h3>
                             <table>
                                 <thead>
@@ -207,6 +208,7 @@ const ProductDetails = () => {
                             </table>
                         </div>
                     )}
+                    </div>
                 </div>
             </div>
             <AddButton />

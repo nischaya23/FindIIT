@@ -9,6 +9,8 @@ import "./Homepage.css";
 const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
+  const [filter, setFilter] = useState("all"); // "all", "lost", or "found"
+  const [selectedCategory, setSelectedCategory] = useState(""); // Selected category
 
   // 1. Create a ref for the "Browse By Category" section (or wherever your cards are)
   const browseSectionRef = useRef(null);
@@ -24,9 +26,9 @@ const HomePage = () => {
   };
 
   // 3. Search logic
-  const handleSearch = async (search = "") => {
+  const handleSearch = async () => {
     try {
-      const res = await getProducts(search);
+      const res = await getProducts(searchTerm, filter, selectedCategory);
       setProducts(res.data.data);
     } catch (error) {
       alert(error.response?.data?.message || "An error occurred");
@@ -34,9 +36,8 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    // Initially fetch all products (or an empty search)
-    handleSearch(searchTerm);
-  }, [searchTerm]);
+    handleSearch();
+  }, [searchTerm, filter, selectedCategory]); // API call on change
 
   return (
     <div className="homepage-container">
@@ -67,24 +68,35 @@ const HomePage = () => {
         value={searchTerm}
       />
 
-      {/* Example "Browse By Category" section */}
+      {/* Filter Slider */}
+      <div className="filter-slider">
+        {["all", "lost", "found"].map((category) => (
+          <button
+            key={category}
+            className={filter === category ? "active" : ""}
+            onClick={() => { setFilter(category); if (browseSectionRef.current) { browseSectionRef.current.scrollIntoView({ behavior: "smooth" }); } }}
+          >
+            {category.charAt(0).toUpperCase() + category.slice(1)}
+          </button>
+        ))}
+      </div>
+
+      {/* Browse By Category */}
       <div className="browse-section" ref={browseSectionRef}>
         <h2>Browse By Category</h2>
         <p>Find your lost items faster by browsing through our organized categories.</p>
 
         <div className="category-container">
-          {/* Example cards */}
-          <div className="category-card">
-            <img src="..\..\public\electronics.png" alt="Electronics" />
-            <h3>Electronics</h3>
-            <p>127 items</p>
-          </div>
-          <div className="category-card">
-            <img src="..\..\public\keys.png" alt="Keys" />
-            <h3>Keys</h3>
-            <p>80 items</p>
-          </div>
-          {/* Add more cards as needed */}
+          {["Phone", "Wallet", "Keys", "Others"].map((category) => (
+            <div
+              key={category}
+              className={`category-card ${selectedCategory === category ? "active" : ""}`}
+              onClick={() => { setSelectedCategory(category === selectedCategory ? "" : category); if (browseSectionRef.current) { browseSectionRef.current.scrollIntoView({ behavior: "smooth" }); } }}
+            >
+              <img src={`/${category.toLowerCase()}.png`} alt={category} />
+              <h3>{category}</h3>
+            </div>
+          ))}
         </div>
       </div>
 
