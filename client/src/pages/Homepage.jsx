@@ -87,7 +87,7 @@ const HomePage = () => {
         <p>Find your lost items faster by browsing through our organized categories.</p>
 
         <div className="category-container">
-          {["Phone", "Wallet", "Keys", "Others"].map((category) => (
+          {["Phone", "Wallet", "Keys", "Other"].map((category) => (
             <div
               key={category}
               className={`category-card ${selectedCategory === category ? "active" : ""}`}
