@@ -82,7 +82,7 @@ const ProductDetails = () => {
 
                     <div className="details-grid">
                         <div className="details-left">
-                            <img src={`${import.meta.env.VITE_API_URL}{product.uploadedImage}`} className="product-image" onError={(e) => e.target.src = "/no-image.png"} alt="Product" />
+                            <img src={`${import.meta.env.VITE_API_URL}${product.uploadedImage}`} className="product-image" onError={(e) => e.target.src = "/no-image.png"} alt="Product" />
                             <div className="location-section">
                                 <h3>Location</h3>
                                 <div style={{ height: '300px', width: '100%', borderRadius: '8px', overflow: 'hidden' }}>
