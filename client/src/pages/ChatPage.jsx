@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import PreviousChats from "../components/PreviousChats";
 import Chat from "../components/Chat";
 import "./ChatPage.css";
 import Navbar from "../components/NavBar";
 
 const ChatPage = () => {
-    const [selectedChatId, setSelectedChatId] = useState(null);
+    const { id } = useParams();
+    const [selectedChatId, setSelectedChatId] = useState(id || null);
 
     return (
         <div className="whole-chat-page">

@@ -29,6 +29,7 @@ createRoot(document.getElementById('root')).render(
         {/* Protected routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/chats" element={<ChatPage />} />
+          <Route path="/chat/:id" element={<ChatPage />} />
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<Homepage />} />
           <Route path="/add_item" element={<AddItem />} />
