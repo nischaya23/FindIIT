@@ -79,9 +79,9 @@ axios.interceptors.response.use(
             logout();
             window.location.href = '/welcome';
         }
-        if (error.response?.status === 404) {
-            window.location.href = '/404';
-        }
+        // if (error.response?.status === 404) {
+        //     window.location.href = '/404';
+        // }
         return Promise.reject(error);
     }
 );
