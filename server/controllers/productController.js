@@ -25,7 +25,7 @@ exports.getProducts = async (req, res) => {
             query.category = new RegExp(`^${category}$`, "i");
         }
 
-        const products = await Product.find(query);
+        const products = await Product.find(query).sort({ createdAt: -1 });
         return res.status(200).json({ data: products, message: "Products Returned" });
     } catch (error) {
         console.error("Error fetching products:", error.message);
@@ -147,6 +147,10 @@ exports.addClaimRequest = async (req, res) => {
             return res.status(400).json({ message: "You cannot claim your own item" });
         }
 
+        if (product.claimed) {
+            return res.status(400).json({ message: "Product already claimed" });
+        }
+
         const existingClaim = product.claims.find(claim => claim.user.toString() === userId);
         if (existingClaim) {
             return res.status(400).json({ message: "You have already claimed this item" });
@@ -186,6 +190,9 @@ exports.handleClaimRequest = async (req, res) => {
         }
 
         claim.status = status;
+        if (status === "Approved") {
+            product.claimed = true;
+        }
         await product.save();
 
         res.json({ message: `Claim has been ${status.toLowerCase()}` });

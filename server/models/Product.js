@@ -20,6 +20,7 @@ const productSchema = new mongoose.Schema(
                 status: { type: String, enum: ["Pending", "Approved", "Rejected"], default: "Pending" },
             }
         ],
+        claimed: { type: Boolean, default: false }
     },
     {
         timestamps: true, // Adds createdAt and updatedAt

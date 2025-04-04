@@ -1,7 +1,7 @@
 import './ProfileLayout.css';
 import './ProductGrid'
 import {Link} from "react-router-dom";
-// import ProductGrid from './ProductGrid';
+import ProductGrid from './ProductGrid';
 
 
 
@@ -74,7 +74,7 @@ const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, 
                                 </div>
                             </div>
                         </div>
-                        {/* <ProductGrid products={products} /> */}
+                        <ProductGrid products={products} />
                 </div>
                     
                 // </div>

@@ -5,8 +5,8 @@ const ProductCard = ({ product }) => {
     return (
         <Link to={`/product/${product._id}`} className="product-card-link">
             <div className="product-card">
-                <span className={`status-badge ${product.itemStatus === "Lost" ? "lost" : "found"}`}>
-                    {product.itemStatus.toUpperCase()}
+                <span className={`status-badge ${product.claimed ? "resolved" : product.itemStatus === "Lost" ? "lost" : "found"}`}>
+                    {product.claimed ? "RESOLVED" : product.itemStatus.toUpperCase()}
                 </span>
                 <br></br>
                 <img src={`${import.meta.env.VITE_API_URL}${product.uploadedImage}`} className="product-image"onError={(e) => e.target.src = "/no-image.png"} alt="Product"/>
