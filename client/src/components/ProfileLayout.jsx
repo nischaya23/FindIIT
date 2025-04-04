@@ -82,8 +82,9 @@ const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, 
                 <form onSubmit={handleSubmit} className="info-card">
                     <h3>Edit Profile</h3>
                     <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" className="input-field" />
-                    <input name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone" className="input-field" />
+                    <input type="number" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone" className="input-field" />
                     <select name="department" value={formData.department} onChange={handleChange} className='input-field'>
+                        <option>-- Select --</option>
                         <option>Computer Science</option>
                         <option>Electrical Engineering</option>
                         <option>Statistics and Data Science</option>
@@ -100,6 +101,7 @@ const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, 
                         <option>Other</option>
                     </select>
                     <select name="designation" value={formData.designation} onChange={handleChange} className='input-field'>
+                        <option>--Select--</option>
                         <option>Student</option>
                         <option>Faculty</option>
                         <option>Staff</option>
