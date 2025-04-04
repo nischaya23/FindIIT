@@ -13,3 +13,15 @@ export const updateProfile = async (formData) => {
         },
     });
 };
+
+export const banUser = async (id) => {
+    return await axios.put(`${API_URL}/profile/ban/${id}`);
+};
+
+export const unbanUser = async (id) => {
+    return await axios.put(`${API_URL}/profile/unban/${id}`);
+};
+
+export const makeAdmin = async (id) => {
+    return await axios.put(`${API_URL}/profile/admin/${id}`);
+};

@@ -160,10 +160,12 @@ exports.login = async (req, res) => {
         const user = await User.findOne({ email });
         if (!user || !user.isVerified) return res.status(400).json({ message: "Invalid email or password" });
 
+        if (user.isBanned) return res.status(400).json({ message: "Account is banned" });
+
         const isValidPassword = await bcrypt.compare(password, user.password);
         if (!isValidPassword) return res.status(400).json({ message: "Invalid email or password" });
 
-        const tokenPayload = { id: user._id, email: user.email || "missing@email.com" };
+        const tokenPayload = { id: user._id, email: user.email, isAdmin: user.isAdmin || "missing@email.com" };
         const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: "1h" });
 
         return res.json({ message: "Login successful", token });

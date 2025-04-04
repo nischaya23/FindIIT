@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getProductById, deleteProduct, claimProduct, updateClaimStatus } from "../api/products";
-import { getID } from "../api/auth";
+import { getID, getAdmin } from "../api/auth";
 import "../pages/ProductDetails.css";
 import NavBar from "../components/NavBar";
 import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
@@ -13,6 +13,7 @@ const ProductDetails = () => {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const userID = getID();
+    const userAdmin = getAdmin();
 
     const handleDeleteProduct = async () => {
         if (!window.confirm("Are you sure you want to delete this item?")) return;
@@ -172,8 +173,7 @@ const ProductDetails = () => {
                                     )}
                                 </div>
                             )}
-
-                            {userID === product.uploadedBy && (
+                            {(userID === product.uploadedBy || userAdmin) && (
                                 <button className="delete-btn" onClick={handleDeleteProduct}>
                                     Delete
                                 </button>

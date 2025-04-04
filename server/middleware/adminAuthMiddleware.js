@@ -23,6 +23,10 @@ const authMiddleware = async (req, res, next) => {
             return res.status(403).json({ message: "Forbidden: User no longer exists" });
         }
 
+        if (!user.isAdmin) {
+            return res.status(403).json({ message: "Forbidden: User is not admin" });
+        }
+
         req.user = user;
         next();
     } catch (error) {

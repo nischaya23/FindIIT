@@ -82,7 +82,7 @@ exports.deleteProduct = async (req, res) => {
             return res.status(404).json({ success: false, message: "Product not found" });
         }
 
-        if (product.uploadedBy.toString() !== req.user.id) {
+        if (product.uploadedBy.toString() !== req.user.id && !req.user.isAdmin) {
             return res.status(403).json({ success: false, message: "Unauthorized: You can only delete your own products" });
         }
 

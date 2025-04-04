@@ -1,8 +1,8 @@
-import { useParams,Link } from "react-router-dom";
-import { getID } from "../api/auth"
+import { useParams, Link } from "react-router-dom";
+import { getID, getAdmin } from "../api/auth"
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getProfile, updateProfile } from "../api/users";
+import { getProfile, updateProfile, banUser, makeAdmin, unbanUser } from "../api/users";
 import NavBar from "../components/NavBar";
 import ProfileLayout from "../components/ProfileLayout";
 import { getProductsByUploader } from "../api/products";
@@ -83,6 +83,37 @@ const Profile = () => {
         alert("Profile Updated Succesfully");
     };
 
+    const handleBanUser = async () => {
+        try {
+            const res = await banUser(id);
+            setUser({ ...user, isBanned: true });
+            alert("User banned successfully");
+        } catch (error) {
+            alert(error.response.data.message);
+        };
+    }
+
+    const handleUnBanUser = async () => {
+        try {
+            const res = await unbanUser(id);
+            setUser({ ...user, isBanned: false });
+            alert("User unbanned successfully");
+        } catch (error) {
+            alert(error.response.data.message);
+        };
+    }
+
+    const handleMakeAdminUser = async () => {
+        try {
+            const res = await makeAdmin(id);
+            alert("User made admin successfully");
+        }
+         catch (error) {
+            alert(error.response.data.message);
+        };
+    }
+
+
     if (!user) return (
         <div>
             <NavBar />
@@ -107,6 +138,10 @@ const Profile = () => {
             self={self}
             formData={formData}
             setFormData={setFormData}
+            userAdmin={getAdmin()}
+            handleBanUser={handleBanUser}
+            handleUnBanUser={handleUnBanUser}
+            handleMakeAdminUser={handleMakeAdminUser}
         />
         <AddButton />
     </div>

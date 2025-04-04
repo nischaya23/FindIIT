@@ -217,6 +217,24 @@ body {
     background: #2563eb;
 }
 
+.userProfileBanBtn {
+    background: #3b82f6;
+    color: white;
+}
+
+.userProfileBanBtn:hover {
+    background: #2563eb;
+}
+
+.userProfileAdminBtn {
+    background: #3b82f6;
+    color: white;
+}
+
+.userProfileAdminBtn:hover {
+    background: #2563eb;
+}
+
 .userProfileChatBtn {
     background: #22c55e;
     color: white;

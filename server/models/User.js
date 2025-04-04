@@ -13,6 +13,9 @@ const userSchema = new mongoose.Schema({
     designation: { type: String },
     profilePicture: { type: String },
     profilePicturePreview: {type: String},
+
+    isAdmin: { type: Boolean, default: false },
+    isBanned: { type: Boolean, default: false },
 });
 
 module.exports = mongoose.model("User", userSchema);

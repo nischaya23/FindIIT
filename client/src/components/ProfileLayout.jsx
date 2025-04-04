@@ -5,7 +5,7 @@ import ProductGrid from './ProductGrid';
 
 
 
-const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, handleSubmit, self, formData ,setFormData ,  preview , setPreview}) => {
+const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, handleUnBanUser, handleBanUser, handleMakeAdminUser, handleSubmit, self, userAdmin, formData ,setFormData ,  preview , setPreview}) => {
     return (
         <div className="profile-container">
 
@@ -42,6 +42,9 @@ const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, 
                             {isEditing ? "Cancel" : "Edit Profile"}
                         </button>
                     }
+                    {(userAdmin && !self && !user.isBanned) && <button onClick={handleBanUser} className="userProfileBanBtn">Ban</button>}
+                    {(userAdmin && !self && user.isBanned) && <button onClick={handleUnBanUser} className="userProfileBanBtn">Remove Ban</button>}
+                    {(userAdmin && !self) && <button onClick={handleMakeAdminUser} className="userProfileAdminBtn">Make Admin</button>}
                     </div>
                 </div>
             </div>

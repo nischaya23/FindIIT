@@ -53,6 +53,19 @@ export const getID = () => {
     }
 };
 
+export const getAdmin = () => {
+    const token = getAuthToken();
+    if (!token) return null;
+
+    try {
+        const decoded = jwtDecode(token);
+        return decoded.isAdmin || null;
+    } catch (error) {
+        console.error("Error decoding token:", error);
+        return null;
+    }
+};
+
 export const isAuthenticated = () => {
     return getAuthToken() !== null;
 };
