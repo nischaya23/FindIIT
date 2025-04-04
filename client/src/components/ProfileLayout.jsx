@@ -10,18 +10,16 @@ const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, 
         <div className="profile-container">
 
             <div className="profile-card">
-                <div className="profile-info">
+                <div className="profile-info-column">
                     <img
                         src={preview || `${import.meta.env.VITE_API_URL}${user.profilePicture}` || "http://www.gravatar.com/avatar/0e39d18b89822d1d9871e0d1bc839d06?s=128&d=identicon&r=PG"}
                         alt="Profile"
                         className="profile-img"
                     />
-                    <div>
-                        <h2>{user.name || "Name"}</h2>
-                        <p className="text-muted">IIT Kanpur</p>
-                    </div>
-                </div>
-                <div>
+                    <h2>{user.name || "Name"}</h2>
+                    <p className="text-muted">IIT Kanpur</p>
+
+                    <div className='profile-buttons'>
                     {self && !isEditing && <Link to={`/chats`}><button className="userProfileChatBtn">{"My Chats"}</button></Link>}
                     {!self && !isEditing && <Link to={`/chat/${user._id}`}><button className="userProfileChatBtn">{"Chat with User"}</button></Link>}
                     {self &&
@@ -44,9 +42,11 @@ const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, 
                             {isEditing ? "Cancel" : "Edit Profile"}
                         </button>
                     }
+                    </div>
                 </div>
             </div>
 
+            <div className='profile-info-right-panel'>
             {!isEditing ? (
                 <div>
                     <div className="userProfileInfoCard">
@@ -84,7 +84,7 @@ const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, 
                     <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" className="input-field" />
                     <input type="number" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone" className="input-field" />
                     <select name="department" value={formData.department} onChange={handleChange} className='input-field'>
-                        <option>-- Select --</option>
+                        <option>N/A</option>
                         <option>Computer Science</option>
                         <option>Electrical Engineering</option>
                         <option>Statistics and Data Science</option>
@@ -101,7 +101,7 @@ const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, 
                         <option>Other</option>
                     </select>
                     <select name="designation" value={formData.designation} onChange={handleChange} className='input-field'>
-                        <option>--Select--</option>
+                        <option>N/A</option>
                         <option>Student</option>
                         <option>Faculty</option>
                         <option>Staff</option>
@@ -116,6 +116,7 @@ const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, 
                     </div>
                 </form>
             )}
+            </div>
         </div>
     );
 };
