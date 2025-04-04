@@ -159,11 +159,20 @@ const ProductDetails = () => {
                             </div>
 
                             {userID !== product.uploadedBy && (
-                                <button className="claim-product" onClick={handleClaimProduct}>
-                                    {/* {product.itemStatus === "Lost" ? "Report Potential match Product" : "Claim Product"} */}
-                                    Claim Product
-                                </button>
+                                <div className="tooltip-container">
+                                    <button 
+                                        className={`claim-product ${product.claimed ? "disabled-btn" : ""}`} 
+                                        onClick={handleClaimProduct} 
+                                        disabled={product.claimed}
+                                    >
+                                        {product.claimed ? "Claiming Disabled" : "Claim Product"}
+                                    </button>
+                                    {product.claimed && (
+                                        <span className="tooltip-text">This item has already been claimed.</span>
+                                    )}
+                                </div>
                             )}
+
                             {userID === product.uploadedBy && (
                                 <button className="delete-btn" onClick={handleDeleteProduct}>
                                     Delete
