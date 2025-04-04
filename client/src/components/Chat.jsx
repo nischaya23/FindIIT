@@ -3,6 +3,7 @@
 // treat this page as a component only
 
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { io } from "socket.io-client";
 import { getMessages, sendMessage } from "../api/chat";
 import { getID } from "../api/auth";
@@ -104,7 +105,7 @@ const Chat = ({ chatId }) => {
     return (
         <div className="chat-box">
             <div className="chat-header-info">
-                <strong>{receiverName}</strong>
+                <Link to={`/profile/${receiverId}`} style={{ textDecoration: "none", color: "inherit" }}> <strong>{receiverName}</strong> </Link>
             </div>
 
             <div className="chat-messages">
