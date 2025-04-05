@@ -162,7 +162,7 @@ const ProductDetails = () => {
                             {userID !== product.uploadedBy && (
                                 <div className="tooltip-container">
                                     <button 
-                                        className={`claim-product ${product.claimed ? "disabled-btn" : ""}`} 
+                                        className={`claim-product ${product.claimed ? "disabled-btn" : "claim-btn"}`} 
                                         onClick={handleClaimProduct} 
                                         disabled={product.claimed}
                                     >
