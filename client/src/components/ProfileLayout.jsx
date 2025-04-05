@@ -25,12 +25,12 @@ const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, 
                     <h2>{user.name || "Name"}</h2>
                     <p className="text-muted">IIT Kanpur</p>
 
-                    {!self && (
+                    
                     <div className="user-badges">
                         {user.isBanned && <span className="badge banned-badge">Banned</span>}
                         {user.isAdmin && <span className="badge admin-badge">Admin</span>}
                     </div>
-                    )}
+                    
 
                     <div className='profile-buttons'>
                     {self && !isEditing && <Link to={`/chats`}><button className="userProfileChatBtn">{"My Chats"}</button></Link>}
