@@ -112,6 +112,11 @@
     background: #d4edda;
     color: #28a745;
   }
+
+  .my-item-status.resolved {
+    background: #d4ede8;
+    color: blue;
+  }
   
   .my-item-edit, .my-item-delete {
     border: none;

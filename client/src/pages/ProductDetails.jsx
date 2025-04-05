@@ -166,10 +166,10 @@ const ProductDetails = () => {
                                         onClick={handleClaimProduct} 
                                         disabled={product.claimed}
                                     >
-                                        {product.claimed ? "Claiming Disabled" : "Claim Product"}
+                                        {product.itemStatus === "Found" ? (product.claimed ? "Item Claimed" : "Claim Product") : (product.claimed ? "Item Found" : "Found Product")}
                                     </button>
                                     {product.claimed && (
-                                        <span className="tooltip-text">This item has already been claimed.</span>
+                                        <span className="tooltip-text">This item has already been {product.itemStatus === "Found" ? "claimed" : "found"}.</span>
                                     )}
                                 </div>
                             )}
