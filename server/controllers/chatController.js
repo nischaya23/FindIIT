@@ -30,8 +30,8 @@ exports.sendMessage = async (req, res) => {
 // Retrieve chat history
 exports.getMessages = async (req, res) => {
     try {
-        const { user1, user2 } = req.params;
-
+        user1 = req.user.id;
+        const { user2 } = req.params;
         if (!user1 || !user2) {
             return res.status(400).json({ error: "Both user IDs are required" });
         }
