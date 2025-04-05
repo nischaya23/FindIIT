@@ -5,7 +5,8 @@ const mongoose = require("mongoose");
 // Send message
 exports.sendMessage = async (req, res) => {
     try {
-        const { senderId, receiverId, message } = req.body;
+        const senderId = req.user.id; // Securely extracted from token
+        const { receiverId, message } = req.body;
 
         if (!senderId || !receiverId || !message) {
             return res.status(400).json({ error: "Missing required fields" });
