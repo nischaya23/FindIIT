@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { getID, getAdmin } from "../api/auth"
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getProfile, updateProfile, banUser, makeAdmin, unbanUser } from "../api/users";
+import { getProfile, updateProfile, banUser, makeAdmin, unAdmin, unbanUser } from "../api/users";
 import NavBar from "../components/NavBar";
 import ProfileLayout from "../components/ProfileLayout";
 import { getProductsByUploader } from "../api/products";
@@ -87,7 +87,6 @@ const Profile = () => {
         try {
             const res = await banUser(id);
             setUser({ ...user, isBanned: true });
-            alert("User banned successfully");
         } catch (error) {
             alert(error.response.data.message);
         };
@@ -97,7 +96,6 @@ const Profile = () => {
         try {
             const res = await unbanUser(id);
             setUser({ ...user, isBanned: false });
-            alert("User unbanned successfully");
         } catch (error) {
             alert(error.response.data.message);
         };
@@ -106,7 +104,17 @@ const Profile = () => {
     const handleMakeAdminUser = async () => {
         try {
             const res = await makeAdmin(id);
-            alert("User made admin successfully");
+            setUser({ ...user, isAdmin: true });
+        }
+         catch (error) {
+            alert(error.response.data.message);
+        };
+    }
+
+    const handleUnAdminUser = async () => {
+        try {
+            const res = await unAdmin(id);
+            setUser({ ...user, isAdmin: false });
         }
          catch (error) {
             alert(error.response.data.message);
@@ -142,6 +150,7 @@ const Profile = () => {
             handleBanUser={handleBanUser}
             handleUnBanUser={handleUnBanUser}
             handleMakeAdminUser={handleMakeAdminUser}
+            handleUnAdminUser={handleUnAdminUser}
         />
         <AddButton />
     </div>

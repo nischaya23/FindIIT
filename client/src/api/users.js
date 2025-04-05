@@ -25,3 +25,7 @@ export const unbanUser = async (id) => {
 export const makeAdmin = async (id) => {
     return await axios.put(`${API_URL}/profile/admin/${id}`);
 };
+
+export const unAdmin = async (id) => {
+    return await axios.put(`${API_URL}/profile/unadmin/${id}`);
+};

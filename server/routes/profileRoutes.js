@@ -38,6 +38,9 @@ router.get("/email/:email", authMiddleware, async (req, res) => {
 
 router.put("/profile/ban/:id", adminAuthMiddleware, async (req, res) => {
     try {
+        if (req.user._id.toString() === req.params.id) {
+            return res.status(400).json({ message: "Cannot make changes to yourself" });
+        }
         const user = await User.findById(req.params.id);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
@@ -56,6 +59,9 @@ router.put("/profile/ban/:id", adminAuthMiddleware, async (req, res) => {
 
 router.put("/profile/unban/:id", adminAuthMiddleware, async (req, res) => {
     try {
+        if (req.user._id.toString() === req.params.id) {
+            return res.status(400).json({ message: "Cannot make changes to yourself" });
+        }
         const user = await User.findById(req.params.id);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
@@ -74,6 +80,9 @@ router.put("/profile/unban/:id", adminAuthMiddleware, async (req, res) => {
 
 router.put("/profile/admin/:id", adminAuthMiddleware, async (req, res) => {
     try {
+        if (req.user._id.toString() === req.params.id) {
+            return res.status(400).json({ message: "Cannot make changes to yourself" });
+        }
         const user = await User.findById(req.params.id);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
@@ -84,6 +93,27 @@ router.put("/profile/admin/:id", adminAuthMiddleware, async (req, res) => {
         user.isAdmin = true;
         await user.save();
         res.status(200).json({ message: "User made admin successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+router.put("/profile/unadmin/:id", adminAuthMiddleware, async (req, res) => {
+    try {
+        if (req.user._id.toString() === req.params.id) {
+            return res.status(400).json({ message: "Cannot make changes to yourself" });
+        }
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        if (!user.isAdmin) {
+            return res.status(400).json({ message: "User is already not admin" });
+        }
+        user.isAdmin = false;
+        await user.save();
+        res.status(200).json({ message: "User removed from admins successfully" });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error" });

@@ -5,19 +5,32 @@ import ProductGrid from './ProductGrid';
 
 
 
-const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, handleUnBanUser, handleBanUser, handleMakeAdminUser, handleSubmit, self, userAdmin, formData ,setFormData ,  preview , setPreview}) => {
+const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, handleUnAdminUser, handleUnBanUser, handleBanUser, handleMakeAdminUser, handleSubmit, self, userAdmin, formData ,setFormData ,  preview , setPreview}) => {
     return (
         <div className="profile-container">
 
             <div className="profile-card">
                 <div className="profile-info-column">
                     <img
-                        src={preview || `${import.meta.env.VITE_API_URL}${user.profilePicture}` || "http://www.gravatar.com/avatar/0e39d18b89822d1d9871e0d1bc839d06?s=128&d=identicon&r=PG"}
+                        src={
+                            preview
+                            ? preview
+                            : user.profilePicture
+                            ? `${import.meta.env.VITE_API_URL}${user.profilePicture}`
+                            : "http://www.gravatar.com/avatar/0e39d18b89822d1d9871e0d1bc839d06?s=128&d=identicon&r=PG"
+                        }
                         alt="Profile"
                         className="profile-img"
                     />
                     <h2>{user.name || "Name"}</h2>
                     <p className="text-muted">IIT Kanpur</p>
+
+                    {!self && (
+                    <div className="user-badges">
+                        {user.isBanned && <span className="badge banned-badge">Banned</span>}
+                        {user.isAdmin && <span className="badge admin-badge">Admin</span>}
+                    </div>
+                    )}
 
                     <div className='profile-buttons'>
                     {self && !isEditing && <Link to={`/chats`}><button className="userProfileChatBtn">{"My Chats"}</button></Link>}
@@ -44,7 +57,8 @@ const ProfileLayout = ({ user, setIsEditing, isEditing, products, handleChange, 
                     }
                     {(userAdmin && !self && !user.isBanned) && <button onClick={handleBanUser} className="userProfileBanBtn">Ban</button>}
                     {(userAdmin && !self && user.isBanned) && <button onClick={handleUnBanUser} className="userProfileBanBtn">Remove Ban</button>}
-                    {(userAdmin && !self) && <button onClick={handleMakeAdminUser} className="userProfileAdminBtn">Make Admin</button>}
+                    {(userAdmin && !self && !user.isAdmin) && <button onClick={handleMakeAdminUser} className="userProfileAdminBtn">Make Admin</button>}
+                    {(userAdmin && !self && user.isAdmin) && <button onClick={handleUnAdminUser} className="userProfileAdminBtn">Remove Admin</button>}
                     </div>
                 </div>
             </div>
