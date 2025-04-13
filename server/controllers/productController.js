@@ -6,12 +6,13 @@ exports.getProducts = async (req, res) => {
         const { search, filter, category } = req.query;
         let query = {};
 
-        if (search) {
+        const trimmedSearch = search.trim();
+        if (search && trimmedSearch) {
             query.$or = [
-                { category: { $regex: search, $options: "i" } },
-                { description: { $regex: search, $options: "i" } },
-                { location: { $regex: search, $options: "i" } },
-                { tags: { $in: [new RegExp(search, "i")] } },
+                { category: { $regex: trimmedSearch, $options: "i" } },
+                { description: { $regex: trimmedSearch, $options: "i" } },
+                { location: { $regex: trimmedSearch, $options: "i" } },
+                { tags: { $in: [new RegExp(trimmedSearch, "i")] } },
             ];
         }
 
