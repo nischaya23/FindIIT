@@ -77,10 +77,10 @@ const Profile = () => {
             const res = await updateProfile(formData);
             setUser(res.data.data);
             setIsEditing(false);
+            alert("Profile Updated Succesfully");
         } catch (error) {
-            console.log("Error updating profile", error);
+            alert(error.response.data.message);
         }
-        alert("Profile Updated Succesfully");
     };
 
     const handleBanUser = async () => {
