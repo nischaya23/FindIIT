@@ -24,7 +24,7 @@ const Signup = () => {
                 toast.warning("Passwords do not match");
                 return;
             }
-            await signup(email, password).then((res) => alert(res.data.message));
+            await signup(email, password).then((res) => toast.info(res.data.message));
             setStep(2);
         } catch (error) {
             // alert(error.response.data.message);
@@ -37,7 +37,7 @@ const Signup = () => {
     const handleVerifyOTP = async () => {
         try {
             setLoading(true);
-            await verifyOTP(email, otp).then((res) => alert(res.data.message));
+            await verifyOTP(email, otp).then((res) => toast.info(res.data.message));
             navigate("/login");
         } catch (error) {
             toast.error(error.response.data.message);

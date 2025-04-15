@@ -4,6 +4,7 @@ import PreviousChats from "../components/PreviousChats";
 import Chat from "../components/Chat";
 import "./ChatPage.css";
 import Navbar from "../components/NavBar";
+import { toast } from 'react-toastify';
 
 const ChatPage = () => {
     const { id } = useParams();

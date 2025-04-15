@@ -6,6 +6,7 @@ import "../pages/ProductDetails.css";
 import NavBar from "../components/NavBar";
 import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
 import AddButton from "../components/AddButton";
+import { toast } from 'react-toastify';
 
 const ProductDetails = () => {
     const { id } = useParams();

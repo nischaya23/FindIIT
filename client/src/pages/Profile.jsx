@@ -33,7 +33,7 @@ const Profile = () => {
             const res = await getProductsByUploader(id);
             setProducts(res.data.data);
         } catch (error) {
-            alert(error.response?.data?.message || "An error occurred");
+            toast.error(error.response?.data?.message || "An error occurred");
         }
     };
 
@@ -81,7 +81,7 @@ const Profile = () => {
             // alert("Profile Updated Succesfully");
             toast.success("Profile Updated Succesfully");
         } catch (error) {
-            alert(error.response.data.message);
+            toast.error(error.response.data.message);
         }
     };
 
@@ -90,7 +90,7 @@ const Profile = () => {
             const res = await banUser(id);
             setUser({ ...user, isBanned: true });
         } catch (error) {
-            alert(error.response.data.message);
+            toast.error(error.response.data.message);
         };
     }
 
@@ -99,7 +99,7 @@ const Profile = () => {
             const res = await unbanUser(id);
             setUser({ ...user, isBanned: false });
         } catch (error) {
-            alert(error.response.data.message);
+            toast.error(error.response.data.message);
         };
     }
 
@@ -109,7 +109,7 @@ const Profile = () => {
             setUser({ ...user, isAdmin: true });
         }
          catch (error) {
-            alert(error.response.data.message);
+            toast.error(error.response.data.message);
         };
     }
 
@@ -119,7 +119,7 @@ const Profile = () => {
             setUser({ ...user, isAdmin: false });
         }
          catch (error) {
-            alert(error.response.data.message);
+            toast.error(error.response.data.message);
         };
     }
 
