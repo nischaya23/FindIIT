@@ -8,6 +8,9 @@ const ProductCard = ({ product }) => {
                 <span className={`status-badge ${product.claimed ? "resolved" : product.itemStatus === "Lost" ? "lost" : "found"}`}>
                     {product.claimed ? "RESOLVED" : product.itemStatus.toUpperCase()}
                 </span>
+                {typeof product.closeness === "number" && (
+                    <div className="closeness-score">{Math.round(product.closeness)}% match</div>
+                )}
                 <br></br>
                 <img src={`${import.meta.env.VITE_API_URL}${product.uploadedImage}`} className="product-image"onError={(e) => e.target.src = "/no-image.png"} alt="Product"/>
                 <h3 className="product-title">{product.category}</h3>
