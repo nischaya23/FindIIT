@@ -22,27 +22,27 @@ const ProductDetails = () => {
             await deleteProduct(id);
             navigate("/dashboard");
         } catch (error) {
-            alert(error.response?.data?.message || "An error occurred");
+            toast.error(error.response?.data?.message || "An error occurred");
         }
     };
 
     const handleClaimProduct = async () => {
         try {
             await claimProduct(id);
-            alert("Claim request submitted!");
+            toast.info("Claim request submitted!");
             fetchProduct();
         } catch (error) {
-            alert(error.response?.data?.message || "An error occurred");
+            toast.error(error.response?.data?.message || "An error occurred");
         }
     };
 
     const handleClaimStatusUpdate = async (claimID, status) => {
         try {
             await updateClaimStatus(id, claimID, status);
-            alert(`Claim ${status}`);
+            toast.info(`Claim ${status}`);
             fetchProduct(); // Refresh claims after update
         } catch (error) {
-            alert(error.response?.data?.message || "An error occurred");
+            toast.error(error.response?.data?.message || "An error occurred");
         }
     };
 
@@ -51,7 +51,7 @@ const ProductDetails = () => {
             const res = await getProductById(id);
             setProduct(res.data.data);
         } catch (error) {
-            alert(error.response?.data?.message || "An error occurred");
+            toast.error(error.response?.data?.message || "An error occurred");
         } finally {
             setLoading(false);
         }

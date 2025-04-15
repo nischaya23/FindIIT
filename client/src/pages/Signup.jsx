@@ -3,6 +3,7 @@ import { signup, verifyOTP } from "../api/auth";
 import { AuthLayout, InputField, ButtonField, RedirectField, HeadingField } from '../components/AuthLayout';
 import { useNavigate } from "react-router-dom";
 import {Eye , EyeClosed} from "lucide-react";
+import { toast } from 'react-toastify';
 
 const Signup = () => {
     const [email, setEmail] = useState("");
@@ -19,13 +20,15 @@ const Signup = () => {
         try {
             setLoading(true);
             if (password !== confirm_password) {
-                alert("Passwords do not match");
+                // alert("Passwords do not match");
+                toast.warning("Passwords do not match");
                 return;
             }
             await signup(email, password).then((res) => alert(res.data.message));
             setStep(2);
         } catch (error) {
-            alert(error.response.data.message);
+            // alert(error.response.data.message);
+            toast.error(error.response.data.message);
         } finally {
             setLoading(false);
         }
@@ -37,7 +40,7 @@ const Signup = () => {
             await verifyOTP(email, otp).then((res) => alert(res.data.message));
             navigate("/login");
         } catch (error) {
-            alert(error.response.data.message);
+            toast.error(error.response.data.message);
         } finally {
             setLoading(false);
         }

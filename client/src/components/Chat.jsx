@@ -9,6 +9,9 @@ import { getMessages, sendMessage } from "../api/chat";
 import { getID } from "../api/auth";
 import axios from "axios";
 import "./Chat.css";
+import EmojiPicker from 'emoji-picker-react';
+import { useRef } from 'react';
+
 
 const socket = io(`${import.meta.env.VITE_API_URL}`, { autoConnect: false });
 
@@ -18,7 +21,15 @@ const Chat = ({ chatId }) => {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState("");
     const [receiverName, setReceiverName] = useState("User");
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+    const inputRef = useRef(null);
 
+
+    const handleEmojiClick = (emojiData) => {
+        setMessage((prev) => prev + emojiData.emoji);
+        setShowEmojiPicker(false);
+        inputRef.current?.focus();
+        };
     useEffect(() => {
         if (!senderId || !receiverId) {
             console.error("Missing senderId or receiverId");
@@ -117,17 +128,33 @@ const Chat = ({ chatId }) => {
                 ))}
             </div>
 
-            <form className="chat-input-form" onSubmit={handleSend}>
-                <input
-                    type="text"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Type a message..."
-                />
-                <button type="submit">
-                    <img src="https://img.icons8.com/ios-filled/50/000000/telegram-app.png" alt="Send" />
-                </button>
-            </form>
+            {showEmojiPicker && (
+        <div className="emoji-picker-wrapper">
+          <EmojiPicker onEmojiClick={handleEmojiClick} />
+        </div>
+      )}
+
+      <form className="chat-input-form" onSubmit={handleSend}>
+        <button
+          type="button"
+          onClick={() => setShowEmojiPicker((prev) => !prev)}
+          style={{ background: "none", border: "none", cursor: "pointer", marginRight: "8px" }}
+        >
+          😊
+        </button>
+
+        <input
+          ref={inputRef}
+          type="text"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Type a message..."
+        />
+
+        <button type="submit">
+          <img src="https://img.icons8.com/ios-filled/50/000000/telegram-app.png" alt="Send" />
+        </button>
+      </form>
         </div>
     );
 };

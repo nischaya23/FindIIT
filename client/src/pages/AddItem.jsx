@@ -4,6 +4,7 @@ import "./AddItem.css";
 import NavBar from "../components/NavBar";
 import { useNavigate } from 'react-router-dom';
 import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
+import { toast } from 'react-toastify';
 
 const AddProduct = () => {
     const [newProduct, setNewProduct] = useState({
@@ -77,10 +78,10 @@ const AddProduct = () => {
         }
 
         try {
-            await createProduct(formData).then((res) => alert(res.data.message));
+            await createProduct(formData).then((res) => toast.info(res.data.message));
             navigate("/dashboard");
         } catch (error) {
-            alert(error.response.data.message);
+            toast.error(error.response.data.message);
         } finally {
             setIsSubmitting(false);
         }

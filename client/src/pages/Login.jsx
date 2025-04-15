@@ -3,6 +3,7 @@ import { login } from "../api/auth";
 import { AuthLayout, InputField, ButtonField, RedirectField, HeadingField } from '../components/AuthLayout';
 import { useNavigate } from 'react-router-dom';
 import {Eye , EyeClosed} from "lucide-react";
+import { toast } from 'react-toastify';
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -17,7 +18,7 @@ const Login = () => {
             await login(email, password);
             navigate("/dashboard");
         } catch (error) {
-            alert(error.response.data.message);
+            toast.error(error.response.data.message);
         } finally {
             setLoading(false);
         }

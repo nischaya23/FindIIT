@@ -8,6 +8,7 @@ import ProfileLayout from "../components/ProfileLayout";
 import { getProductsByUploader } from "../api/products";
 import "./Profile.css"
 import AddButton from '../components/AddButton'
+import { toast } from 'react-toastify';
 
 const Profile = () => {
     const { id } = useParams();
@@ -77,7 +78,8 @@ const Profile = () => {
             const res = await updateProfile(formData);
             setUser(res.data.data);
             setIsEditing(false);
-            alert("Profile Updated Succesfully");
+            // alert("Profile Updated Succesfully");
+            toast.success("Profile Updated Succesfully");
         } catch (error) {
             alert(error.response.data.message);
         }
