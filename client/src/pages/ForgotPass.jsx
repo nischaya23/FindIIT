@@ -36,7 +36,7 @@ const Signup = () => {
                 toast.error("Passwords do not match");
                 return;
             }
-            await verifyOTPreset(email, otp, password).then((res) => toast.error(res.data.message));
+            await verifyOTPreset(email, otp, password).then((res) => toast.info(res.data.message));
             navigate("/login");
         } catch (error) {
             toast.error(error.response.data.message);
