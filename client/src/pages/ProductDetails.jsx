@@ -169,8 +169,8 @@ const ProductDetails = () => {
                 <div className="details-card">
                     <div className="details-header">
                         <h2>{product.itemStatus} Item Details</h2>
-                        <span className={`status ${product.itemStatus === "Lost" ? "lost" : "found"}`}>
-                            {product.itemStatus.toUpperCase()}
+                        <span className={`status ${product.claimed ? "resolved" : product.itemStatus === "Lost" ? "lost" : "found"}`}>
+                            {product.claimed ? "RESOLVED" : product.itemStatus.toUpperCase()}
                         </span>
                     </div>
 

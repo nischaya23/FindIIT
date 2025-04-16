@@ -52,6 +52,11 @@
     color: green;
 }
 
+.resolved {
+    background-color: #91e9ffbb;
+    color: blue
+}
+
 /* Grid Layout */
 .details-grid {
     display: grid;
