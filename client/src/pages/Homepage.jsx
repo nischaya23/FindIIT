@@ -4,6 +4,7 @@ import SearchBar from "../components/SearchBar";
 import NavBar from "../components/NavBar";
 import ProductGrid from "../components/ProductGrid";
 import AddButton from "../components/AddButton";
+import {toast} from 'react-toastify';
 import "./Homepage.css";
 
 const HomePage = () => {
@@ -31,7 +32,7 @@ const HomePage = () => {
       const res = await getProducts(searchTerm, filter, selectedCategory);
       setProducts(res.data.data);
     } catch (error) {
-      alert(error.response?.data?.message || "An error occurred");
+      toast.error(error.response?.data?.message || "An error occurred");
     }
   };
 

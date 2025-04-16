@@ -19,7 +19,7 @@ const MyItems = () => {
         // navigate(`/my-items/$(id)`);
         setItems((prevItems) => prevItems.filter((item) => item._id !== productId)); // Remove from UI
     } catch (error) {
-        alert(error.response?.data?.message || "An error occurred");
+        toast.error(error.response?.data?.message || "An error occurred");
     }
 };
 
